@@ -1,0 +1,80 @@
+{
+  "kind": "collectionType",
+  "collectionName": "tours",
+  "info": {
+    "singularName": "tour",
+    "pluralName": "tours",
+    "displayName": "Tour",
+    "description": ""
+  },
+  "options": {
+    "draftAndPublish": true
+  },
+  "pluginOptions": {},
+  "attributes": {
+    "name": {
+      "type": "string",
+      "required": true
+    },
+    "detail": {
+      "type": "string",
+      "required": true
+    },
+    "quantity": {
+      "type": "integer",
+      "default": 0,
+      "required": true
+    },
+    "price": {
+      "required": true,
+      "default": 0,
+      "type": "integer"
+    },
+    "travel_by": {
+      "type": "enumeration",
+      "enum": [
+        "Bus",
+        "Van",
+        "Airplane",
+        "Teleporter"
+      ]
+    },
+    "image": {
+      "type": "media",
+      "multiple": false,
+      "required": false,
+      "allowedTypes": [
+        "images",
+        "videos",
+        "audios",
+        "files"
+      ]
+    },
+    "go_date": {
+      "type": "datetime",
+      "required": true
+    },
+    "return_date": {
+      "type": "datetime",
+      "required": true
+    },
+    "places": {
+      "type": "relation",
+      "relation": "manyToMany",
+      "target": "api::recommend-place.recommend-place",
+      "inversedBy": "tours"
+    },
+    "owners": {
+      "type": "relation",
+      "relation": "manyToMany",
+      "target": "plugin::users-permissions.user",
+      "inversedBy": "tours"
+    },
+    "reservations": {
+      "type": "relation",
+      "relation": "oneToMany",
+      "target": "api::reservation.reservation",
+      "mappedBy": "tour"
+    }
+  }
+}
