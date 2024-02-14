@@ -50,24 +50,10 @@
         "files"
       ]
     },
-    "go_date": {
-      "type": "datetime",
-      "required": true
-    },
-    "return_date": {
-      "type": "datetime",
-      "required": true
-    },
     "places": {
       "type": "relation",
       "relation": "manyToMany",
       "target": "api::recommend-place.recommend-place",
-      "inversedBy": "tours"
-    },
-    "owners": {
-      "type": "relation",
-      "relation": "manyToMany",
-      "target": "plugin::users-permissions.user",
       "inversedBy": "tours"
     },
     "reservations": {
@@ -75,6 +61,25 @@
       "relation": "oneToMany",
       "target": "api::reservation.reservation",
       "mappedBy": "tour"
+    },
+    "country": {
+      "type": "enumeration",
+      "enum": [
+        "Thailand",
+        "Foreign"
+      ]
+    },
+    "trip_dates": {
+      "type": "relation",
+      "relation": "oneToMany",
+      "target": "api::trip-date.trip-date",
+      "mappedBy": "tour"
+    },
+    "owners": {
+      "type": "relation",
+      "relation": "manyToMany",
+      "target": "plugin::users-permissions.user",
+      "mappedBy": "tours"
     }
   }
 }

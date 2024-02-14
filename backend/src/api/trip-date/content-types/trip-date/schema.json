@@ -1,0 +1,27 @@
+{
+  "kind": "collectionType",
+  "collectionName": "trip_dates",
+  "info": {
+    "singularName": "trip-date",
+    "pluralName": "trip-dates",
+    "displayName": "Trip_date"
+  },
+  "options": {
+    "draftAndPublish": true
+  },
+  "pluginOptions": {},
+  "attributes": {
+    "go_date": {
+      "type": "datetime"
+    },
+    "end_date": {
+      "type": "datetime"
+    },
+    "tour": {
+      "type": "relation",
+      "relation": "manyToOne",
+      "target": "api::tour.tour",
+      "inversedBy": "trip_dates"
+    }
+  }
+}

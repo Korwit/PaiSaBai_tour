@@ -9,8 +9,7 @@
     "displayName": "User"
   },
   "options": {
-    "draftAndPublish": false,
-    "timestamps": true
+    "draftAndPublish": false
   },
   "attributes": {
     "username": {
@@ -66,17 +65,40 @@
       "inversedBy": "users",
       "configurable": false
     },
+    "lastname": {
+      "type": "string",
+      "required": true
+    },
+    "profile": {
+      "type": "media",
+      "multiple": false,
+      "required": false,
+      "allowedTypes": [
+        "images"
+      ]
+    },
+    "phone": {
+      "type": "string"
+    },
+    "gender": {
+      "type": "enumeration",
+      "enum": [
+        "Male",
+        "Female"
+      ],
+      "required": true
+    },
     "tours": {
       "type": "relation",
       "relation": "manyToMany",
       "target": "api::tour.tour",
-      "mappedBy": "owners"
+      "inversedBy": "owners"
     },
     "reservations": {
       "type": "relation",
       "relation": "oneToMany",
       "target": "api::reservation.reservation",
-      "mappedBy": "owner"
+      "mappedBy": "user"
     }
   }
 }

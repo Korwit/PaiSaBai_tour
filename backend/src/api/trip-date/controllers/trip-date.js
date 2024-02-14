@@ -1,9 +1,9 @@
 'use strict';
 
 /**
- * payment controller
+ * trip-date controller
  */
 
 const { createCoreController } = require('@strapi/strapi').factories;
 
-module.exports = createCoreController('api::payment.payment');
+module.exports = createCoreController('api::trip-date.trip-date');

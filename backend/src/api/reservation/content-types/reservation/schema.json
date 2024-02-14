@@ -15,11 +15,11 @@
     "comment": {
       "type": "string"
     },
-    "status": {
+    "payment_status": {
       "type": "boolean",
       "default": false
     },
-    "time": {
+    "payment_time": {
       "type": "datetime"
     },
     "tour": {
@@ -28,21 +28,15 @@
       "target": "api::tour.tour",
       "inversedBy": "reservations"
     },
-    "owner": {
+    "star": {
+      "type": "integer",
+      "required": false
+    },
+    "user": {
       "type": "relation",
       "relation": "manyToOne",
       "target": "plugin::users-permissions.user",
       "inversedBy": "reservations"
-    },
-    "payment": {
-      "type": "relation",
-      "relation": "oneToOne",
-      "target": "api::payment.payment",
-      "inversedBy": "reservation"
-    },
-    "star": {
-      "type": "integer",
-      "required": false
     }
   }
 }

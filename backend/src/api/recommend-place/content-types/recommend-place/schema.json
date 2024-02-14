@@ -4,7 +4,8 @@
   "info": {
     "singularName": "recommend-place",
     "pluralName": "recommend-places",
-    "displayName": "Recommend_Place"
+    "displayName": "Recommend_Place",
+    "description": ""
   },
   "options": {
     "draftAndPublish": true
@@ -14,16 +15,6 @@
     "name": {
       "type": "string"
     },
-    "image": {
-      "allowedTypes": [
-        "images",
-        "files",
-        "videos",
-        "audios"
-      ],
-      "type": "media",
-      "multiple": false
-    },
     "description": {
       "type": "text"
     },
@@ -32,6 +23,16 @@
       "relation": "manyToMany",
       "target": "api::tour.tour",
       "mappedBy": "places"
+    },
+    "image": {
+      "allowedTypes": [
+        "images",
+        "files",
+        "videos",
+        "audios"
+      ],
+      "type": "media",
+      "multiple": true
     }
   }
 }

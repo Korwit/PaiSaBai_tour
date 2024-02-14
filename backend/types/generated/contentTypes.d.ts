@@ -688,7 +688,6 @@ export interface PluginUsersPermissionsUser extends Schema.CollectionType {
   };
   options: {
     draftAndPublish: false;
-    timestamps: true;
   };
   attributes: {
     username: Attribute.String &
@@ -717,6 +716,10 @@ export interface PluginUsersPermissionsUser extends Schema.CollectionType {
       'manyToOne',
       'plugin::users-permissions.role'
     >;
+    lastname: Attribute.String & Attribute.Required;
+    profile: Attribute.Media;
+    phone: Attribute.String;
+    gender: Attribute.Enumeration<['Male', 'Female']> & Attribute.Required;
     tours: Attribute.Relation<
       'plugin::users-permissions.user',
       'manyToMany',
@@ -791,60 +794,26 @@ export interface PluginI18NLocale extends Schema.CollectionType {
   };
 }
 
-export interface ApiPaymentPayment extends Schema.CollectionType {
-  collectionName: 'payments';
-  info: {
-    singularName: 'payment';
-    pluralName: 'payments';
-    displayName: 'Payment';
-  };
-  options: {
-    draftAndPublish: true;
-  };
-  attributes: {
-    time: Attribute.DateTime;
-    reservation: Attribute.Relation<
-      'api::payment.payment',
-      'oneToOne',
-      'api::reservation.reservation'
-    >;
-    createdAt: Attribute.DateTime;
-    updatedAt: Attribute.DateTime;
-    publishedAt: Attribute.DateTime;
-    createdBy: Attribute.Relation<
-      'api::payment.payment',
-      'oneToOne',
-      'admin::user'
-    > &
-      Attribute.Private;
-    updatedBy: Attribute.Relation<
-      'api::payment.payment',
-      'oneToOne',
-      'admin::user'
-    > &
-      Attribute.Private;
-  };
-}
-
 export interface ApiRecommendPlaceRecommendPlace extends Schema.CollectionType {
   collectionName: 'recommend_places';
   info: {
     singularName: 'recommend-place';
     pluralName: 'recommend-places';
     displayName: 'Recommend_Place';
+    description: '';
   };
   options: {
     draftAndPublish: true;
   };
   attributes: {
     name: Attribute.String;
-    image: Attribute.Media;
     description: Attribute.Text;
     tours: Attribute.Relation<
       'api::recommend-place.recommend-place',
       'manyToMany',
       'api::tour.tour'
     >;
+    image: Attribute.Media;
     createdAt: Attribute.DateTime;
     updatedAt: Attribute.DateTime;
     publishedAt: Attribute.DateTime;
@@ -876,24 +845,19 @@ export interface ApiReservationReservation extends Schema.CollectionType {
   };
   attributes: {
     comment: Attribute.String;
-    status: Attribute.Boolean & Attribute.DefaultTo<false>;
-    time: Attribute.DateTime;
+    payment_status: Attribute.Boolean & Attribute.DefaultTo<false>;
+    payment_time: Attribute.DateTime;
     tour: Attribute.Relation<
       'api::reservation.reservation',
       'manyToOne',
       'api::tour.tour'
     >;
-    owner: Attribute.Relation<
+    star: Attribute.Integer;
+    user: Attribute.Relation<
       'api::reservation.reservation',
       'manyToOne',
       'plugin::users-permissions.user'
     >;
-    payment: Attribute.Relation<
-      'api::reservation.reservation',
-      'oneToOne',
-      'api::payment.payment'
-    >;
-    star: Attribute.Integer;
     createdAt: Attribute.DateTime;
     updatedAt: Attribute.DateTime;
     publishedAt: Attribute.DateTime;
@@ -930,22 +894,26 @@ export interface ApiTourTour extends Schema.CollectionType {
     price: Attribute.Integer & Attribute.Required & Attribute.DefaultTo<0>;
     travel_by: Attribute.Enumeration<['Bus', 'Van', 'Airplane', 'Teleporter']>;
     image: Attribute.Media;
-    go_date: Attribute.DateTime & Attribute.Required;
-    return_date: Attribute.DateTime & Attribute.Required;
     places: Attribute.Relation<
       'api::tour.tour',
       'manyToMany',
       'api::recommend-place.recommend-place'
     >;
-    owners: Attribute.Relation<
-      'api::tour.tour',
-      'manyToMany',
-      'plugin::users-permissions.user'
-    >;
     reservations: Attribute.Relation<
       'api::tour.tour',
       'oneToMany',
       'api::reservation.reservation'
+    >;
+    country: Attribute.Enumeration<['Thailand', 'Foreign']>;
+    trip_dates: Attribute.Relation<
+      'api::tour.tour',
+      'oneToMany',
+      'api::trip-date.trip-date'
+    >;
+    owners: Attribute.Relation<
+      'api::tour.tour',
+      'manyToMany',
+      'plugin::users-permissions.user'
     >;
     createdAt: Attribute.DateTime;
     updatedAt: Attribute.DateTime;
@@ -953,6 +921,42 @@ export interface ApiTourTour extends Schema.CollectionType {
     createdBy: Attribute.Relation<'api::tour.tour', 'oneToOne', 'admin::user'> &
       Attribute.Private;
     updatedBy: Attribute.Relation<'api::tour.tour', 'oneToOne', 'admin::user'> &
+      Attribute.Private;
+  };
+}
+
+export interface ApiTripDateTripDate extends Schema.CollectionType {
+  collectionName: 'trip_dates';
+  info: {
+    singularName: 'trip-date';
+    pluralName: 'trip-dates';
+    displayName: 'Trip_date';
+  };
+  options: {
+    draftAndPublish: true;
+  };
+  attributes: {
+    go_date: Attribute.DateTime;
+    end_date: Attribute.DateTime;
+    tour: Attribute.Relation<
+      'api::trip-date.trip-date',
+      'manyToOne',
+      'api::tour.tour'
+    >;
+    createdAt: Attribute.DateTime;
+    updatedAt: Attribute.DateTime;
+    publishedAt: Attribute.DateTime;
+    createdBy: Attribute.Relation<
+      'api::trip-date.trip-date',
+      'oneToOne',
+      'admin::user'
+    > &
+      Attribute.Private;
+    updatedBy: Attribute.Relation<
+      'api::trip-date.trip-date',
+      'oneToOne',
+      'admin::user'
+    > &
       Attribute.Private;
   };
 }
@@ -975,10 +979,10 @@ declare module '@strapi/types' {
       'plugin::users-permissions.role': PluginUsersPermissionsRole;
       'plugin::users-permissions.user': PluginUsersPermissionsUser;
       'plugin::i18n.locale': PluginI18NLocale;
-      'api::payment.payment': ApiPaymentPayment;
       'api::recommend-place.recommend-place': ApiRecommendPlaceRecommendPlace;
       'api::reservation.reservation': ApiReservationReservation;
       'api::tour.tour': ApiTourTour;
+      'api::trip-date.trip-date': ApiTripDateTripDate;
     }
   }
 }
