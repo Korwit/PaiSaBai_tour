@@ -30,7 +30,9 @@
     },
     "star": {
       "type": "integer",
-      "required": false
+      "required": false,
+      "max": 5,
+      "min": 1
     },
     "user": {
       "type": "relation",

@@ -1,0 +1,9 @@
+.main-card {
+    margin-left: 7%;
+    margin-right: 7%;
+}
+.main-img {
+    justify-content: center;
+    max-width: 100%;
+    max-height: 300px;
+}

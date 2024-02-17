@@ -78,7 +78,8 @@
       ]
     },
     "phone": {
-      "type": "string"
+      "type": "string",
+      "maxLength": 10
     },
     "gender": {
       "type": "enumeration",
@@ -99,6 +100,10 @@
       "relation": "oneToMany",
       "target": "api::reservation.reservation",
       "mappedBy": "user"
+    },
+    "firstname": {
+      "type": "string",
+      "required": true
     }
   }
 }

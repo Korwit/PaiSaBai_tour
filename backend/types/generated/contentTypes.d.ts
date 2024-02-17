@@ -718,7 +718,10 @@ export interface PluginUsersPermissionsUser extends Schema.CollectionType {
     >;
     lastname: Attribute.String & Attribute.Required;
     profile: Attribute.Media;
-    phone: Attribute.String;
+    phone: Attribute.String &
+      Attribute.SetMinMaxLength<{
+        maxLength: 10;
+      }>;
     gender: Attribute.Enumeration<['Male', 'Female']> & Attribute.Required;
     tours: Attribute.Relation<
       'plugin::users-permissions.user',
@@ -730,6 +733,7 @@ export interface PluginUsersPermissionsUser extends Schema.CollectionType {
       'oneToMany',
       'api::reservation.reservation'
     >;
+    firstname: Attribute.String & Attribute.Required;
     createdAt: Attribute.DateTime;
     updatedAt: Attribute.DateTime;
     createdBy: Attribute.Relation<
@@ -852,7 +856,14 @@ export interface ApiReservationReservation extends Schema.CollectionType {
       'manyToOne',
       'api::tour.tour'
     >;
-    star: Attribute.Integer;
+    star: Attribute.Integer &
+      Attribute.SetMinMax<
+        {
+          min: 1;
+          max: 5;
+        },
+        number
+      >;
     user: Attribute.Relation<
       'api::reservation.reservation',
       'manyToOne',
