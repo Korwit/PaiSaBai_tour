@@ -1,9 +1,5 @@
 .each-card {
-    margin-top: 10%;
-    margin-left: 10%;
-    margin-right: 10%;
-    width: 350px;
-    height: 400px;
+    margin-bottom: 10%;
 }
 .img-card {
     max-width: 80px;

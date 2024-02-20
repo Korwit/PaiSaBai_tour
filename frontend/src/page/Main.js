@@ -4,6 +4,7 @@ import "../css/main.css";
 import { Card } from "react-bootstrap";
 import Slice from "../component/slice-places";
 import Cards from "../component/card-tour";
+import Search from "../component/search";
 
 const Main = () => {
   const [data, setData] = useState(null);
@@ -12,9 +13,7 @@ const Main = () => {
   useEffect(() => {
     const fetchData = async () => {
       try {
-        const response = await axios.get(
-          `/recommend-places?populate=*`
-        );
+        const response = await axios.get(`/recommend-places?populate=*`);
         setData(response.data.data);
       } catch (error) {
         console.log(error);
@@ -41,8 +40,11 @@ const Main = () => {
         alt="Loading"
         className="main-img"
       />
+      <h1 className="main-place-text">สถานที่ท่องเที่ยวแนะนำ</h1>
       {data && <Slice data={data} />}
-      <Card className="main-card">{cards && <Cards data={cards} />}</Card>
+      <Card className="main-card">
+        <Search />
+        {cards && <Cards data={cards} />}</Card>
     </div>
   );
 };

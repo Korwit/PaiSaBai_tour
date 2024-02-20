@@ -1,6 +1,7 @@
 import React from "react";
 import { BrowserRouter, Routes, Route } from "react-router-dom";
 import Main from "./page/Main";
+import Tour from "./page/detail-tour";
 import axios from "axios";
 
 axios.defaults.baseURL =
@@ -11,6 +12,7 @@ const App = () => {
     <BrowserRouter>
       <Routes>
         <Route path="/" element={<Main />} />
+        <Route path="/detail/:name" element={<Tour />} />
       </Routes>
     </BrowserRouter>
   );

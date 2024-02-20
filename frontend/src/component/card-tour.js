@@ -1,6 +1,8 @@
 import React from "react";
 import { Card, Button, Row, Col } from "react-bootstrap";
 import "../css/tour.css";
+import { Link } from "react-router-dom";
+import Search from "./search";
 
 const Cards = ({ data }) => {
   return (
@@ -20,12 +22,16 @@ const Cards = ({ data }) => {
               <Card.Body>
                 <Card.Title>{item.attributes.name}</Card.Title>
                 <Card.Text>
-                  Price: {item.attributes.price}
+                  ราคา: {item.attributes.price}
                   <br />
-                  Quantity: {item.attributes.quantity}
+                  จำนวนผู้จอง: {item.attributes.quantity}
+                  <br />
+                  เดินทางโดย: {item.attributes.travel_by}
                   <br />
                 </Card.Text>
-                <Button variant="primary">รายละเอียด</Button>
+                <Link to={`/detail/${item.attributes.name}`} data={item.attributes}>
+                    <Button variant="primary">รายละเอียด</Button>
+                </Link>
               </Card.Body>
             </Card>
           </Col>

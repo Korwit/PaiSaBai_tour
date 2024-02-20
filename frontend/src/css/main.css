@@ -1,9 +1,12 @@
 .main-card {
     margin-left: 7%;
     margin-right: 7%;
+    padding: 3%;
 }
 .main-img {
-    justify-content: center;
-    max-width: 100%;
-    max-height: 300px;
+    width: 100%;
+    clip-path: polygon(0 0, 100% 0, 100% 50%, 0 50%);
+}
+.main-place-text {
+    text-align: center;
 }
