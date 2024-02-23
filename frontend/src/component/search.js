@@ -1,59 +1,133 @@
-import React, { useState } from 'react';
-import { Form, FormControl, Button, DropdownButton, Dropdown } from 'react-bootstrap';
+import React, { useState, useEffect } from "react";
+import {
+  Form,
+  FormControl,
+  Button,
+  DropdownButton,
+  Dropdown,
+  Col,
+  Row,
+} from "react-bootstrap";
+import { orderBy } from 'lodash';
+import "../css/search.css";
 
-const Search = ({ tours, onSearch }) => {
-    const [searchTerm, setSearchTerm] = useState('');
-    const [maxPrice, setMaxPrice] = useState('');
-    const [travelMethod, setTravelMethod] = useState('');
-    const [sortByPrice, setSortByPrice] = useState('');
+const Search = ({ data, onFilter }) => {
+  const [searchTerm, setSearchTerm] = useState("");
+  const [maxPrice, setMaxPrice] = useState("");
+  const [travelMethod, setTravelMethod] = useState("");
+  const [sortByPrice, setSortByPrice] = useState("");
 
-    const handleSearch = () => {
-        // ทำการกรองข้อมูลทัวร์ตามเงื่อนไขที่ระบุ
-        const filteredTours = tours.filter(tour => {
-            // กรองตามชื่อทัวร์
-            if (searchTerm && !tour.name.toLowerCase().includes(searchTerm.toLowerCase())) {
-                return false;
-            }
-            // กรองตามราคาที่ไม่เกิน
-            if (maxPrice && tour.price > parseFloat(maxPrice)) {
-                return false;
-            }
-            // กรองตามวิธีการเดินทาง
-            if (travelMethod && tour.travelMethod !== travelMethod) {
-                return false;
-            }
-            return true;
-        });
+  useEffect(() => {
+    if (data) {
+      const Data = data.map((item) => item.attributes.name);
+      onFilter(Data);
+    }
+  }, [data]);
 
-        // เรียงลำดับข้อมูลตามราคา
-        if (sortByPrice === 'ascending') {
-            filteredTours.sort((a, b) => a.price - b.price);
-        } else if (sortByPrice === 'descending') {
-            filteredTours.sort((a, b) => b.price - a.price);
+  const handleSearch = () => {
+    const filteredData = data
+      .filter((item) => {
+        const nameMatches = item.attributes.name.includes(searchTerm);
+        const priceMatches = item.attributes.price <= maxPrice || !maxPrice;
+        const travelMethodMatches =
+          !travelMethod || item.attributes.travel_by === travelMethod;
+        return nameMatches && priceMatches && travelMethodMatches;
+      })
+      .sort((a,b) => {
+        if (sortByPrice === "Max_First") {
+          return b.attributes.price - a.attributes.price
+        } else if (sortByPrice === "Min_First") {
+          return a.attributes.price - b.attributes.price
+        } else {
+          return 0
         }
+      })
+      .map((item) => item.attributes.name);
+    onFilter(filteredData);
+  };
 
-        // ส่งข้อมูลที่กรองแล้วไปยัง component ที่เรียกใช้ Search
-        onSearch(filteredTours);
-    };
-
-    return (
-        <div>
-            <Form inline>
-                <FormControl type="text" placeholder="Search" className="mr-sm-2" value={searchTerm} onChange={e => setSearchTerm(e.target.value)} />
-                <FormControl type="number" placeholder="Max Price" className="mr-sm-2" value={maxPrice} onChange={e => setMaxPrice(e.target.value)} />
-                <DropdownButton title={travelMethod ? travelMethod : 'Travel Method'} className="mr-sm-2">
-                    <Dropdown.Item onClick={() => setTravelMethod('Bus')}>Bus</Dropdown.Item>
-                    <Dropdown.Item onClick={() => setTravelMethod('Train')}>Train</Dropdown.Item>
-                    <Dropdown.Item onClick={() => setTravelMethod('Airplane')}>Airplane</Dropdown.Item>
-                </DropdownButton>
-                <DropdownButton title={sortByPrice ? `Sort by ${sortByPrice}` : 'Sort by'} className="mr-sm-2">
-                    <Dropdown.Item onClick={() => setSortByPrice('ascending')}>Low to High</Dropdown.Item>
-                    <Dropdown.Item onClick={() => setSortByPrice('descending')}>High to Low</Dropdown.Item>
-                </DropdownButton>
-                <Button variant="outline-success" onClick={handleSearch}>Search</Button>
-            </Form>
-        </div>
-    );
+  return (
+    <div>
+      <Form className="background-color">
+        <Row className="align-items-end">
+          <Col xs={12} md={6} lg={3} className="mb-2">
+            <FormControl
+              type="text"
+              placeholder="ค้นหาชื่อทัวร์"
+              value={searchTerm}
+              className="each-col"
+              onChange={(e) => setSearchTerm(e.target.value)}
+            />
+          </Col>
+          <Col xs={12} md={6} lg={3} className="mb-2">
+            <FormControl
+              type="number"
+              placeholder="ค้นหาราคาไม่เกิน"
+              value={maxPrice}
+              onChange={(e) => setMaxPrice(e.target.value)}
+            />
+          </Col>
+          <Col xs={12} md={6} lg={2} className="mb-2">
+            <DropdownButton
+              title={
+                travelMethod === "Van"
+                  ? "รถตู้" 
+                  : travelMethod === "Bus"
+                  ? "รถทัวร์"
+                  : travelMethod === "Airplane"
+                  ? "เครื่องบิน"
+                  : travelMethod === "Teleporter"
+                  ? "เครื่องเคลื่อนย้ายมวลสาร"
+                  : "การเดินทางโดย"
+              }
+            >
+              <Dropdown.Item onClick={() => setTravelMethod("")}>
+                การเดินทางโดย
+              </Dropdown.Item>
+              <Dropdown.Item onClick={() => setTravelMethod("Van")}>
+                รถตู้
+              </Dropdown.Item>
+              <Dropdown.Item onClick={() => setTravelMethod("Bus")}>
+                รถทัวร์
+              </Dropdown.Item>
+              <Dropdown.Item onClick={() => setTravelMethod("Airplane")}>
+                เครื่องบิน
+              </Dropdown.Item>
+              <Dropdown.Item onClick={() => setTravelMethod("Teleporter")}>
+                เครื่องเคลื่อนย้ายมวลสาร
+              </Dropdown.Item>
+            </DropdownButton>
+          </Col>
+          <Col xs={12} md={6} lg={2} className="mb-2">
+            <DropdownButton
+              title={
+                sortByPrice === "Max_First"
+                  ? "สูงไปต่ำ"
+                  : sortByPrice === "Min_First"
+                  ? "ต่ำไปสูง"
+                  : "ลำดับราคา"
+              }
+            >
+              <Dropdown.Item onClick={() => setSortByPrice("")}>
+                ลำดับราคา
+              </Dropdown.Item>
+              <Dropdown.Item onClick={() => setSortByPrice("Max_First")}>
+                สูงไปต่ำ
+              </Dropdown.Item>
+              <Dropdown.Item onClick={() => setSortByPrice("Min_First")}>
+                ต่ำไปสูง
+              </Dropdown.Item>
+            </DropdownButton>
+          </Col>
+          <Col xs={12} md={6} lg={1} className="mb-2">
+            <Button variant="outline-success" onClick={handleSearch}>
+              ค้นหา
+            </Button>
+          </Col>
+        </Row>
+      </Form>
+    </div>
+  );
 };
 
 export default Search;

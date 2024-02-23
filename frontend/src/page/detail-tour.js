@@ -19,8 +19,7 @@ const Tour = () => {
 
     return(
         <div>
-            
-            Hello,detail
+            <h1>Hello, Detail</h1>
         </div>
     )
 }

@@ -2,13 +2,16 @@ import React from "react";
 import { Card, Button, Row, Col } from "react-bootstrap";
 import "../css/tour.css";
 import { Link } from "react-router-dom";
-import Search from "./search";
 
-const Cards = ({ data }) => {
+const Cards = ({ data, search }) => {
+  const searchData = search.map((name) =>
+    data.find((item) => item.attributes.name === name)
+  );
+
   return (
     <div>
       <Row xs={1} md={3} >
-        {data.map((item, index) => (
+        {searchData.map((item, index) => (
           <Col key={index}>
             <Card className="each-card">
               <Card.Img
@@ -29,9 +32,18 @@ const Cards = ({ data }) => {
                   เดินทางโดย: {item.attributes.travel_by}
                   <br />
                 </Card.Text>
-                <Link to={`/detail/${item.attributes.name}`} data={item.attributes}>
-                    <Button variant="primary">รายละเอียด</Button>
-                </Link>
+                <Row className="g-1 ">
+                  <Col>
+                    <Link to={`/detail/${item.attributes.name}`} data={item.attributes}>
+                        <Button variant="primary">รายละเอียด</Button>
+                    </Link>
+                  </Col>
+                  <Col>
+                    <Link>
+                      <Button>จองเลย</Button>
+                    </Link>
+                  </Col>
+                </Row>
               </Card.Body>
             </Card>
           </Col>

@@ -1,3 +1,10 @@
 .ui-search {
  margin-bottom: 5%;   
 }
+.each-col {
+    margin-left: 3%;
+    margin-top: 3%;
+}
+.background-color {
+    background-color: rgb(252, 252, 252);
+}

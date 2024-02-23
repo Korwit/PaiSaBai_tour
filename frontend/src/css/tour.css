@@ -1,7 +1,12 @@
 .each-card {
+    margin-top: 2%;
     margin-bottom: 10%;
 }
 .img-card {
     max-width: 80px;
     max-height: 200px;
+}
+.button-tour {
+    display: flex;
+    justify-content: space-around;
 }

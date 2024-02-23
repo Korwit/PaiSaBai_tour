@@ -1,0 +1,25 @@
+.text-size {
+    font-size: 24px;
+    color: white;
+}
+.bar-color {
+    background-color: orange;
+}
+.text {
+    color: white;
+}
+.custom-button {
+    border-radius: 50px; 
+    background-color: #a316db; 
+    color: white; 
+    padding: 10px 20px;
+    font-size: 16px; 
+    border: none; 
+    cursor: pointer; 
+    margin-left: 15px;
+    transition: background-color 0.3s ease;
+    &:hover {
+        background-color: #b700ff; 
+    }
+}
+  

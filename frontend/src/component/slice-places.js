@@ -12,6 +12,9 @@ const Slice = (list) => {
                             src={"http://localhost:1337"+item.attributes.image.data.attributes.url}
                             alt="Loading"
                         />
+                        <Carousel.Caption>
+                            <h3>{item.attributes.name}</h3>
+                        </Carousel.Caption>
                     </Carousel.Item>
                 ))}
             </Carousel>
