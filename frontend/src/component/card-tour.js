@@ -3,7 +3,7 @@ import { Card, Button, Row, Col } from "react-bootstrap";
 import "../css/tour.css";
 import { Link } from "react-router-dom";
 
-const Cards = ({ data, search }) => {
+const Cards = ({ data, search, detailClick }) => {
   const searchData = search.map((name) =>
     data.find((item) => item.attributes.name === name)
   );
@@ -34,9 +34,7 @@ const Cards = ({ data, search }) => {
                 </Card.Text>
                 <Row className="g-1 ">
                   <Col>
-                    <Link to={`/detail/${item.attributes.name}`} data={item.attributes}>
-                        <Button variant="primary">รายละเอียด</Button>
-                    </Link>
+                    <Button variant="primary" onClick={() => detailClick(item)}>รายละเอียด</Button>
                   </Col>
                   <Col>
                     <Link>

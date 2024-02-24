@@ -1,5 +1,6 @@
 import { Container, Carousel } from "react-bootstrap";
 import "../css/slice.css"
+import { Link } from "react-router-dom";
 
 const Slice = (list) => {
     return (
@@ -11,7 +12,7 @@ const Slice = (list) => {
                             className="carousel-img"
                             src={"http://localhost:1337"+item.attributes.image.data.attributes.url}
                             alt="Loading"
-                        />
+                            />
                         <Carousel.Caption>
                             <h3>{item.attributes.name}</h3>
                         </Carousel.Caption>

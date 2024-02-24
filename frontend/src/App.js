@@ -12,7 +12,6 @@ const App = () => {
     <BrowserRouter>
       <Routes>
         <Route path="/" element={<Main />} />
-        <Route path="/detail/:name" element={<Tour />} />
       </Routes>
     </BrowserRouter>
   );

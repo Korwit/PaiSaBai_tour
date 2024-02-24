@@ -8,10 +8,9 @@ import {
   Col,
   Row,
 } from "react-bootstrap";
-import { orderBy } from 'lodash';
 import "../css/search.css";
 
-const Search = ({ data, onFilter }) => {
+const Search = ({ data, onFilter, detailClick }) => {
   const [searchTerm, setSearchTerm] = useState("");
   const [maxPrice, setMaxPrice] = useState("");
   const [travelMethod, setTravelMethod] = useState("");
@@ -25,6 +24,7 @@ const Search = ({ data, onFilter }) => {
   }, [data]);
 
   const handleSearch = () => {
+    detailClick([])
     const filteredData = data
       .filter((item) => {
         const nameMatches = item.attributes.name.includes(searchTerm);

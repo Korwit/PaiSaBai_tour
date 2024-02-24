@@ -6,11 +6,13 @@ import Slice from "../component/slice-places";
 import Cards from "../component/card-tour";
 import NavBar from "../component/navbar-main";
 import Search from "../component/search";
+import Tour from "./detail-tour";
 
 const Main = () => {
   const [data, setData] = useState(null);
   const [cards, setCards] = useState(null);
   const [filter, setFilter] = useState([]);
+  const [detail, setDetail] = useState([]);
 
   useEffect(() => {
     const fetchData = async () => {
@@ -39,6 +41,10 @@ const Main = () => {
     setFilter(data);
   };
 
+  const HandleDetail = (data) => {
+    setDetail(data)
+  }
+
   return (
     <div>
       <div>
@@ -49,10 +55,13 @@ const Main = () => {
         />
       </div>
       <NavBar />
-      {data && <Slice data={data} />}
+      {data && detail.length === 0 && <Slice data={data} />}
       <Card className="main-card">
-        {cards && <Search data={cards} onFilter={HandleFilter} />}
-        {cards && <Cards data={cards} search={filter} />}
+        {cards && <Search data={cards} onFilter={HandleFilter} detailClick={HandleDetail} />}
+        {cards && detail.length ===0 
+        ? (<Cards data={cards} search={filter} detailClick={HandleDetail} />
+        ) : (
+          detail.length !==0 && <Tour data={detail}/>)}
       </Card>
     </div>
   );

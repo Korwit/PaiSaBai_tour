@@ -10,3 +10,34 @@
     display: flex;
     justify-content: space-around;
 }
+.img-detail {
+    max-width: 400px;
+}
+.button-detail {
+    margin-left: 30px; 
+    max-width: 100px;
+}
+.card-detail {
+    margin-top: 2%;
+    padding: 4%;
+    background-color: #f6f6f6;
+}
+.detail {
+    max-height: 325px;
+    overflow-y: auto;
+    border: 1px solid #ffffff;
+    padding: 10px;
+    background-color: #ffffff;
+}
+.name-tour {
+    color: orange;
+}
+.dot-date {
+    background-color: yellow;
+    border-radius: 50%;
+    width: 20px;
+    height: 20px;
+    display: flex;
+    justify-Content: center;
+    align-Items: center;
+}
