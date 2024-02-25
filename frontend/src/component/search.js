@@ -21,26 +21,31 @@ const Search = ({ data, onFilter, closeTour, closePlace }) => {
       const Data = data.map((item) => item.attributes.name);
       onFilter(Data);
     }
+    handleSearch();
   }, [data]);
 
   const handleSearch = () => {
-    closeTour([])
-    closePlace([])
+    closeTour([]);
+    closePlace([]);
     const filteredData = data
       .filter((item) => {
         const nameMatches = item.attributes.name.includes(searchTerm);
         const priceMatches = item.attributes.price <= maxPrice || !maxPrice;
         const travelMethodMatches =
           !travelMethod || item.attributes.travel_by === travelMethod;
-        return nameMatches && priceMatches && travelMethodMatches;
+        const quantityMax =
+          item.attributes.quantity > item.attributes.owners.data.length;
+        return (
+          nameMatches && priceMatches && travelMethodMatches && quantityMax
+        );
       })
-      .sort((a,b) => {
+      .sort((a, b) => {
         if (sortByPrice === "Max_First") {
-          return b.attributes.price - a.attributes.price
+          return b.attributes.price - a.attributes.price;
         } else if (sortByPrice === "Min_First") {
-          return a.attributes.price - b.attributes.price
+          return a.attributes.price - b.attributes.price;
         } else {
-          return 0
+          return 0;
         }
       })
       .map((item) => item.attributes.name);
@@ -48,19 +53,18 @@ const Search = ({ data, onFilter, closeTour, closePlace }) => {
   };
 
   return (
-    <div>
+    <div className="margin">
       <Form className="background-color">
-        <Row className="align-items-end">
-          <Col xs={12} md={6} lg={3} className="mb-2">
+        <Row>
+          <Col xs={12} md={6} lg={3}>
             <FormControl
               type="text"
               placeholder="ค้นหาชื่อทัวร์"
               value={searchTerm}
-              className="each-col"
               onChange={(e) => setSearchTerm(e.target.value)}
             />
           </Col>
-          <Col xs={12} md={6} lg={3} className="mb-2">
+          <Col xs={12} md={6} lg={3}>
             <FormControl
               type="number"
               placeholder="ค้นหาราคาไม่เกิน"
@@ -68,11 +72,11 @@ const Search = ({ data, onFilter, closeTour, closePlace }) => {
               onChange={(e) => setMaxPrice(e.target.value)}
             />
           </Col>
-          <Col xs={12} md={6} lg={2} className="mb-2">
+          <Col xs={12} md={6} lg={2}>
             <DropdownButton
               title={
                 travelMethod === "Van"
-                  ? "รถตู้" 
+                  ? "รถตู้"
                   : travelMethod === "Bus"
                   ? "รถทัวร์"
                   : travelMethod === "Airplane"
@@ -81,6 +85,8 @@ const Search = ({ data, onFilter, closeTour, closePlace }) => {
                   ? "เครื่องเคลื่อนย้ายมวลสาร"
                   : "การเดินทางโดย"
               }
+              variant="warning"
+              className="dropdown"
             >
               <Dropdown.Item onClick={() => setTravelMethod("")}>
                 การเดินทางโดย
@@ -99,7 +105,7 @@ const Search = ({ data, onFilter, closeTour, closePlace }) => {
               </Dropdown.Item>
             </DropdownButton>
           </Col>
-          <Col xs={12} md={6} lg={2} className="mb-2">
+          <Col xs={12} md={6} lg={2}>
             <DropdownButton
               title={
                 sortByPrice === "Max_First"
@@ -108,6 +114,8 @@ const Search = ({ data, onFilter, closeTour, closePlace }) => {
                   ? "ต่ำไปสูง"
                   : "ลำดับราคา"
               }
+              variant="warning"
+              className="button"
             >
               <Dropdown.Item onClick={() => setSortByPrice("")}>
                 ลำดับราคา
@@ -120,8 +128,8 @@ const Search = ({ data, onFilter, closeTour, closePlace }) => {
               </Dropdown.Item>
             </DropdownButton>
           </Col>
-          <Col xs={12} md={6} lg={1} className="mb-2">
-            <Button variant="outline-success" onClick={handleSearch}>
+          <Col xs={12} md={6} lg={2}>
+            <Button variant="success" onClick={handleSearch} className="button">
               ค้นหา
             </Button>
           </Col>

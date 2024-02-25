@@ -1,7 +1,7 @@
 .carousel-img {
     display: block;
     width: 100%;
-    max-height: 400px;
+    max-height: 500px;
     margin: 0;
 }
 .carousel-button {
@@ -11,10 +11,11 @@
     cursor: pointer; 
     display: block; 
     width: 100%; 
-    margin-bottom: 5%;
 }
 .carousel{
     display: flex;
     justify-content: center;
     align-items: center;
+    border: solid rgb(255, 255, 255) 10px;
+    margin-top: 3%;
 }

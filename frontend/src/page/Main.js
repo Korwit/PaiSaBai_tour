@@ -54,13 +54,15 @@ const Main = () => {
   return (
     <div>
       <div>
-        <img
-          src="https://i.ibb.co/sPKxm3F/image-main.png"
-          alt="Loading"
-          className="main-img"
-        />
+        <img src="/imgg-main.png" alt="Loading" className="main-img" />
       </div>
-      <NavBar />
+      <div className="background" />
+      <NavBar
+        allData={cards}
+        closeFilter={HandleFilter}
+        closeTour={HandleDetail}
+        closePlace={HandlePlace}
+      />
       {data && detail.length === 0 && place.length === 0 && (
         <Slice data={data} detailClick={HandlePlace} />
       )}
@@ -77,7 +79,9 @@ const Main = () => {
           <Cards data={cards} search={filter} detailClick={HandleDetail} />
         ) : (
           (detail.length !== 0 && <Tour data={detail} />) ||
-          (place.length !== 0 && <Place data={place} detailClick={HandleDetail} />)
+          (place.length !== 0 && (
+            <Place data={place} detailClick={HandleDetail} />
+          ))
         )}
       </Card>
     </div>

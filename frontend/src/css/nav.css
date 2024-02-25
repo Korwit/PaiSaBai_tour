@@ -1,25 +1,28 @@
-.text-size {
-    font-size: 24px;
-    color: white;
-}
 .bar-color {
-    background-color: orange;
+    background-color: #f1bd8d;
 }
-.text {
-    color: white;
+.logo {
+    max-width: 120px;
 }
 .custom-button {
     border-radius: 50px; 
-    background-color: #a316db; 
-    color: white; 
+    background-color: white;
+    color: black; 
+    border: none;
     padding: 10px 20px;
     font-size: 16px; 
-    border: none; 
     cursor: pointer; 
     margin-left: 15px;
     transition: background-color 0.3s ease;
     &:hover {
-        background-color: #b700ff; 
+        background-color: rgb(253, 161, 1); 
+        color: white;
     }
+}
+.text {
+    color: white;
+}
+.brand {
+    cursor: pointer;
 }
   
