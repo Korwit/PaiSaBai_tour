@@ -7,12 +7,14 @@ import Cards from "../component/card-tour";
 import NavBar from "../component/navbar-main";
 import Search from "../component/search";
 import Tour from "./detail-tour";
+import Place from "./detail-place";
 
 const Main = () => {
   const [data, setData] = useState(null);
   const [cards, setCards] = useState(null);
   const [filter, setFilter] = useState([]);
   const [detail, setDetail] = useState([]);
+  const [place, setPlace] = useState([]);
 
   useEffect(() => {
     const fetchData = async () => {
@@ -42,8 +44,12 @@ const Main = () => {
   };
 
   const HandleDetail = (data) => {
-    setDetail(data)
-  }
+    setDetail(data);
+  };
+
+  const HandlePlace = (data) => {
+    setPlace(data);
+  };
 
   return (
     <div>
@@ -55,13 +61,24 @@ const Main = () => {
         />
       </div>
       <NavBar />
-      {data && detail.length === 0 && <Slice data={data} />}
+      {data && detail.length === 0 && place.length === 0 && (
+        <Slice data={data} detailClick={HandlePlace} />
+      )}
       <Card className="main-card">
-        {cards && <Search data={cards} onFilter={HandleFilter} detailClick={HandleDetail} />}
-        {cards && detail.length ===0 
-        ? (<Cards data={cards} search={filter} detailClick={HandleDetail} />
+        {cards && (
+          <Search
+            data={cards}
+            onFilter={HandleFilter}
+            closeTour={HandleDetail}
+            closePlace={HandlePlace}
+          />
+        )}
+        {cards && detail.length === 0 && place.length === 0 ? (
+          <Cards data={cards} search={filter} detailClick={HandleDetail} />
         ) : (
-          detail.length !==0 && <Tour data={detail}/>)}
+          (detail.length !== 0 && <Tour data={detail} />) ||
+          (place.length !== 0 && <Place data={place} detailClick={HandleDetail} />)
+        )}
       </Card>
     </div>
   );

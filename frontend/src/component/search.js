@@ -10,7 +10,7 @@ import {
 } from "react-bootstrap";
 import "../css/search.css";
 
-const Search = ({ data, onFilter, detailClick }) => {
+const Search = ({ data, onFilter, closeTour, closePlace }) => {
   const [searchTerm, setSearchTerm] = useState("");
   const [maxPrice, setMaxPrice] = useState("");
   const [travelMethod, setTravelMethod] = useState("");
@@ -24,7 +24,8 @@ const Search = ({ data, onFilter, detailClick }) => {
   }, [data]);
 
   const handleSearch = () => {
-    detailClick([])
+    closeTour([])
+    closePlace([])
     const filteredData = data
       .filter((item) => {
         const nameMatches = item.attributes.name.includes(searchTerm);
