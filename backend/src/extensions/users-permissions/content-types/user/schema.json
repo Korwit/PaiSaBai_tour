@@ -95,15 +95,15 @@
       "target": "api::tour.tour",
       "inversedBy": "owners"
     },
+    "firstname": {
+      "type": "string",
+      "required": true
+    },
     "reservations": {
       "type": "relation",
       "relation": "oneToMany",
       "target": "api::reservation.reservation",
-      "mappedBy": "user"
-    },
-    "firstname": {
-      "type": "string",
-      "required": true
+      "mappedBy": "owner"
     }
   }
 }

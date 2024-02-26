@@ -1,8 +1,22 @@
-import { Card, Row, Col, Button } from "react-bootstrap";
+import { Card, Row, Col, Button, Container } from "react-bootstrap";
 import Calendar from "rsuite/Calendar";
 import "../css/tour.css";
+import { useEffect, useState } from "react";
+import axios from "axios";
 
 const Tour = ({ data }) => {
+  const [comment, setComment] = useState([]);
+
+  useEffect(() => {
+    const FetchData = async () => {
+      const Data = await axios.get(
+        `/reservations?populate=*&filters[tour][id]=${data.id}`
+      );
+      setComment(Data.data.data);
+    };
+    FetchData();
+  }, []);
+
   const trip = data.attributes.trip_dates.data;
   const DotEvent = (date) => {
     const goDates = trip.map((day) => new Date(day.attributes.go_date));
@@ -17,6 +31,14 @@ const Tour = ({ data }) => {
     ) {
       return <div className="dot-date" style={{ marginLeft: "35%" }} />;
     }
+  };
+
+  const genStar = (numStars) => {
+    let stars = "";
+    for (let i = 0; i < numStars; i++) {
+      stars += "★";
+    }
+    return stars;
   };
 
   return (
@@ -63,11 +85,31 @@ const Tour = ({ data }) => {
                   </Col>
                   <Col>{data.attributes.price}</Col>
                   <Col>
-                    <Button variant="primary" style={{marginBottom: "5%", marginTop: "-5%", width: "100px"}}>จอง</Button>
+                    <Button
+                      variant="primary"
+                      style={{
+                        marginBottom: "5%",
+                        marginTop: "-5%",
+                        width: "100px",
+                      }}
+                    >
+                      จอง
+                    </Button>
                   </Col>
                   <hr />
                 </Row>
               ))}
+              <h4 style={{marginTop: "5%"}}>ความคิดเห็น</h4>
+              <Container className="comment">
+                {comment.map((item, index) => (
+                  <Row key={index} style={{padding: "2%"}}>
+                    <Row>@{item.attributes.owner.data.attributes.username}</Row>
+                    <Row>{item.attributes.comment}</Row>
+                    <Row>{genStar(item.attributes.star)}</Row>
+                    <Row><br /></Row>                    
+                  </Row>
+                ))}
+              </Container>
             </Row>
           </Col>
         </Row>

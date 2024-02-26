@@ -41,3 +41,8 @@
     justify-Content: center;
     align-Items: center;
 }
+.comment {
+    max-height: 200px;
+    overflow-y: scroll;
+    background-color: white;
+}

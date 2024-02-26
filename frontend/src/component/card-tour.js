@@ -26,7 +26,6 @@ const Cards = ({ data, search, detailClick }) => {
       <Row xs={1} md={3}>
         {searchData.map((item, index) => (
           <Col key={index}>
-            {console.log((index+1)% 2)}
             <Card className="each-card">
               <Card.Img
                 variant="top"
