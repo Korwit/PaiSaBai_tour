@@ -1,10 +1,15 @@
 .bar-color {
     background-color: #f1bd8d;
+    max-height: 70px;
 }
 .logo {
     max-width: 120px;
 }
 .custom-button {
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    max-height: 40px;
     border-radius: 50px; 
     background-color: white;
     color: black; 
@@ -15,14 +20,16 @@
     margin-left: 15px;
     transition: background-color 0.3s ease;
     &:hover {
-        background-color: rgb(253, 161, 1); 
+        background-color: rgb(199, 79, 255); 
         color: white;
     }
 }
 .text {
     color: white;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
 }
 .brand {
     cursor: pointer;
 }
-  

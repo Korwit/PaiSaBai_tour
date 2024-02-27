@@ -154,6 +154,10 @@ const Register = () => {
                                     firstname: firstname,
                                     phone: phone,
                                 });
+                                setShowSuccess(true)
+                                setTimeout(() => {
+                                    navigate('/login');
+                                }, 5000);
 
                             } catch (e) {
                                 console.log(e);
@@ -163,7 +167,7 @@ const Register = () => {
                             } finally {
                                 setSubmitEnabled(true);
                                 setIsLoading(false)
-                                setShowSuccess(true)
+                                
                             }
                         }
 

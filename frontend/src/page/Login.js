@@ -4,6 +4,8 @@ import axios from 'axios';
 import axiosConfig from '../axios-interceptor';
 import { useNavigate } from 'react-router-dom';
 //import { useAuth } from './AuthContext';
+import { ToastContainer, toast } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
 import '../css/login.css';
 
 const Login = () => {
@@ -15,8 +17,9 @@ const Login = () => {
     const [submitEnabled, setSubmitEnabled] = useState(true);
     const [errorMessage, setErrorMessage] = useState('');
     const [isLoading, setIsLoading] = useState(false)
+    const [isLoading2, setIsLoading2] = useState(false)
     const [showPassword, setShowPassword] = useState(false);
-    //localStorage.removeItem('jwt');
+    localStorage.removeItem('jwt');
     const [showPasswords, setShowPasswords] = useState(false);
 
 
@@ -35,6 +38,7 @@ const Login = () => {
     };
 
     const handleSignup = async () => {
+        setIsLoading2(true)
         navigate('/register');
     }
 
@@ -71,14 +75,16 @@ const Login = () => {
         } catch (e) {
             console.log(e);
             let message = e.response.data.error.message;
-            if (message == "Your account email is not confirmed")
-                setErrorMessage('กรุณายืนยันอีเมลของคุณก่อนเข้าสู่ระบบ');
+            if (message == "Your account email is not confirmed")                
+                toast("กรุณายืนยันอีเมลของคุณก่อนเข้าสู่ระบบ");
             else
-                setErrorMessage('อีเมลหรือรหัสผ่านของคุณผิด');
+                toast("อีเมลหรือรหัสผ่านของคุณผิด");
+              
             console.log(e.response.data.error.message);
         } finally {
             setSubmitEnabled(true);
             setIsLoading(false)
+          
         }
     };
 
@@ -129,15 +135,16 @@ const Login = () => {
 
                 <div style={{ marginTop: '7px' }}>
                     <p><a href="http://localhost:3000/email" class="forgot-password-link">Forgot password?</a></p>
-                    <Button variant="primary" type="submit" disabled={!submitEnabled} className="custom-buttons">
+                    <Button variant="primary" type="submit" disabled={!submitEnabled} className="buttonlog">
                         {isLoading ? <Spinner animation="border" size="sm" /> : 'Log in'}
                     </Button>  {errorMessage && <Alert variant="danger">{errorMessage}</Alert>}
 
                 </div>
             </Form>
-            <Button variant="primary" type="submit" onClick={handleSignup} disabled={!submitEnabled} className="custom-buttons">
-                {isLoading ? <Spinner animation="border" size="sm" /> : 'Sign up'}
+            <Button variant="primary" type="submit" onClick={handleSignup} disabled={!submitEnabled} className="buttonsign">
+                {isLoading2 ? <Spinner animation="border" size="sm" /> : 'Sign up'}
             </Button>
+            <ToastContainer />
         </div>
 
 

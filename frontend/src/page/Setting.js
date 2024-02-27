@@ -76,7 +76,7 @@ const Setting = () => {
                 setGender(result.data.gender)
 
             } catch (error) {
-
+                navigate('/')
             }
         };
 
@@ -217,7 +217,7 @@ const Setting = () => {
 
                 <div style={{ marginTop: '7px' }}>
 
-                    <Button variant="primary" type="submit"  className="custom-buttons">
+                    <Button variant="primary" type="submit"  className="buttonsign">
                         {isLoading ? <Spinner animation="border" size="sm" /> : 'save'}
                     </Button>  {errorMessage && <Alert variant="danger">{errorMessage}</Alert>}
                     
@@ -228,12 +228,12 @@ const Setting = () => {
             </Form>                    
             )}
             {isEditing && (
-            <Button variant="primary" type="submit"  className="custom-buttons" onClick={handlemain}>
+            <Button variant="primary" type="submit"  className="buttonsign" onClick={handlemain}>
                         {isLoading ? <Spinner animation="border" size="sm" /> : 'ยกเลิก'}
                     </Button>  
             )}
             {!isEditing && (
-            <Button variant="primary" type="submit" onClick={handleSignup}  className="custom-buttons">
+            <Button variant="primary" type="submit" onClick={handleSignup}  className="buttonsign">
                 {isLoading ? <Spinner animation="border" size="sm" /> : 'Edit'}
             </Button>
             )}
