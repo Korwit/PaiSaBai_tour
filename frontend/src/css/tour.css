@@ -31,7 +31,7 @@
     background-color: #ffffff;
 }
 .name-tour {
-    color: orange;
+    color: rgb(255, 0, 0);
 }
 .dot-date {
     background-color: yellow;
@@ -64,6 +64,9 @@
     &:hover {
         background-color: rgb(23, 137, 25);
         text-decoration: underline;
+    }
+    &:active {
+        background-color: rgb(23, 137, 25) ;
     }
 }
 .mini-detail {

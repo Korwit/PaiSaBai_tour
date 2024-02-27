@@ -5,6 +5,7 @@ import { useNavigate } from "react-router-dom";
 
 const Cards = ({ data, search, detailClick }) => {
   const navigate = useNavigate();
+  const jwt = localStorage.getItem("jwt");
   const searchData = search.map((name) =>
     data.find((item) => item.attributes.name === name)
   );
@@ -115,7 +116,16 @@ const Cards = ({ data, search, detailClick }) => {
                     </Button>
                   </Col>
                   <Col>
-                    <Button className='reserve-button' onClick={() => handlereservation()}>จองเลย</Button>
+                    {jwt !== null ? (
+                      <Button
+                        className="reserve-button"
+                        onClick={() => handlereservation()}
+                      >
+                        จองเลย
+                      </Button>
+                    ) : (
+                      <Button className="reserve-button">จองเลย</Button>
+                    )}
                   </Col>
                 </Row>
               </Card.Body>

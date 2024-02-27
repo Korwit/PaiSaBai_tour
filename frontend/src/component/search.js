@@ -57,7 +57,7 @@ const Search = ({ data, onFilter, closeTour, closePlace }) => {
     <div className="margin">
       <Form className="background-color">
         <Row>
-          <Col xs={6} md={6} lg={3}>
+          <Col xs={6} md={6} lg={3} >
             <FormControl
               type="text"
               placeholder="ค้นหาชื่อทัวร์"
@@ -89,7 +89,7 @@ const Search = ({ data, onFilter, closeTour, closePlace }) => {
                   : "การเดินทางโดย"
               }
               variant="warning"
-              style={{ marginTop: "10px" }}
+              className="dropdown"
             >
               <Dropdown.Item onClick={() => setTravelMethod("")}>
                 การเดินทางโดย
@@ -118,7 +118,7 @@ const Search = ({ data, onFilter, closeTour, closePlace }) => {
                   : "ลำดับราคา"
               }
               variant="warning"
-              style={{ marginTop: "10px" }}
+              className="dropdown"
             >
               <Dropdown.Item onClick={() => setSortByPrice("")}>
                 ลำดับราคา

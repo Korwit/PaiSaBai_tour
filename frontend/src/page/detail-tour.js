@@ -6,7 +6,6 @@ import axios from "axios";
 
 const Tour = ({ data }) => {
   const [comment, setComment] = useState([]);
-
   useEffect(() => {
     const FetchData = async () => {
       const Data = await axios.get(
@@ -119,7 +118,7 @@ const Tour = ({ data }) => {
                         width: "100px",
                         color: "white",
                         backgroundColor: "rgb(43, 157, 45)",
-                        border: 'none'
+                        border: "none",
                       }}
                     >
                       จอง
