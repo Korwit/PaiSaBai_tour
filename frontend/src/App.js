@@ -9,16 +9,17 @@ import axios from "axios";
 
 axios.defaults.baseURL =
   process.env.React_APP_BASE_URL || "http://localhost:1337/api";
-
+  /*const result = localStorage.getItem('jwt');
+  axios.defaults.headers.common = { 'Authorization': `bearer ${result}` };*/
 const App = () => {
   return (
     <BrowserRouter>
       <Routes>
-        <Route path="/" element={<Login />} />
+        <Route path="/" element={<Main />} />
         <Route path="/forgot" element={<Forgotpass />} />
         <Route path="/email" element={<Emailsend />} />
         <Route path="/register" element={<Register />} /> 
-        <Route path="/main" element={<Main />} /> 
+        <Route path="/login" element={<Login />} /> 
       </Routes>
     </BrowserRouter>
   );

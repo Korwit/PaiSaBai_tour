@@ -4,7 +4,8 @@
   "info": {
     "singularName": "trip-date",
     "pluralName": "trip-dates",
-    "displayName": "Trip_date"
+    "displayName": "Trip_date",
+    "description": ""
   },
   "options": {
     "draftAndPublish": true
@@ -12,10 +13,10 @@
   "pluginOptions": {},
   "attributes": {
     "go_date": {
-      "type": "datetime"
+      "type": "date"
     },
     "end_date": {
-      "type": "datetime"
+      "type": "date"
     },
     "tour": {
       "type": "relation",

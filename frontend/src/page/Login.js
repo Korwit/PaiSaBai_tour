@@ -16,7 +16,7 @@ const Login = () => {
     const [errorMessage, setErrorMessage] = useState('');
     const [isLoading, setIsLoading] = useState(false)
     const [showPassword, setShowPassword] = useState(false);
-    localStorage.removeItem('jwt');
+    //localStorage.removeItem('jwt');
     const [showPasswords, setShowPasswords] = useState(false);
 
 
@@ -48,22 +48,22 @@ const Login = () => {
         try {
             setIsLoading(true)
             //axiosConfig.jwt = {};
-            let result = await axios.post('http://localhost:1337/api/auth/local', {
+            let result = await axios.post('/auth/local', {
                 identifier: username,
                 password: password
             });
 
             //setAuth(result.data.jwt);
             localStorage.setItem('jwt', result.data.jwt);
-            axios.defaults.headers.common = { 'Authorization': `bearer ${result.data.jwt}` };
-            //axiosConfig.jwt = result.data.jwt;
-            console.log(result.data.jwt)
 
-            result = await axios.get('http://localhost:1337/api/users/me?populate=role');
+            axiosConfig.jwt = result.data.jwt;
+            console.log(result.data.jwt)
+            axios.defaults.headers.common = { 'Authorization': `bearer ${result.data.jwt}` };
+            result = await axios.get('/users/me?populate=role');
             console.log(result.data.role)
             if (result.data.role) {
                 if (result.data.role.name === 'Member') {
-                    navigate('/main');
+                    navigate('/');
                 }
                 if (result.data.role.name === 'Admin') {
                     navigate('/admin');

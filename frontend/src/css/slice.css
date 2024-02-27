@@ -1,8 +1,21 @@
 .carousel-img {
     display: block;
     width: 100%;
-    margin-right: 5%;
     max-height: 500px;
-    margin-bottom: 50px;
-    margin-top: 50px;
+    margin: 0;
+}
+.carousel-button {
+    padding: 0; 
+    border: none; 
+    background: none;
+    cursor: pointer; 
+    display: block; 
+    width: 100%; 
+}
+.carousel{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    border: solid rgb(255, 255, 255) 10px;
+    margin-top: 3%;
 }
