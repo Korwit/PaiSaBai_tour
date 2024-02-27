@@ -43,7 +43,7 @@ function NavBar({ allData, closeFilter, closeTour, closePlace }) {
           <Nav className="me-auto">
             <Nav.Link className="text" href="/history">ประวัติการจอง</Nav.Link>
             <Nav.Link className="text" href="/paymentstatus">สถานะการชำระเงิน</Nav.Link>
-            <Nav.Link className="text" onClick={() => handlepayment()}>สถานะการชำระเงิน</Nav.Link>
+            <Nav.Link className="text" onClick={() => handlepayment()}>ชำระเงิน</Nav.Link>
             <Nav.Link className="text" onClick={() => handlesetting()}>การตั้งค่า</Nav.Link>
           </Nav>
           {jwt === null ? (

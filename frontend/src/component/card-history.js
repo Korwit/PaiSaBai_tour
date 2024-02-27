@@ -30,7 +30,7 @@ const BookingHistoryCard = () => {
   return (
     <div>
       {bookings.map((tour) => {
-        console.log("Go date:", tour.trip_dates.go_date); 
+        console.log("Go date:", tour.trip_dates?.[0].go_date); 
         return (
           <Card key={tour.id}>
             <CardImg 
@@ -43,11 +43,12 @@ const BookingHistoryCard = () => {
               <CardText>
                 จองสำเร็จ: {tour.created_at}
                 <br />
-                เริ่มเดินทาง: {tour.trip_dates.go_date}
+                เริ่มเดินทาง: {tour.trip_dates?.[0].go_date}
                 <br />
-                กลับ: {tour.end_date}
+                กลับ: {tour.trip_dates?.[0].end_date}
                 <br />
                 รูปแบบการเดินทาง: {tour.travel_by}
+                <br />
               </CardText>
             </CardBody>
           </Card>

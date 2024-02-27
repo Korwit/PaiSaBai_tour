@@ -414,7 +414,7 @@ export interface ApiReservationReservation extends Schema.CollectionType {
   attributes: {
     comment: Attribute.String;
     payment_status: Attribute.Boolean & Attribute.DefaultTo<false>;
-    payment_time: Attribute.DateTime;
+    payment_date: Attribute.Date;
     tour: Attribute.Relation<
       'api::reservation.reservation',
       'manyToOne',
@@ -433,6 +433,7 @@ export interface ApiReservationReservation extends Schema.CollectionType {
       'manyToOne',
       'plugin::users-permissions.user'
     >;
+    payment_time: Attribute.Time;
     createdAt: Attribute.DateTime;
     updatedAt: Attribute.DateTime;
     publishedAt: Attribute.DateTime;

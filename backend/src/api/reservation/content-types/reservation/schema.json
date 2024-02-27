@@ -19,8 +19,8 @@
       "type": "boolean",
       "default": false
     },
-    "payment_time": {
-      "type": "datetime"
+    "payment_date": {
+      "type": "date"
     },
     "tour": {
       "type": "relation",
@@ -39,6 +39,9 @@
       "relation": "manyToOne",
       "target": "plugin::users-permissions.user",
       "inversedBy": "reservations"
+    },
+    "payment_time": {
+      "type": "time"
     }
   }
 }
