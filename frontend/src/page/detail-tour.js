@@ -16,7 +16,6 @@ const Tour = ({ data }) => {
     };
     FetchData();
   }, []);
-
   const trip = data.attributes.trip_dates.data;
   const DotEvent = (date) => {
     const goDates = trip.map((day) => new Date(day.attributes.go_date));
@@ -40,7 +39,7 @@ const Tour = ({ data }) => {
     }
     return stars;
   };
-
+  
   return (
     <div>
       <Card className="card-detail">

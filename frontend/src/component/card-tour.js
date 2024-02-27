@@ -23,7 +23,7 @@ const Cards = ({ data, search, detailClick }) => {
 
   return (
     <div>
-      <Row xs={1} md={3}>
+      <Row xs={1} md={2} xl={3}>
         {searchData.map((item, index) => (
           <Col key={index}>
             <Card className="each-card">

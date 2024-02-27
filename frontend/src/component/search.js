@@ -58,7 +58,7 @@ const Search = ({ data, onFilter, closeTour, closePlace }) => {
     <div className="margin">
       <Form className="background-color">
         <Row>
-          <Col xs={12} md={6} lg={3}>
+          <Col xs={6} md={6} lg={3}>
             <FormControl
               type="text"
               placeholder="ค้นหาชื่อทัวร์"
@@ -66,7 +66,7 @@ const Search = ({ data, onFilter, closeTour, closePlace }) => {
               onChange={(e) => setSearchTerm(e.target.value)}
             />
           </Col>
-          <Col xs={12} md={6} lg={3}>
+          <Col xs={6} md={6} lg={3}>
             <FormControl
               type="number"
               placeholder="ค้นหาราคาไม่เกิน"
@@ -74,7 +74,7 @@ const Search = ({ data, onFilter, closeTour, closePlace }) => {
               onChange={(e) => setMaxPrice(e.target.value)}
             />
           </Col>
-          <Col xs={12} md={6} lg={2}>
+          <Col xs={6} md={6} lg={2}>
             <DropdownButton
               title={
                 travelMethod === "Van"
@@ -88,7 +88,7 @@ const Search = ({ data, onFilter, closeTour, closePlace }) => {
                   : "การเดินทางโดย"
               }
               variant="warning"
-              className="dropdown"
+              style={{marginTop: "10px"}}
             >
               <Dropdown.Item onClick={() => setTravelMethod("")}>
                 การเดินทางโดย
@@ -107,7 +107,7 @@ const Search = ({ data, onFilter, closeTour, closePlace }) => {
               </Dropdown.Item>
             </DropdownButton>
           </Col>
-          <Col xs={12} md={6} lg={2}>
+          <Col xs={6} md={6} lg={2}>
             <DropdownButton
               title={
                 sortByPrice === "Max_First"
@@ -117,7 +117,7 @@ const Search = ({ data, onFilter, closeTour, closePlace }) => {
                   : "ลำดับราคา"
               }
               variant="warning"
-              className="button"
+              style={{marginTop: "10px"}}
             >
               <Dropdown.Item onClick={() => setSortByPrice("")}>
                 ลำดับราคา
