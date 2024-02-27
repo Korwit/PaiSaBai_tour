@@ -32,7 +32,7 @@ const Search = ({ data, onFilter, closeTour, closePlace }) => {
         const nameMatches = item.attributes.name.includes(searchTerm);
         const priceMatches = item.attributes.price <= maxPrice || !maxPrice;
         const travelMethodMatches =
-          !travelMethod || item.attributes.travel_by === travelMethod;console.log(item)
+          !travelMethod || item.attributes.travel_by === travelMethod;
         const quantityMax =
           item.attributes.quantity > item.attributes.owners.data.length;
           
@@ -51,7 +51,7 @@ const Search = ({ data, onFilter, closeTour, closePlace }) => {
       })
       .map((item) => item.attributes.name);
     onFilter(filteredData);
-    console.log(data)
+    
   };
 
   return (

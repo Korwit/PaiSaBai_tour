@@ -50,7 +50,7 @@ const Register = () => {
     };
 
     const Loginpage = (e) => {
-        navigate('/')
+        navigate('/login')
     };
 
     const handlePasswordChange = (e) => {
@@ -302,7 +302,7 @@ const Register = () => {
                     onChange={handleCheckboxChange}
                 />
 
-                <Button variant="primary" type="submit" className="button">
+                <Button variant="primary" type="submit" className="buttons">
                     {isLoading ? <Spinner animation="border" size="sm" /> : 'สมัครสมาชิก'}
                 </Button>  {errorMessage && <Alert variant="danger">{errorMessage}</Alert>}
 

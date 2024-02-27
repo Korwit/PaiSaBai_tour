@@ -60,7 +60,6 @@ const Login = () => {
             console.log(result.data.jwt)
             axios.defaults.headers.common = { 'Authorization': `bearer ${result.data.jwt}` };
             result = await axios.get('/users/me?populate=role');
-            console.log(result.data.role)
             if (result.data.role) {
                 if (result.data.role.name === 'Member') {
                     navigate('/');
@@ -130,13 +129,13 @@ const Login = () => {
 
                 <div style={{ marginTop: '7px' }}>
                     <p><a href="http://localhost:3000/email" class="forgot-password-link">Forgot password?</a></p>
-                    <Button variant="primary" type="submit" disabled={!submitEnabled} className="custom-button">
+                    <Button variant="primary" type="submit" disabled={!submitEnabled} className="custom-buttons">
                         {isLoading ? <Spinner animation="border" size="sm" /> : 'Log in'}
                     </Button>  {errorMessage && <Alert variant="danger">{errorMessage}</Alert>}
 
                 </div>
             </Form>
-            <Button variant="primary" type="submit" onClick={handleSignup} disabled={!submitEnabled} className="custom-button">
+            <Button variant="primary" type="submit" onClick={handleSignup} disabled={!submitEnabled} className="custom-buttons">
                 {isLoading ? <Spinner animation="border" size="sm" /> : 'Sign up'}
             </Button>
         </div>

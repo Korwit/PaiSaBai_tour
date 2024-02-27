@@ -40,7 +40,7 @@
   height: 20px; 
 }
 
-.custom-button {
+.custom-buttons {
     background-color: #F79400;
     border-color: #F79400;
     border-radius: 20px; 
@@ -67,7 +67,7 @@
   text-indent: 25px;
 }
 
-.custom-button:hover {
+.custom-buttons:hover {
     background-color: #F79400;
     border-color: #F79400;
 }
