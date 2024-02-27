@@ -14,15 +14,20 @@
     background-color: #f7e1cc;
     padding: 1%;
     margin-bottom: 2%;
+    filter: drop-shadow(10px 7px 10px rgb(198, 181, 181));
 }
 .dropdown {
     display: flex;
     justify-content: center;
     align-items: center;
     width: 100%;
+    filter: drop-shadow(10px 7px 10px rgb(198, 181, 181));
 }
 .button {
     width: 100%;
     margin-top: 10px;
-
+    filter: drop-shadow(10px 10px 10px rgb(198, 181, 181));
+}
+.form-search {
+    filter: drop-shadow(10px 7px 10px rgb(198, 181, 181));
 }

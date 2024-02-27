@@ -64,7 +64,8 @@ const Search = ({ data, onFilter, closeTour, closePlace }) => {
               placeholder="ค้นหาชื่อทัวร์"
               value={searchTerm}
               onChange={(e) => setSearchTerm(e.target.value)}
-            />
+              className="form-search"
+           />
           </Col>
           <Col xs={6} md={6} lg={3}>
             <FormControl
@@ -72,6 +73,7 @@ const Search = ({ data, onFilter, closeTour, closePlace }) => {
               placeholder="ค้นหาราคาไม่เกิน"
               value={maxPrice}
               onChange={(e) => setMaxPrice(e.target.value)}
+              className="form-search"
             />
           </Col>
           <Col xs={6} md={6} lg={2}>

@@ -1,4 +1,3 @@
-import React from "react";
 import { Navbar, Container, Nav, Button } from "react-bootstrap";
 import "../css/nav.css";
 import { useNavigate } from "react-router-dom";
@@ -12,6 +11,7 @@ function NavBar({ allData, closeFilter, closeTour, closePlace }) {
     closeTour([]);
     closePlace([]);
   };
+
   const handlelogin = () => {
     navigate("/login");
   };

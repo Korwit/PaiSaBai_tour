@@ -39,7 +39,39 @@ const Tour = ({ data }) => {
     }
     return stars;
   };
-  
+
+  const GoToEnd = (time) => {
+    const [YG, MG, DG] = time.go_date.split("-");
+    const [YE, ME, DE] = time.end_date.split("-");
+    const mg = MG[0] == "0" ? MG[1] : MG;
+    const me = ME[0] == "0" ? ME[1] : ME;
+    const trans = [
+      "ม.ค.",
+      "ก.พ.",
+      "มี.ค.",
+      "เม.ย.",
+      "พ.ค.",
+      "มิ.ย.",
+      "ก.ค.",
+      "ส.ค.",
+      "ก.ย.",
+      "ต.ค.",
+      "พ.ย.",
+      "ธ.ค.",
+    ];
+    const month =
+      mg === me
+        ? `${DG} ${trans[mg - 1]} - ${DE} ${trans[mg - 1]}`
+        : `${DG} ${trans[mg - 1]} - ${DE} ${trans[me - 1]}`;
+    const year = YG === YE ? YG : `${YG}-${YE}`;
+    return (
+      <Col>
+        {month}
+        {year}
+      </Col>
+    );
+  };
+
   return (
     <div>
       <Card className="card-detail">
@@ -76,20 +108,18 @@ const Tour = ({ data }) => {
               </Row>
               {trip.map((item, index) => (
                 <Row key={index}>
-                  <Col>
-                    {item.attributes.go_date.slice(8, 10)}-
-                    {item.attributes.end_date.slice(8, 10)}/
-                    {item.attributes.end_date.slice(5, 7)}/
-                    {item.attributes.end_date.slice(0, 4)}
-                  </Col>
+                  {GoToEnd(item.attributes)}
+
                   <Col>{data.attributes.price}</Col>
                   <Col>
                     <Button
-                      variant="primary"
                       style={{
                         marginBottom: "5%",
                         marginTop: "-5%",
                         width: "100px",
+                        color: "white",
+                        backgroundColor: "rgb(43, 157, 45)",
+                        border: 'none'
                       }}
                     >
                       จอง
@@ -98,14 +128,16 @@ const Tour = ({ data }) => {
                   <hr />
                 </Row>
               ))}
-              <h4 style={{marginTop: "5%"}}>ความคิดเห็น</h4>
+              <h4 style={{ marginTop: "5%" }}>ความคิดเห็น</h4>
               <Container className="comment">
                 {comment.map((item, index) => (
-                  <Row key={index} style={{padding: "2%"}}>
+                  <Row key={index} style={{ padding: "2%" }}>
                     <Row>@{item.attributes.owner.data.attributes.username}</Row>
                     <Row>{item.attributes.comment}</Row>
                     <Row>{genStar(item.attributes.star)}</Row>
-                    <Row><br /></Row>                    
+                    <Row>
+                      <br />
+                    </Row>
                   </Row>
                 ))}
               </Container>
