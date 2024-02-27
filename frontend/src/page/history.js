@@ -10,7 +10,7 @@ const BookingHistory = () => {
       <NavBar />
       <div className="history-main">
         <h1>ประวัติการจอง</h1>
-        <BookingHistoryCard/>
+        <BookingHistoryCard />
       </div>
     </div>
   );
