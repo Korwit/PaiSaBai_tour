@@ -5,6 +5,8 @@ import Login from "./page/Login";
 import Forgotpass from "./page/Forgotpass";
 import Emailsend from "./page/Emailsend";
 import Register from "./page/Register";
+import BookingHistory from "./page/history";
+import PaymentStatus from "./page/paymentstatus";
 import axios from "axios";
 
 axios.defaults.baseURL =
@@ -20,6 +22,8 @@ const App = () => {
         <Route path="/email" element={<Emailsend />} />
         <Route path="/register" element={<Register />} /> 
         <Route path="/login" element={<Login />} /> 
+        <Route path="/history" element={<BookingHistory />} /> 
+        <Route path="/paymentstatus" element={<PaymentStatus />} /> 
       </Routes>
     </BrowserRouter>
   );

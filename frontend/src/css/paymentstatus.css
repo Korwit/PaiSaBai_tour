@@ -1,0 +1,26 @@
+.status-main {
+    width: 1500px;
+    height: 800px;
+    margin:  auto;
+    margin-top: 160px;
+    margin-bottom: 160px;
+    background-color: rgb(189, 188, 186);
+    padding: 30px;
+    border-radius: 8px;
+    box-shadow: 0 0 20px rgba(0, 0, 0, 0.1);
+    }
+
+    .status-main h1 {
+        position: relative;
+        margin-left: 20px;
+        color: #000000;
+        justify-content: center;
+        align-items: center;
+    }
+
+    .status-main th {
+        text-align: center;
+        justify-content: center;
+        align-items: center;
+
+    }
