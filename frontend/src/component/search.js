@@ -35,7 +35,7 @@ const Search = ({ data, onFilter, closeTour, closePlace }) => {
           !travelMethod || item.attributes.travel_by === travelMethod;
         const quantityMax =
           item.attributes.quantity > item.attributes.owners.data.length;
-          
+
         return (
           nameMatches && priceMatches && travelMethodMatches && quantityMax
         );
@@ -51,7 +51,6 @@ const Search = ({ data, onFilter, closeTour, closePlace }) => {
       })
       .map((item) => item.attributes.name);
     onFilter(filteredData);
-    
   };
 
   return (
@@ -64,6 +63,7 @@ const Search = ({ data, onFilter, closeTour, closePlace }) => {
               placeholder="ค้นหาชื่อทัวร์"
               value={searchTerm}
               onChange={(e) => setSearchTerm(e.target.value)}
+              className="form-search"
             />
           </Col>
           <Col xs={6} md={6} lg={3}>
@@ -72,6 +72,7 @@ const Search = ({ data, onFilter, closeTour, closePlace }) => {
               placeholder="ค้นหาราคาไม่เกิน"
               value={maxPrice}
               onChange={(e) => setMaxPrice(e.target.value)}
+              className="form-search"
             />
           </Col>
           <Col xs={6} md={6} lg={2}>
@@ -88,7 +89,7 @@ const Search = ({ data, onFilter, closeTour, closePlace }) => {
                   : "การเดินทางโดย"
               }
               variant="warning"
-              style={{marginTop: "10px"}}
+              style={{ marginTop: "10px" }}
             >
               <Dropdown.Item onClick={() => setTravelMethod("")}>
                 การเดินทางโดย
@@ -117,7 +118,7 @@ const Search = ({ data, onFilter, closeTour, closePlace }) => {
                   : "ลำดับราคา"
               }
               variant="warning"
-              style={{marginTop: "10px"}}
+              style={{ marginTop: "10px" }}
             >
               <Dropdown.Item onClick={() => setSortByPrice("")}>
                 ลำดับราคา

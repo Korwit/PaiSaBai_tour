@@ -31,7 +31,7 @@ const BookingHistoryCard = () => {
   return (
     <div>
       {bookings.map((tour) => {
-        console.log("Go date:", tour.trip_dates?.[0].go_date); 
+        //console.log("Go date:", tour.trip_dates?.[0].go_date); 
         return (
           <Card key={tour.id} className="historycard-main" >
             <CardImg 
