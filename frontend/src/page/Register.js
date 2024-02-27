@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState ,useEffect} from 'react';
 import { Form, Button, Alert, Spinner, Row, Col, Modal } from 'react-bootstrap';
 import { ToastContainer, toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
@@ -28,7 +28,6 @@ const Register = () => {
     const [showSuccess, setShowSuccess] = useState(false);
     const [isChecked, setIsChecked] = useState(false);
     const [showModal, setShowModal] = useState(false);
-
     const [conphone, setconphone] = useState(true);
     const [conpass, setconpass] = useState(true);
     const [conpasscon, setconpasscon] = useState(true);
@@ -38,6 +37,13 @@ const Register = () => {
 
     const handleShowModal = () => setShowModal(true);
     const handleCloseModal = () => setShowModal(false);
+    const jwt = localStorage.getItem("jwt");
+
+    useEffect(() => {
+        if (jwt != null) {
+            navigate('/')
+        }
+    }, [jwt]);
 
     const handleCheckboxChange = (e) => {
         setIsChecked(e.target.checked);
@@ -45,7 +51,7 @@ const Register = () => {
 
     const handleClose = () => {
         setShow(false);
-        navigate('/');
+        
     }
     const handleShow = () => setShow(true);
     const handleCloseSuccess = () => setShowSuccess(false);
@@ -350,7 +356,7 @@ const Register = () => {
             </Modal>
             <span className='logintext'>มีบัญชีอยู่แล้ว?<a href="#" onClick={Loginpage} class="link" > เข้าสู่ระบบ</a></span> .
             
-            
+           
             
             <ToastContainer />
         </div>

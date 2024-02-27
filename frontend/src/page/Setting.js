@@ -7,6 +7,7 @@ import axiosConfig from '../axios-interceptor';
 import { useNavigate } from 'react-router-dom';
 //import { useAuth } from './AuthContext';
 import '../css/setting.css';
+import NavBar from "../component/navbar-main";
 
 const Setting = () => {
 
@@ -69,13 +70,18 @@ const Setting = () => {
         const fetchData = async () => {
             try {
                 
-                axios.defaults.headers.common = { 'Authorization': `bearer ${jwt}` }
+                axios.defaults.headers.common = { 'Authorization': `bearer ${jwt}` }        
                 const result = await axios.get('/users/me');
                 setData(result.data)
                 console.log(result.data.id)
                 setGender(result.data.gender)
+                setUsername(result.data.username)
+                setLastname(result.data.lastname)
+                setPhone(result.data.phone)
+                
 
             } catch (error) {
+                axios.defaults.headers.common = ""     
                 navigate('/')
             }
         };
@@ -90,10 +96,10 @@ const Setting = () => {
         
         try {
             setIsLoading(true)
-            if (username.length < 3) {
+            if (username.length != "" && username.length < 3) {
                 toast("กรุณาตั้งชื่ออย่างน้อย 3 ตัวอักษร");
             }
-            else if (phone.length < 10)
+            else if (phone.length!=""&&phone.length < 10)
                     toast("กรุณากรอกเบอร์โทรศัพท์ให้ถูกต้อง");
             else
             {
@@ -108,6 +114,10 @@ const Setting = () => {
             });
             }
 
+            toast("บันทึกข้อมูลเรียบร้อย");
+            setTimeout(() => {
+                navigate('/');
+            }, 1500);
 
 
             // axiosConfig.jwt = result.data.jwt;
@@ -116,7 +126,7 @@ const Setting = () => {
 
 
         } catch (e) {
-            console.log(gender)
+           
             console.log(e);
             let message = e.response.data.error.message;
            
@@ -131,6 +141,7 @@ const Setting = () => {
     return (
 
         <div className="body ">
+            <NavBar />
             <h1>ตั้งค่า</h1>
             <div className="login-container">
                 <img src="/user.png" alt="Header Image" className="header-image" style={{ width: '100px', height: '100px' }} />
@@ -159,7 +170,7 @@ const Setting = () => {
  
                         <Form.Control className="settingform"
                             style={{ width: '400px' }}
-                           
+                            required
                             placeholder="ชื่อ"
                             value={username}
                             onChange={handleUsernameChange}
@@ -174,7 +185,7 @@ const Setting = () => {
  
                         <Form.Control className="settingform"
                             style={{ width: '400px' }}
-                          
+                            required
                             placeholder="นามสกุล"
                             value={lastname}
                             onChange={handleLastname}
@@ -189,6 +200,7 @@ const Setting = () => {
                         <Form.Control className="settingform"
                         onChange={handlephone}
                             value={phone}
+                            required
                              style={{  width: '400px'}} 
                             placeholder="เบอร์โทรศัพท์" 
                             />

@@ -22,9 +22,10 @@ const Cards = ({ data, search, detailClick }) => {
         return "เครื่องเคลื่อนย้ายมวลสาร";
     }
   };
-  const handlereservation = () => {
-    navigate('/reserva')    
+ const handlereservation = () => {
+    navigate('/reservation')    
   }
+ 
 
   return (
     <div>
@@ -59,9 +60,9 @@ const Cards = ({ data, search, detailClick }) => {
                     </Button>
                   </Col>
                   <Col>
-                    <Link>
-                      <Button onClick={handlereservation}>จองเลย</Button>
-                    </Link>
+                   
+                      <Button onClick={() => handlereservation()}>จองเลย</Button>
+                    
                   </Col>
                 </Row>
               </Card.Body>
