@@ -1,0 +1,90 @@
+.password-input {
+
+    position: relative;
+    width: 380px;     
+
+}
+
+.password-toggle {
+    position: absolute;
+    top: 50%;
+    transform: translateY(-50%);
+    right: 20px; 
+    cursor: pointer;
+    height: auto; 
+    
+}
+.password-lock img {
+    width: 20px; 
+    height: 20px;    
+    
+  }
+
+  
+.password-lock {
+  position: absolute;
+  top: 45%;
+  transform: translateY(-50%);
+  left: 10px; 
+  height: auto; 
+  
+}
+
+::placeholder {
+  text-align: center;
+  margin-left:20px;
+}
+
+.password-toggle img {
+  width: 20px; 
+  height: 20px; 
+}
+
+.custom-button {
+    background-color: #F79400;
+    border-color: #F79400;
+    border-radius: 20px; 
+    margin:auto;
+    justify-content: center; 
+    align-items: center; 
+    width:100px;
+    display: flex;
+    width:150px;
+    margin-bottom: 15px;
+}
+
+.login-container {
+  display: flex;
+  justify-content: center; 
+  align-items: center; 
+  height: 100px; 
+  margin-top: 60px;
+  
+}
+
+.custom-form .custom-form1{
+  border-radius: 20px; 
+  text-indent: 25px;
+}
+
+.custom-button:hover {
+    background-color: #F79400;
+    border-color: #F79400;
+}
+
+.forgot-password-link {
+  color: #9225FF;
+}
+
+a {
+  text-decoration: none;
+}
+
+.custom-form {
+
+  width: 400px; 
+  margin: auto; 
+  
+}
+
+

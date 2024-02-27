@@ -87,7 +87,7 @@
         "Male",
         "Female"
       ],
-      "required": true
+      "required": false
     },
     "tours": {
       "type": "relation",

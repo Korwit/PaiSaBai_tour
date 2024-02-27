@@ -1,0 +1,31 @@
+.formmail {
+    border-radius: 50px; 
+    width: 400px; 
+    margin: auto; 
+    margin-top:100px;
+   
+  }
+
+  .buttonsendmail {
+    background-color: #F79400;
+    border-color: #F79400;
+    border-radius: 20px; 
+    margin:auto;
+    justify-content: center; 
+    align-items: center; 
+    width:100px;
+    display: flex;
+    width:150px;
+   
+
+}
+
+.buttonsendmail:hover {
+    background-color: #F79400;
+    border-color: #F79400;
+}
+
+h1{
+
+    margin-top:100px;
+}

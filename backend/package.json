@@ -9,12 +9,13 @@
     "build": "strapi build",
     "strapi": "strapi"
   },
-  "devDependencies": {},
   "dependencies": {
-    "@strapi/strapi": "4.20.0",
-    "@strapi/plugin-users-permissions": "4.20.0",
-    "@strapi/plugin-i18n": "4.20.0",
     "@strapi/plugin-cloud": "4.20.0",
+    "@strapi/plugin-i18n": "4.20.0",
+    "@strapi/plugin-users-permissions": "4.20.0",
+    "@strapi/provider-email-sendgrid": "^4.20.1",
+    "@strapi/provider-email-sendmail": "^4.20.1",
+    "@strapi/strapi": "4.20.0",
     "better-sqlite3": "8.6.0",
     "react": "^18.0.0",
     "react-dom": "^18.0.0",

@@ -362,6 +362,180 @@ export interface AdminTransferTokenPermission extends Schema.CollectionType {
   };
 }
 
+export interface ApiRecommendPlaceRecommendPlace extends Schema.CollectionType {
+  collectionName: 'recommend_places';
+  info: {
+    singularName: 'recommend-place';
+    pluralName: 'recommend-places';
+    displayName: 'Recommend_Place';
+    description: '';
+  };
+  options: {
+    draftAndPublish: true;
+  };
+  attributes: {
+    name: Attribute.String;
+    description: Attribute.Text;
+    tours: Attribute.Relation<
+      'api::recommend-place.recommend-place',
+      'manyToMany',
+      'api::tour.tour'
+    >;
+    image: Attribute.Media;
+    createdAt: Attribute.DateTime;
+    updatedAt: Attribute.DateTime;
+    publishedAt: Attribute.DateTime;
+    createdBy: Attribute.Relation<
+      'api::recommend-place.recommend-place',
+      'oneToOne',
+      'admin::user'
+    > &
+      Attribute.Private;
+    updatedBy: Attribute.Relation<
+      'api::recommend-place.recommend-place',
+      'oneToOne',
+      'admin::user'
+    > &
+      Attribute.Private;
+  };
+}
+
+export interface ApiReservationReservation extends Schema.CollectionType {
+  collectionName: 'reservations';
+  info: {
+    singularName: 'reservation';
+    pluralName: 'reservations';
+    displayName: 'Reservation';
+    description: '';
+  };
+  options: {
+    draftAndPublish: true;
+  };
+  attributes: {
+    comment: Attribute.String;
+    payment_status: Attribute.Boolean & Attribute.DefaultTo<false>;
+    payment_time: Attribute.DateTime;
+    tour: Attribute.Relation<
+      'api::reservation.reservation',
+      'manyToOne',
+      'api::tour.tour'
+    >;
+    star: Attribute.Integer &
+      Attribute.SetMinMax<
+        {
+          min: 1;
+          max: 5;
+        },
+        number
+      >;
+    user: Attribute.Relation<
+      'api::reservation.reservation',
+      'manyToOne',
+      'plugin::users-permissions.user'
+    >;
+    createdAt: Attribute.DateTime;
+    updatedAt: Attribute.DateTime;
+    publishedAt: Attribute.DateTime;
+    createdBy: Attribute.Relation<
+      'api::reservation.reservation',
+      'oneToOne',
+      'admin::user'
+    > &
+      Attribute.Private;
+    updatedBy: Attribute.Relation<
+      'api::reservation.reservation',
+      'oneToOne',
+      'admin::user'
+    > &
+      Attribute.Private;
+  };
+}
+
+export interface ApiTourTour extends Schema.CollectionType {
+  collectionName: 'tours';
+  info: {
+    singularName: 'tour';
+    pluralName: 'tours';
+    displayName: 'Tour';
+    description: '';
+  };
+  options: {
+    draftAndPublish: true;
+  };
+  attributes: {
+    name: Attribute.String & Attribute.Required;
+    detail: Attribute.String & Attribute.Required;
+    quantity: Attribute.Integer & Attribute.Required & Attribute.DefaultTo<0>;
+    price: Attribute.Integer & Attribute.Required & Attribute.DefaultTo<0>;
+    travel_by: Attribute.Enumeration<['Bus', 'Van', 'Airplane', 'Teleporter']>;
+    image: Attribute.Media;
+    places: Attribute.Relation<
+      'api::tour.tour',
+      'manyToMany',
+      'api::recommend-place.recommend-place'
+    >;
+    reservations: Attribute.Relation<
+      'api::tour.tour',
+      'oneToMany',
+      'api::reservation.reservation'
+    >;
+    country: Attribute.Enumeration<['Thailand', 'Foreign']>;
+    trip_dates: Attribute.Relation<
+      'api::tour.tour',
+      'oneToMany',
+      'api::trip-date.trip-date'
+    >;
+    owners: Attribute.Relation<
+      'api::tour.tour',
+      'manyToMany',
+      'plugin::users-permissions.user'
+    >;
+    createdAt: Attribute.DateTime;
+    updatedAt: Attribute.DateTime;
+    publishedAt: Attribute.DateTime;
+    createdBy: Attribute.Relation<'api::tour.tour', 'oneToOne', 'admin::user'> &
+      Attribute.Private;
+    updatedBy: Attribute.Relation<'api::tour.tour', 'oneToOne', 'admin::user'> &
+      Attribute.Private;
+  };
+}
+
+export interface ApiTripDateTripDate extends Schema.CollectionType {
+  collectionName: 'trip_dates';
+  info: {
+    singularName: 'trip-date';
+    pluralName: 'trip-dates';
+    displayName: 'Trip_date';
+  };
+  options: {
+    draftAndPublish: true;
+  };
+  attributes: {
+    go_date: Attribute.DateTime;
+    end_date: Attribute.DateTime;
+    tour: Attribute.Relation<
+      'api::trip-date.trip-date',
+      'manyToOne',
+      'api::tour.tour'
+    >;
+    createdAt: Attribute.DateTime;
+    updatedAt: Attribute.DateTime;
+    publishedAt: Attribute.DateTime;
+    createdBy: Attribute.Relation<
+      'api::trip-date.trip-date',
+      'oneToOne',
+      'admin::user'
+    > &
+      Attribute.Private;
+    updatedBy: Attribute.Relation<
+      'api::trip-date.trip-date',
+      'oneToOne',
+      'admin::user'
+    > &
+      Attribute.Private;
+  };
+}
+
 export interface PluginUploadFile extends Schema.CollectionType {
   collectionName: 'files';
   info: {
@@ -583,6 +757,53 @@ export interface PluginContentReleasesReleaseAction
   };
 }
 
+export interface PluginI18NLocale extends Schema.CollectionType {
+  collectionName: 'i18n_locale';
+  info: {
+    singularName: 'locale';
+    pluralName: 'locales';
+    collectionName: 'locales';
+    displayName: 'Locale';
+    description: '';
+  };
+  options: {
+    draftAndPublish: false;
+  };
+  pluginOptions: {
+    'content-manager': {
+      visible: false;
+    };
+    'content-type-builder': {
+      visible: false;
+    };
+  };
+  attributes: {
+    name: Attribute.String &
+      Attribute.SetMinMax<
+        {
+          min: 1;
+          max: 50;
+        },
+        number
+      >;
+    code: Attribute.String & Attribute.Unique;
+    createdAt: Attribute.DateTime;
+    updatedAt: Attribute.DateTime;
+    createdBy: Attribute.Relation<
+      'plugin::i18n.locale',
+      'oneToOne',
+      'admin::user'
+    > &
+      Attribute.Private;
+    updatedBy: Attribute.Relation<
+      'plugin::i18n.locale',
+      'oneToOne',
+      'admin::user'
+    > &
+      Attribute.Private;
+  };
+}
+
 export interface PluginUsersPermissionsPermission
   extends Schema.CollectionType {
   collectionName: 'up_permissions';
@@ -722,7 +943,7 @@ export interface PluginUsersPermissionsUser extends Schema.CollectionType {
       Attribute.SetMinMaxLength<{
         maxLength: 10;
       }>;
-    gender: Attribute.Enumeration<['Male', 'Female']> & Attribute.Required;
+    gender: Attribute.Enumeration<['Male', 'Female']>;
     tours: Attribute.Relation<
       'plugin::users-permissions.user',
       'manyToMany',
@@ -751,227 +972,6 @@ export interface PluginUsersPermissionsUser extends Schema.CollectionType {
   };
 }
 
-export interface PluginI18NLocale extends Schema.CollectionType {
-  collectionName: 'i18n_locale';
-  info: {
-    singularName: 'locale';
-    pluralName: 'locales';
-    collectionName: 'locales';
-    displayName: 'Locale';
-    description: '';
-  };
-  options: {
-    draftAndPublish: false;
-  };
-  pluginOptions: {
-    'content-manager': {
-      visible: false;
-    };
-    'content-type-builder': {
-      visible: false;
-    };
-  };
-  attributes: {
-    name: Attribute.String &
-      Attribute.SetMinMax<
-        {
-          min: 1;
-          max: 50;
-        },
-        number
-      >;
-    code: Attribute.String & Attribute.Unique;
-    createdAt: Attribute.DateTime;
-    updatedAt: Attribute.DateTime;
-    createdBy: Attribute.Relation<
-      'plugin::i18n.locale',
-      'oneToOne',
-      'admin::user'
-    > &
-      Attribute.Private;
-    updatedBy: Attribute.Relation<
-      'plugin::i18n.locale',
-      'oneToOne',
-      'admin::user'
-    > &
-      Attribute.Private;
-  };
-}
-
-export interface ApiRecommendPlaceRecommendPlace extends Schema.CollectionType {
-  collectionName: 'recommend_places';
-  info: {
-    singularName: 'recommend-place';
-    pluralName: 'recommend-places';
-    displayName: 'Recommend_Place';
-    description: '';
-  };
-  options: {
-    draftAndPublish: true;
-  };
-  attributes: {
-    name: Attribute.String;
-    description: Attribute.Text;
-    tours: Attribute.Relation<
-      'api::recommend-place.recommend-place',
-      'manyToMany',
-      'api::tour.tour'
-    >;
-    image: Attribute.Media;
-    createdAt: Attribute.DateTime;
-    updatedAt: Attribute.DateTime;
-    publishedAt: Attribute.DateTime;
-    createdBy: Attribute.Relation<
-      'api::recommend-place.recommend-place',
-      'oneToOne',
-      'admin::user'
-    > &
-      Attribute.Private;
-    updatedBy: Attribute.Relation<
-      'api::recommend-place.recommend-place',
-      'oneToOne',
-      'admin::user'
-    > &
-      Attribute.Private;
-  };
-}
-
-export interface ApiReservationReservation extends Schema.CollectionType {
-  collectionName: 'reservations';
-  info: {
-    singularName: 'reservation';
-    pluralName: 'reservations';
-    displayName: 'Reservation';
-    description: '';
-  };
-  options: {
-    draftAndPublish: true;
-  };
-  attributes: {
-    comment: Attribute.String;
-    payment_status: Attribute.Boolean & Attribute.DefaultTo<false>;
-    payment_time: Attribute.DateTime;
-    tour: Attribute.Relation<
-      'api::reservation.reservation',
-      'manyToOne',
-      'api::tour.tour'
-    >;
-    star: Attribute.Integer &
-      Attribute.SetMinMax<
-        {
-          min: 1;
-          max: 5;
-        },
-        number
-      >;
-    user: Attribute.Relation<
-      'api::reservation.reservation',
-      'manyToOne',
-      'plugin::users-permissions.user'
-    >;
-    createdAt: Attribute.DateTime;
-    updatedAt: Attribute.DateTime;
-    publishedAt: Attribute.DateTime;
-    createdBy: Attribute.Relation<
-      'api::reservation.reservation',
-      'oneToOne',
-      'admin::user'
-    > &
-      Attribute.Private;
-    updatedBy: Attribute.Relation<
-      'api::reservation.reservation',
-      'oneToOne',
-      'admin::user'
-    > &
-      Attribute.Private;
-  };
-}
-
-export interface ApiTourTour extends Schema.CollectionType {
-  collectionName: 'tours';
-  info: {
-    singularName: 'tour';
-    pluralName: 'tours';
-    displayName: 'Tour';
-    description: '';
-  };
-  options: {
-    draftAndPublish: true;
-  };
-  attributes: {
-    name: Attribute.String & Attribute.Required;
-    detail: Attribute.String & Attribute.Required;
-    quantity: Attribute.Integer & Attribute.Required & Attribute.DefaultTo<0>;
-    price: Attribute.Integer & Attribute.Required & Attribute.DefaultTo<0>;
-    travel_by: Attribute.Enumeration<['Bus', 'Van', 'Airplane', 'Teleporter']>;
-    image: Attribute.Media;
-    places: Attribute.Relation<
-      'api::tour.tour',
-      'manyToMany',
-      'api::recommend-place.recommend-place'
-    >;
-    reservations: Attribute.Relation<
-      'api::tour.tour',
-      'oneToMany',
-      'api::reservation.reservation'
-    >;
-    country: Attribute.Enumeration<['Thailand', 'Foreign']>;
-    trip_dates: Attribute.Relation<
-      'api::tour.tour',
-      'oneToMany',
-      'api::trip-date.trip-date'
-    >;
-    owners: Attribute.Relation<
-      'api::tour.tour',
-      'manyToMany',
-      'plugin::users-permissions.user'
-    >;
-    createdAt: Attribute.DateTime;
-    updatedAt: Attribute.DateTime;
-    publishedAt: Attribute.DateTime;
-    createdBy: Attribute.Relation<'api::tour.tour', 'oneToOne', 'admin::user'> &
-      Attribute.Private;
-    updatedBy: Attribute.Relation<'api::tour.tour', 'oneToOne', 'admin::user'> &
-      Attribute.Private;
-  };
-}
-
-export interface ApiTripDateTripDate extends Schema.CollectionType {
-  collectionName: 'trip_dates';
-  info: {
-    singularName: 'trip-date';
-    pluralName: 'trip-dates';
-    displayName: 'Trip_date';
-  };
-  options: {
-    draftAndPublish: true;
-  };
-  attributes: {
-    go_date: Attribute.DateTime;
-    end_date: Attribute.DateTime;
-    tour: Attribute.Relation<
-      'api::trip-date.trip-date',
-      'manyToOne',
-      'api::tour.tour'
-    >;
-    createdAt: Attribute.DateTime;
-    updatedAt: Attribute.DateTime;
-    publishedAt: Attribute.DateTime;
-    createdBy: Attribute.Relation<
-      'api::trip-date.trip-date',
-      'oneToOne',
-      'admin::user'
-    > &
-      Attribute.Private;
-    updatedBy: Attribute.Relation<
-      'api::trip-date.trip-date',
-      'oneToOne',
-      'admin::user'
-    > &
-      Attribute.Private;
-  };
-}
-
 declare module '@strapi/types' {
   export module Shared {
     export interface ContentTypes {
@@ -982,18 +982,18 @@ declare module '@strapi/types' {
       'admin::api-token-permission': AdminApiTokenPermission;
       'admin::transfer-token': AdminTransferToken;
       'admin::transfer-token-permission': AdminTransferTokenPermission;
-      'plugin::upload.file': PluginUploadFile;
-      'plugin::upload.folder': PluginUploadFolder;
-      'plugin::content-releases.release': PluginContentReleasesRelease;
-      'plugin::content-releases.release-action': PluginContentReleasesReleaseAction;
-      'plugin::users-permissions.permission': PluginUsersPermissionsPermission;
-      'plugin::users-permissions.role': PluginUsersPermissionsRole;
-      'plugin::users-permissions.user': PluginUsersPermissionsUser;
-      'plugin::i18n.locale': PluginI18NLocale;
       'api::recommend-place.recommend-place': ApiRecommendPlaceRecommendPlace;
       'api::reservation.reservation': ApiReservationReservation;
       'api::tour.tour': ApiTourTour;
       'api::trip-date.trip-date': ApiTripDateTripDate;
+      'plugin::upload.file': PluginUploadFile;
+      'plugin::upload.folder': PluginUploadFolder;
+      'plugin::content-releases.release': PluginContentReleasesRelease;
+      'plugin::content-releases.release-action': PluginContentReleasesReleaseAction;
+      'plugin::i18n.locale': PluginI18NLocale;
+      'plugin::users-permissions.permission': PluginUsersPermissionsPermission;
+      'plugin::users-permissions.role': PluginUsersPermissionsRole;
+      'plugin::users-permissions.user': PluginUsersPermissionsUser;
     }
   }
 }

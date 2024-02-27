@@ -1,0 +1,130 @@
+.password-input {
+
+    position: relative;
+    width: 400px;
+
+    
+}
+.password-inpu {
+
+    position: relative;
+
+
+    
+}
+
+.password-input1 {
+
+    position: relative;
+    width: 400px;
+    
+}
+.password-input2 {
+
+    position: relative;
+    width: 400px;
+    
+}
+
+.password-input3 {
+
+    position: relative;
+    width: 400px;
+    
+}
+
+.password-toggle {
+    position: absolute;
+    top: 50%;
+    transform: translateY(-50%);
+    right: 10px; 
+    cursor: pointer;
+    height: auto;     
+}
+
+.textshow p{
+    position: absolute;
+    top: 30%; 
+    transform: translateY(-70%);
+    left: 10px;  
+    font-size: 15px;         
+}
+
+.textshows p{
+    position: absolute;
+    top: 35%; 
+    transform: translateY(-70%);
+    right: 130px;  
+    font-size: 15px;         
+}
+
+.textshowname p{
+    position: absolute;
+    top: 35%; 
+    transform: translateY(-70%);
+    left: 10px; 
+    font-size: 15px;         
+}
+
+.password-toggle img {
+    width: 20px; 
+    height: 20px; 
+  }
+
+  .form-control {
+    width: 100%;
+    margin: 10px 0;
+  }
+
+  h1 {
+    color: #F79400;
+    text-align: center;
+    font-family: Semi Bold;
+    margin-top: 100px;
+    margin-bottom: 20px;
+  }
+
+  .checkbox{
+  
+    display: flex;
+    justify-content: center; 
+    margin-bottom: 20px;
+    margin-top: 10px;
+    align-items: center; 
+  }
+
+.logintext{
+    display: flex;
+    justify-content: center; 
+    margin-bottom: 20px;
+    margin-top: 10px;
+    align-items: center; 
+
+}
+
+.button {
+    display: flex;
+    margin-top: 10px;
+    justify-content: center; 
+    align-items: center; 
+    margin:auto;
+    width:200px;
+    font-size: 25px;   
+    height:50px;
+    background-color: #F79400;
+    border-color: #F79400;
+}
+.button:hover {
+    background-color: #F79400;
+    border-color: #F79400;
+}
+
+
+.link {
+    color:#9225FF;
+    margin-left: 2px;
+  }
+  
+ .form-check-label {
+    margin-left: 5px;
+}
