@@ -6,7 +6,7 @@ import Forgotpass from "./page/Forgotpass";
 import Emailsend from "./page/Emailsend";
 import Register from "./page/Register";
 import BookingHistory from "./page/History";
-import PaymentStatus from "./page/paymentstatus";
+import PaymentStatus from "./page/Paymentstatus";
 import Setting from "./page/Setting";
 import Payment from "./page/Payment";
 import Reservation from "./page/Reservation";
