@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react';
-import { Form, Button, Alert, Spinner , Col } from 'react-bootstrap';
+import { Form, Button, Alert, Spinner, Col } from 'react-bootstrap';
 import axios from 'axios';
 import { ToastContainer, toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
@@ -28,7 +28,7 @@ const Setting = () => {
     const [gender, setGender] = useState('');
 
     const handleGenderChange = (e) => {
-      setGender(e.target.value);
+        setGender(e.target.value);
     };
 
     const handleUsernameChange = (e) => {
@@ -52,7 +52,6 @@ const Setting = () => {
         }
     };
 
-
     const togglePasswordVisibility = () => {
         setShowPassword(!showPassword);
     };
@@ -69,8 +68,8 @@ const Setting = () => {
     useEffect(() => {
         const fetchData = async () => {
             try {
-                
-                axios.defaults.headers.common = { 'Authorization': `bearer ${jwt}` }        
+
+                axios.defaults.headers.common = { 'Authorization': `bearer ${jwt}` }
                 const result = await axios.get('/users/me');
                 setData(result.data)
                 console.log(result.data.id)
@@ -78,10 +77,10 @@ const Setting = () => {
                 setUsername(result.data.username)
                 setLastname(result.data.lastname)
                 setPhone(result.data.phone)
-                
+
 
             } catch (error) {
-                axios.defaults.headers.common = ""     
+                axios.defaults.headers.common = ""
                 navigate('/')
             }
         };
@@ -93,25 +92,24 @@ const Setting = () => {
 
         e.preventDefault();
         setSubmitEnabled(false);
-        
+
         try {
             setIsLoading(true)
             if (username.length != "" && username.length < 3) {
                 toast("กรุณาตั้งชื่ออย่างน้อย 3 ตัวอักษร");
             }
-            else if (phone.length!=""&&phone.length < 10)
-                    toast("กรุณากรอกเบอร์โทรศัพท์ให้ถูกต้อง");
-            else
-            {
+            else if (phone.length != "" && phone.length < 10)
+                toast("กรุณากรอกเบอร์โทรศัพท์ให้ถูกต้อง");
+            else {
                 const data = setdata.id;
-              
+
                 const results = await axios.put(`users/${data}`, {
-                username: username,
-                lastname: lastname,
-                firstname:username,
-                phone:phone,
-                gender:gender
-            });
+                    username: username,
+                    lastname: lastname,
+                    firstname: username,
+                    phone: phone,
+                    gender: gender
+                });
             }
 
             toast("บันทึกข้อมูลเรียบร้อย");
@@ -126,10 +124,10 @@ const Setting = () => {
 
 
         } catch (e) {
-           
+
             console.log(e);
             let message = e.response.data.error.message;
-           
+
             console.log(e.response.data.error.message);
         } finally {
             setSubmitEnabled(true);
@@ -146,111 +144,111 @@ const Setting = () => {
             <div className="login-container">
                 <img src="/user.png" alt="Header Image" className="header-image" style={{ width: '100px', height: '100px' }} />
             </div>
-            <div style={{ textAlign: 'center' ,fontSize: '20px',color: 'white'}}>
-            <p>{!isEditing &&  setdata && (
-                
-                <React.Fragment>
-                    <strong>ชื่อ :</strong> {setdata.username} <strong style={{marginLeft: '9px' }}>นามสกุล:</strong> {setdata.lastname}<br />
-                    <strong>อีเมล :</strong> {setdata.email}<br />
-                    <strong>เบอร์โทรศัพท์ :</strong> {setdata.phone}<br />
-                    <strong>เพศ :</strong> {setdata.gender ? (setdata.gender === 'Female' ? 'หญิง' : 'ชาย') : 'ยังไม่ระบุ'}<br />
-                    <strong>รหัสผ่าน :</strong> { }<br />
-                </React.Fragment>
-                 
-            )}</p>
+            <div style={{ textAlign: 'center', fontSize: '20px', color: 'white' }}>
+                <p>{!isEditing && setdata && (
+
+                    <React.Fragment>
+                        <strong>ชื่อ :</strong> {setdata.username} <strong style={{ marginLeft: '9px' }}>นามสกุล:</strong> {setdata.lastname}<br />
+                        <strong>อีเมล :</strong> {setdata.email}<br />
+                        <strong>เบอร์โทรศัพท์ :</strong> {setdata.phone}<br />
+                        <strong>เพศ :</strong> {setdata.gender ? (setdata.gender === 'Female' ? 'หญิง' : 'ชาย') : 'ยังไม่ระบุ'}<br />
+                        <strong>รหัสผ่าน :</strong> { }<br />
+                    </React.Fragment>
+
+                )}</p>
             </div>
-             {isEditing && (
-            <Form onSubmit={handleSubmit} className="custom-form" >
+            {isEditing && (
+                <Form onSubmit={handleSubmit} className="custom-form" >
 
 
 
-              
-                <Form.Group controlId="formBasicPassword" >
-                    <div className="password-input">
- 
-                        <Form.Control className="settingform"
-                            style={{ width: '400px' }}
-                            required
-                            placeholder="ชื่อ"
-                            value={username}
-                            onChange={handleUsernameChange}
 
-                        />
-                       
-                    </div>
-                </Form.Group>
+                    <Form.Group controlId="formBasicPassword" >
+                        <div className="password-input">
 
-                <Form.Group controlId="formBasicPassword" >
-                    <div className="password-input">
- 
-                        <Form.Control className="settingform"
-                            style={{ width: '400px' }}
-                            required
-                            placeholder="นามสกุล"
-                            value={lastname}
-                            onChange={handleLastname}
+                            <Form.Control className="settingform"
+                                style={{ width: '400px' }}
+                                required
+                                placeholder="ชื่อ"
+                                value={username}
+                                onChange={handleUsernameChange}
 
-                        />
-                       
-                    </div>
-                </Form.Group>
-
-                <Form.Group>
-                    <div className="password-input">                    
-                        <Form.Control className="settingform"
-                        onChange={handlephone}
-                            value={phone}
-                            required
-                             style={{  width: '400px'}} 
-                            placeholder="เบอร์โทรศัพท์" 
                             />
-                         
-                    </div>
+
+                        </div>
                     </Form.Group>
-                
+
+                    <Form.Group controlId="formBasicPassword" >
+                        <div className="password-input">
+
+                            <Form.Control className="settingform"
+                                style={{ width: '400px' }}
+                                required
+                                placeholder="นามสกุล"
+                                value={lastname}
+                                onChange={handleLastname}
+
+                            />
+
+                        </div>
+                    </Form.Group>
+
+                    <Form.Group>
+                        <div className="password-input">
+                            <Form.Control className="settingform"
+                                onChange={handlephone}
+                                value={phone}
+                                required
+                                style={{ width: '400px' }}
+                                placeholder="เบอร์โทรศัพท์"
+                            />
+
+                        </div>
+                    </Form.Group>
+
                     <Form.Check
-        type="radio"
-        label="ชาย"
-        name="gender"
-        id="Male"
-        value="Male"
-        checked={gender === 'Male'}
-        onChange={handleGenderChange}
-      />
-      <Form.Check
-        type="radio"
-        label="หญิง"
-        name="gender"
-        id="Female"
-        value="Female"
-        checked={gender === 'Female'}
-        onChange={handleGenderChange}
-      />
+                        type="radio"
+                        label="ชาย"
+                        name="gender"
+                        id="Male"
+                        value="Male"
+                        checked={gender === 'Male'}
+                        onChange={handleGenderChange}
+                    />
+                    <Form.Check
+                        type="radio"
+                        label="หญิง"
+                        name="gender"
+                        id="Female"
+                        value="Female"
+                        checked={gender === 'Female'}
+                        onChange={handleGenderChange}
+                    />
 
-                <div style={{ marginTop: '7px' }}>
+                    <div style={{ marginTop: '7px' }}>
 
-                    <Button variant="primary" type="submit"  className="buttonsign">
-                        {isLoading ? <Spinner animation="border" size="sm" /> : 'save'}
-                    </Button>  {errorMessage && <Alert variant="danger">{errorMessage}</Alert>}
-                    
-
+                        <Button variant="primary" type="submit" className="buttonsign">
+                            {isLoading ? <Spinner animation="border" size="sm" /> : 'save'}
+                        </Button>  {errorMessage && <Alert variant="danger">{errorMessage}</Alert>}
 
 
-                </div>
-            </Form>                    
+
+
+                    </div>
+                </Form>
             )}
             {isEditing && (
-            <Button variant="primary" type="submit"  className="buttonsign" onClick={handlemain}>
-                        {isLoading ? <Spinner animation="border" size="sm" /> : 'ยกเลิก'}
-                    </Button>  
+                <Button variant="primary" type="submit" className="buttonsign" onClick={handlemain}>
+                    {isLoading ? <Spinner animation="border" size="sm" /> : 'ยกเลิก'}
+                </Button>
             )}
             {!isEditing && (
-            <Button variant="primary" type="submit" onClick={handleSignup}  className="buttonsign">
-                {isLoading ? <Spinner animation="border" size="sm" /> : 'Edit'}
-            </Button>
+                <Button variant="primary" type="submit" onClick={handleSignup} className="buttonsign">
+                    {isLoading ? <Spinner animation="border" size="sm" /> : 'Edit'}
+                </Button>
             )}
 
-<ToastContainer />
+            <ToastContainer />
         </div>
 
 
