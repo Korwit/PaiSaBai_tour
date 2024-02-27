@@ -7,6 +7,9 @@ import Emailsend from "./page/Emailsend";
 import Register from "./page/Register";
 import BookingHistory from "./page/history";
 import PaymentStatus from "./page/paymentstatus";
+import Setting from "./page/Setting";
+import Payment from "./page/Payment";
+import Reservation from "./page/Reservation";
 import axios from "axios";
 
 axios.defaults.baseURL =
@@ -24,6 +27,9 @@ const App = () => {
         <Route path="/login" element={<Login />} /> 
         <Route path="/history" element={<BookingHistory />} /> 
         <Route path="/paymentstatus" element={<PaymentStatus />} /> 
+        <Route path="/setting" element={<Setting />} /> 
+        <Route path="/payment" element={<Payment />} /> 
+        <Route path="/reserva" element={<Reservation />} /> 
       </Routes>
     </BrowserRouter>
   );

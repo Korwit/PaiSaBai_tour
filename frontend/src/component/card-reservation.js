@@ -4,7 +4,7 @@ import { useNavigate } from 'react-router-dom';
 import Select from 'react-select';
 import axios from 'axios';
 
-const ReservationForm = () => {
+const ReservationCard = () => {
     const navigate = useNavigate();
 
     const [formData, setFormData] = useState({
@@ -117,4 +117,4 @@ const ReservationForm = () => {
   );
 };
 
-export default ReservationForm;
+export default ReservationCard;

@@ -5,6 +5,8 @@ import axios from 'axios';
 import { useNavigate } from 'react-router-dom';
 //import { useAuth } from './AuthContext';
 import '../css/email.css';
+import { ToastContainer, toast } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
 
 const Emailsend = () => {
     const navigate = useNavigate();
@@ -31,10 +33,15 @@ const Emailsend = () => {
         try {
             setIsLoading(true)
             //axiosConfig.jwt = {};
-            let result = await axios.post('http://localhost:1337/api/auth/forgot-password', {
-                email: username,
+            const result = await axios.post('http://localhost:1337/api/auth/forgot-password', {
+                email: username
                
             });
+            console.log(result);
+            toast("ส่งลิงค์การรีเซ็ทหัสผ่านในอีเมลของคุณแล้ว");
+            setTimeout(() => {
+                navigate('/login');
+            }, 6000);
 
             
         } catch (e) {
@@ -51,7 +58,7 @@ const Emailsend = () => {
     return (
         
         <div className="body">
-          <h1>อีเมลที่ต้องการรีเซ็ทรหัสผ่าน</h1>
+          <h1 className="้h1mail">อีเมลที่ต้องการรีเซ็ทรหัสผ่าน</h1>
         <Form onSubmit={handleSubmit} className="formmail" >          
 
             <Form.Group controlId="formBasicUsername">     
@@ -74,6 +81,7 @@ const Emailsend = () => {
             </Button>  {errorMessage && <Alert variant="danger">{errorMessage}</Alert>}
             </div>
         </Form>
+        <ToastContainer />
       
         </div>
         

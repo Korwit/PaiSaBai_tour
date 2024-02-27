@@ -1,0 +1,43 @@
+.settingform{
+    border-radius: 20px;
+
+  }
+
+  ::placeholder {
+    text-align: center;
+    
+  }
+
+.manage {
+   
+    align-items: center; 
+   
+}
+
+.login-container {
+    display: flex;
+    justify-content: center; 
+    align-items: center; 
+    height: 100px; 
+    margin-top: 30px;
+    margin-bottom: 10px;
+    
+  }
+
+  .buttonsign{
+    background-color: #F79400;
+    border-color: #F79400;
+    border-radius: 20px; 
+    margin:auto;
+    justify-content: center; 
+    align-items: center; 
+    width:100px;
+    display: flex;
+    width:150px;
+    margin-bottom: 15px;
+  }
+
+  .buttonsign:hover {
+    background-color: #976111;
+    border-color: #F79400;
+  }

@@ -2,8 +2,10 @@ import React from "react";
 import { Card, Button, Row, Col } from "react-bootstrap";
 import "../css/tour.css";
 import { Link } from "react-router-dom";
+import { useNavigate } from 'react-router-dom';
 
 const Cards = ({ data, search, detailClick }) => {
+  const navigate = useNavigate();
   const searchData = search.map((name) =>
     data.find((item) => item.attributes.name === name)
   );
@@ -20,6 +22,9 @@ const Cards = ({ data, search, detailClick }) => {
         return "เครื่องเคลื่อนย้ายมวลสาร";
     }
   };
+  const handlereservation = () => {
+    navigate('/reserva')    
+  }
 
   return (
     <div>
@@ -55,7 +60,7 @@ const Cards = ({ data, search, detailClick }) => {
                   </Col>
                   <Col>
                     <Link>
-                      <Button>จองเลย</Button>
+                      <Button onClick={handlereservation}>จองเลย</Button>
                     </Link>
                   </Col>
                 </Row>
