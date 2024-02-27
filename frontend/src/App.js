@@ -5,6 +5,7 @@ import Login from "./page/Login";
 import Forgotpass from "./page/Forgotpass";
 import Emailsend from "./page/Emailsend";
 import Register from "./page/Register";
+import Setting from "./page/Setting";
 import axios from "axios";
 
 axios.defaults.baseURL =
@@ -20,6 +21,7 @@ const App = () => {
         <Route path="/email" element={<Emailsend />} />
         <Route path="/register" element={<Register />} /> 
         <Route path="/login" element={<Login />} /> 
+        <Route path="/setting" element={<Setting />} /> 
       </Routes>
     </BrowserRouter>
   );

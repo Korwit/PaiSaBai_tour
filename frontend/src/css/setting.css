@@ -1,0 +1,25 @@
+.settingform{
+    border-radius: 20px;
+
+  }
+
+  ::placeholder {
+    text-align: center;
+    margin-left: 0px;   
+  }
+
+.manage {
+   
+    align-items: center; 
+   
+}
+
+.login-container {
+    display: flex;
+    justify-content: center; 
+    align-items: center; 
+    height: 100px; 
+    margin-top: 30px;
+    margin-bottom: 10px;
+    
+  }

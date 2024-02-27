@@ -27,6 +27,9 @@ function NavBar({ allData, closeFilter, closeTour, closePlace }) {
     window.location.reload()
     }
 
+    const handlesetting = () => {
+      navigate('/setting')
+      }
   return (
     <Navbar className="bar-color" sticky="top">
       <Container>
@@ -36,7 +39,7 @@ function NavBar({ allData, closeFilter, closeTour, closePlace }) {
         <Nav className="me-auto">
           <Nav.Link className="text">ประวัติการจอง</Nav.Link>
           <Nav.Link className="text">สถานะการชำระเงิน</Nav.Link>
-          <Nav.Link className="text">การตั้งค่า</Nav.Link>
+          <Nav.Link className="text" onClick={() => handlesetting()}>การตั้งค่า</Nav.Link>
         </Nav>
         <Nav>
           {jwt === null ? (
