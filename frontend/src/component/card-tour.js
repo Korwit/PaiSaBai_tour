@@ -1,9 +1,10 @@
 import React from "react";
 import { Card, Button, Row, Col } from "react-bootstrap";
 import "../css/tour.css";
-import { Link } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 
 const Cards = ({ data, search, detailClick }) => {
+  const navigate = useNavigate();
   const searchData = search.map((name) =>
     data.find((item) => item.attributes.name === name)
   );
@@ -39,25 +40,28 @@ const Cards = ({ data, search, detailClick }) => {
           {month}
           {year}
         </Col>
-        <Col style={{justifyContent: "center", textAlign: "center"}}>
+        <Col style={{ justifyContent: "center", textAlign: "center" }}>
           {current}/{max}คน
         </Col>
       </Row>
     );
   };
+  const handlereservation = () => {
+    navigate("/reservation");
+  };
 
   const travel = (by) => {
-    switch(by) {
-      case 'Bus' :
-        return <img src="bus.png" style={{maxWidth: "50px"}}/>
-      case 'Van' :
-        return <img src="van.png" style={{maxWidth: "90px"}}/>
-      case 'Airplane' :
-        return <img src="plane.png" style={{maxWidth: "50px"}}/>
-      case 'Teleporter' :
-        return <img src="teleporter.png" style={{maxWidth: "50px"}}/>
+    switch (by) {
+      case "Bus":
+        return <img src="bus.png" style={{ maxWidth: "45px" }} />;
+      case "Van":
+        return <img src="van.png" style={{ maxWidth: "90px" }} />;
+      case "Airplane":
+        return <img src="plane.png" style={{ maxWidth: "50px" }} />;
+      case "Teleporter":
+        return <img src="teleporter.png" style={{ maxWidth: "37px" }} />;
     }
-  }
+  };
   return (
     <div>
       <Row xs={1} md={2} xl={3}>
@@ -82,15 +86,13 @@ const Cards = ({ data, search, detailClick }) => {
                   </Row>
                   <Col>
                     {Date(
-                      item.attributes.trip_dates.data[0].attributes,
-                      item.attributes.owners.data.length,
+                      item.attributes?.trip_dates.data[0]?.attributes,
+                      item.attributes?.owners.data.length,
                       item.attributes.quantity
                     )}
                   </Col>
                   <Row>
-                    <Col>
-                      {travel(item.attributes.travel_by)}
-                    </Col>
+                    <Col>{travel(item.attributes.travel_by)}</Col>
                     <Col
                       style={{
                         color: "red",
@@ -113,9 +115,7 @@ const Cards = ({ data, search, detailClick }) => {
                     </Button>
                   </Col>
                   <Col>
-                    <Link>
-                      <Button className="reserve-button">จองเลย</Button>
-                    </Link>
+                    <Button className='reserve-button' onClick={() => handlereservation()}>จองเลย</Button>
                   </Col>
                 </Row>
               </Card.Body>

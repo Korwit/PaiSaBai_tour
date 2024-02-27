@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState ,useEffect} from 'react';
 import { Form, Button, Alert, Spinner, Row, Col, Modal } from 'react-bootstrap';
 import { ToastContainer, toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
@@ -28,10 +28,22 @@ const Register = () => {
     const [showSuccess, setShowSuccess] = useState(false);
     const [isChecked, setIsChecked] = useState(false);
     const [showModal, setShowModal] = useState(false);
-    const [con, setcon] = useState(true);
+    const [conphone, setconphone] = useState(true);
+    const [conpass, setconpass] = useState(true);
+    const [conpasscon, setconpasscon] = useState(true);
+    const [confirst, setconfirst] = useState(true);
+    const [conlast, setconlast] = useState(true);
+    const [conmail, setconmail] = useState(true);
 
     const handleShowModal = () => setShowModal(true);
     const handleCloseModal = () => setShowModal(false);
+    const jwt = localStorage.getItem("jwt");
+
+    useEffect(() => {
+        if (jwt != null) {
+            navigate('/')
+        }
+    }, [jwt]);
 
     const handleCheckboxChange = (e) => {
         setIsChecked(e.target.checked);
@@ -39,7 +51,7 @@ const Register = () => {
 
     const handleClose = () => {
         setShow(false);
-        navigate('/');
+        
     }
     const handleShow = () => setShow(true);
     const handleCloseSuccess = () => setShowSuccess(false);
@@ -55,30 +67,43 @@ const Register = () => {
 
     const handlePasswordChange = (e) => {
         setPassword(e.target.value);
-        if (e.target.value !== '') {
-            setErrorMessages('รหัสผ่านต้องมีอย่างน้อย 6 ตัวอักษร');
-        } else {
+        if(e.target.value == '')
+        {
             setErrorMessages('');
         }
+        else if (e.target.value.length < 6 ) {
+            setErrorMessages('รหัสผ่านต้องมีอย่างน้อย 6 ตัวอักษร');
+        }        
+        else {
+            setErrorMessages('');
+        }
+        setconpass(false);  
+        setconpass(e.target.value === '');
 
     };
 
     const handleEmail = (e) => {
         setEmail(e.target.value);
+        setconmail(false);  
+        setconmail(e.target.value === '');
     };
 
     const handleFirstname = (e) => {
         setFirstname(e.target.value);
+        setconfirst(false);  
+        setconfirst(e.target.value === '');
     };
 
     const handleLastname = (e) => {
         setLastname(e.target.value);
+        setconlast(false);  
+        setconlast(e.target.value === '');
     };
 
     const handlePasswordChanges = (e) => {
         setPasswordConfirm(e.target.value);  
-        setcon(false);  
-        setcon(e.target.value === '');
+        setconpasscon(false);  
+        setconpasscon(e.target.value === '');
     };
    
     const handlephone = (e) => {
@@ -86,6 +111,8 @@ const Register = () => {
             if (e.target.value.length <= 10) {
                 setPhone(e.target.value);
             }
+            setconphone(false);  
+            setconphone(e.target.value === '');
         }
 
 
@@ -133,6 +160,10 @@ const Register = () => {
                                     firstname: firstname,
                                     phone: phone,
                                 });
+                                setShowSuccess(true)
+                                setTimeout(() => {
+                                    navigate('/login');
+                                }, 5000);
 
                             } catch (e) {
                                 console.log(e);
@@ -142,7 +173,7 @@ const Register = () => {
                             } finally {
                                 setSubmitEnabled(true);
                                 setIsLoading(false)
-                                setShowSuccess(true)
+                                
                             }
                         }
 
@@ -201,7 +232,7 @@ const Register = () => {
                             //placeholder="ชื่อ" 
                             />
                             <div className="textshowname" >
-                            {con && <p>ชื่อ</p>}
+                            {confirst && <p>ชื่อ</p>}
                             </div>
                     </Col> 
                     <Col>
@@ -210,7 +241,7 @@ const Register = () => {
                             // placeholder="นามสกุล"
                               />
                             <div className="textshows" >
-                            {con && <p>นามสกุล</p>}
+                            {conlast && <p>นามสกุล</p>}
                             </div>
                     </Col>
                     
@@ -225,7 +256,7 @@ const Register = () => {
                            // placeholder="Email" 
                             />
                                                         <div className="textshow" >
-                            {con && <p>Email</p>}
+                            {conmail && <p>Email</p>}
                             </div>
                     </div>
                     </Form.Group>
@@ -233,15 +264,15 @@ const Register = () => {
 
                 </Row>
 
-                <Row><Form.Group>
-                    <div className="password-input">
-                    
+                <Row>
+                    <Form.Group>
+                    <div className="password-input">                    
                         <Form.Control onChange={handlephone}
                             required value={phone} style={{  width: '400px',height: '55px',backgroundColor: '#FFF48F' }} 
                             //placeholder="เบอร์โทรศัพท์" 
                             />
                             <div className="textshow" >
-                            {con && <p>เบอร์โทรศัพท์</p>}
+                            {conphone && <p>เบอร์โทรศัพท์</p>}
                             </div>
                     </div>
                     </Form.Group>
@@ -262,7 +293,7 @@ const Register = () => {
                                 {showPassword ? <img src="/show.png" alt="Show" /> : <img src="/hide.png" alt="Hide" />}
                             </div>
                             <div className="textshow" >
-                            {con && <p>รหัสผ่าน</p>}
+                            {conpass && <p>รหัสผ่าน</p>}
                             </div>
                         </div>
                     </Form.Group>
@@ -287,7 +318,7 @@ const Register = () => {
                                 {showPasswords ? <img src="/show.png" alt="Show" /> : <img src="/hide.png" alt="Hide" />}
                             </div>
                             <div className="textshow" >
-                            {con && <p>ยืนยันรหัสผ่าน</p>}
+                            {conpasscon && <p>ยืนยันรหัสผ่าน</p>}
                             </div>
                         </div>
 
@@ -308,7 +339,7 @@ const Register = () => {
 
 
             </Form>
-            <ToastContainer />
+           
 
             <Modal show={showModal} onHide={handleCloseModal}>
                 <Modal.Header closeButton>
@@ -323,7 +354,11 @@ const Register = () => {
                     </Button>
                 </Modal.Footer>
             </Modal>
-            <span className='logintext'>มีบัญชีอยู่แล้ว?<a href="#" onClick={Loginpage} class="link" > เข้าสู่ระบบ</a></span>
+            <span className='logintext'>มีบัญชีอยู่แล้ว?<a href="#" onClick={Loginpage} class="link" > เข้าสู่ระบบ</a></span> .
+            
+           
+            
+            <ToastContainer />
         </div>
 
 

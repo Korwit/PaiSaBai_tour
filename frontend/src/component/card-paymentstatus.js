@@ -1,0 +1,55 @@
+import React, { useState, useEffect } from "react";
+import { Card, CardImg, CardBody, CardTitle, CardText, Badge,} from "react-bootstrap";
+import axios from "axios";
+
+const PaymentStatusCard = () => {
+  const [statuses, setStatuses] = useState([]);
+  const jwt = localStorage.getItem('jwt')
+  axios.defaults.headers.common = {
+    Authorization: `Bearer ${jwt}`,
+  };
+
+  const fetchStatuses = async () => {
+    const response = await axios.get(
+      "http://localhost:1337/api/users/me?populate[tours][populate]=*"
+    );
+    console.log("First: ", response.data);
+    setStatuses(response.data.tours);
+  };
+
+  useEffect(() => {
+    fetchStatuses();
+  }, []);
+
+  return (
+    <div>
+      {statuses.map((e) => {
+        /*console.log("Go date:", e.reservations?.[0].comment); */
+        const paymentStatusColor = e.reservations?.[0].payment_status ? "success" : "danger";
+        const paymentStatusText = e.reservations?.[0].payment_status ? "ชำระแล้ว" : "ยังไม่ชำระ";
+        return (
+          <Card key={e.id}>
+            <CardImg 
+              variant="top" 
+              src={"http://localhost:1337" + e.image.url}
+              className="img-card"
+            />
+            <CardBody>
+              <CardTitle>{e.name}</CardTitle>
+              <CardText>
+                สถานะ: <Badge bg={paymentStatusColor}>{paymentStatusText}</Badge>
+                <br />
+                วันที่ชำระเงิน: {e.reservations?.[0].payment_date}
+                <br />
+                ความคิดเห็น: {e.reservations?.[0].comment}
+                <br />
+              </CardText>
+            </CardBody>
+          </Card>
+        );
+      })}
+    </div>
+  );
+};
+
+export default PaymentStatusCard;

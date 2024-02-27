@@ -1,23 +1,30 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import { Form, Button, Alert, Spinner } from "react-bootstrap";
 import axios from "axios";
 import axiosConfig from "../axios-interceptor";
 import { useNavigate } from "react-router-dom";
 //import { useAuth } from './AuthContext';
+import { ToastContainer, toast } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
 import "../css/login.css";
 
 const Login = () => {
   const navigate = useNavigate();
-
-  // const { setAuth } = useAuth();
   const [username, setUsername] = useState("");
   const [password, setPassword] = useState("");
   const [submitEnabled, setSubmitEnabled] = useState(true);
   const [errorMessage, setErrorMessage] = useState("");
   const [isLoading, setIsLoading] = useState(false);
+  const [isLoading2, setIsLoading2] = useState(false);
   const [showPassword, setShowPassword] = useState(false);
-  //localStorage.removeItem('jwt');
   const [showPasswords, setShowPasswords] = useState(false);
+  const jwt = localStorage.getItem("jwt");
+
+  useEffect(() => {
+    if (jwt != null) {
+      navigate("/");
+    }
+  }, [jwt]);
 
   const handleUsernameChange = (e) => {
     setUsername(e.target.value);
@@ -32,7 +39,12 @@ const Login = () => {
   };
 
   const handleSignup = async () => {
+    setIsLoading2(true);
     navigate("/register");
+  };
+
+  const handlemain = async () => {
+    navigate("/");
   };
 
   const handleSubmit = async (e) => {
@@ -51,12 +63,11 @@ const Login = () => {
       localStorage.setItem("jwt", result.data.jwt);
 
       axiosConfig.jwt = result.data.jwt;
+      console.log(result.data.jwt);
       axios.defaults.headers.common = {
         Authorization: `bearer ${result.data.jwt}`,
       };
       result = await axios.get("/users/me?populate=role");
-      localStorage.setItem("username",result.data.username)
-      
       if (result.data.role) {
         if (result.data.role.name === "Member") {
           navigate("/");
@@ -69,8 +80,9 @@ const Login = () => {
       console.log(e);
       let message = e.response.data.error.message;
       if (message == "Your account email is not confirmed")
-        setErrorMessage("กรุณายืนยันอีเมลของคุณก่อนเข้าสู่ระบบ");
-      else setErrorMessage("อีเมลหรือรหัสผ่านของคุณผิด");
+        toast("กรุณายืนยันอีเมลของคุณก่อนเข้าสู่ระบบ");
+      else toast("อีเมลหรือรหัสผ่านของคุณผิด");
+
       console.log(e.response.data.error.message);
     } finally {
       setSubmitEnabled(true);
@@ -140,7 +152,7 @@ const Login = () => {
             variant="primary"
             type="submit"
             disabled={!submitEnabled}
-            className="custom-buttons"
+            className="buttonlog"
           >
             {isLoading ? <Spinner animation="border" size="sm" /> : "Log in"}
           </Button>{" "}
@@ -152,10 +164,24 @@ const Login = () => {
         type="submit"
         onClick={handleSignup}
         disabled={!submitEnabled}
-        className="custom-buttons"
+        className="buttonsign"
       >
-        {isLoading ? <Spinner animation="border" size="sm" /> : "Sign up"}
+        {isLoading2 ? <Spinner animation="border" size="sm" /> : "Sign up"}
       </Button>
+      <Button
+        variant="primary"
+        type="submit"
+        onClick={handlemain}
+        disabled={!submitEnabled}
+        className="buttonsign"
+      >
+        {isLoading2 ? (
+          <Spinner animation="border" size="sm" />
+        ) : (
+          "กลับสู่หน้าหลัก"
+        )}
+      </Button>
+      <ToastContainer />
     </div>
   );
 };

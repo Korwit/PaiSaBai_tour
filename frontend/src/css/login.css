@@ -40,7 +40,7 @@
   height: 20px; 
 }
 
-.custom-buttons {
+.buttonlog {
     background-color: #F79400;
     border-color: #F79400;
     border-radius: 20px; 
@@ -58,7 +58,7 @@
   justify-content: center; 
   align-items: center; 
   height: 100px; 
-  margin-top: 60px;
+  margin-top: 100px;
   
 }
 
@@ -67,9 +67,27 @@
   text-indent: 25px;
 }
 
-.custom-buttons:hover {
-    background-color: #F79400;
+.buttonlog:hover {
+    background-color: #976111;
     border-color: #F79400;
+}
+
+.buttonsign{
+  background-color: #F79400;
+  border-color: #F79400;
+  border-radius: 20px; 
+  margin:auto;
+  justify-content: center; 
+  align-items: center; 
+  width:100px;
+  display: flex;
+  width:150px;
+  margin-bottom: 15px;
+}
+
+.buttonsign:hover {
+  background-color: #976111;
+  border-color: #F79400;
 }
 
 .forgot-password-link {

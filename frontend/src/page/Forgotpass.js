@@ -7,6 +7,7 @@ import { useNavigate } from 'react-router-dom';
 import { useParams, useLocation } from 'react-router-dom';
 import { ToastContainer, toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
+import '../css/email.css';
 
 const Forgotpass = () => {
     const navigate = useNavigate();
@@ -142,7 +143,7 @@ const Forgotpass = () => {
 
                 <div style={{ marginTop: '50px' }}>
 
-                    <Button variant="primary" type="submit" disabled={!submitEnabled} className="custom-button" >
+                    <Button variant="primary" type="submit" disabled={!submitEnabled} className="buttonsendmail" >
                         {isLoading ? <Spinner animation="border" size="sm" /> : 'ยืนยัน'}
                     </Button>  {errorMessage && <Alert variant="danger">{errorMessage}</Alert>}
                 </div>
