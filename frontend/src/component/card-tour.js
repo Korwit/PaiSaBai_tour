@@ -97,12 +97,12 @@ const Cards = ({ data, search, detailClick }) => {
                     <Col
                       style={{
                         color: "red",
-                        fontSize: "30px",
+                        fontSize: "29px",
                         textAlign: "right",
                         justifyContent: "right",
                       }}
                     >
-                      ฿{item.attributes.price}
+                     ฿{item.attributes.price}
                     </Col>
                   </Row>
                 </Card.Text>

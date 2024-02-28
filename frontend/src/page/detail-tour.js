@@ -3,9 +3,12 @@ import Calendar from "rsuite/Calendar";
 import "../css/tour.css";
 import { useEffect, useState } from "react";
 import axios from "axios";
+import { useNavigate } from "react-router-dom";
 
 const Tour = ({ data }) => {
   const [comment, setComment] = useState([]);
+  const navigate = useNavigate();
+  const jwt = localStorage.getItem("jwt");
   useEffect(() => {
     const FetchData = async () => {
       const Data = await axios.get(
@@ -16,19 +19,31 @@ const Tour = ({ data }) => {
     FetchData();
   }, []);
   const trip = data.attributes.trip_dates.data;
+
   const DotEvent = (date) => {
     const goDates = trip.map((day) => new Date(day.attributes.go_date));
+    const endDates = trip.map((day) => new Date(day.attributes.end_date));
 
-    if (
-      goDates.some(
-        (goDate) =>
-          goDate.getDate() === date.getDate() &&
-          goDate.getMonth() === date.getMonth() &&
-          goDate.getFullYear() === date.getFullYear()
-      )
-    ) {
-      return <div className="dot-date" style={{ marginLeft: "35%" }} />;
+    const hasGoDate = goDates.some((goDate) => isSameDate(goDate, date));
+
+    const hasEndDate = endDates.some((endDate) => isSameDate(endDate, date));
+
+    if (hasGoDate) {
+      return <div className="dot-date" style={{ marginLeft: "30%" }} />;
     }
+    if (hasEndDate) {
+      return <div className="dot-end" style={{ marginLeft: "30%" }} />;
+    }
+
+    return null;
+  };
+
+  const isSameDate = (date1, date2) => {
+    return (
+      date1.getDate() === date2.getDate() &&
+      date1.getMonth() === date2.getMonth() &&
+      date1.getFullYear() === date2.getFullYear()
+    );
   };
 
   const genStar = (numStars) => {
@@ -71,6 +86,10 @@ const Tour = ({ data }) => {
     );
   };
 
+  const handlereservation = () => {
+    navigate("/reservation");
+  };
+
   return (
     <div>
       <Card className="card-detail">
@@ -87,7 +106,12 @@ const Tour = ({ data }) => {
             </Row>
             <Row style={{ marginTop: "10%" }}>
               <Calendar renderCell={DotEvent} />
-              <div className="dot-date" />= วันออกเดินทาง
+              <Col>
+                <div className="dot-date" style={{textIndent: "60%", whiteSpace: "nowrap"}}>=วันออกเดินทาง</div>
+              </Col>
+              <Col>
+                <div className="dot-end" style={{textIndent: "70%", whiteSpace: "nowrap"}}>=วันกลับ</div>
+              </Col>
             </Row>
           </Col>
           <Col md={6}>
@@ -111,18 +135,34 @@ const Tour = ({ data }) => {
 
                   <Col>{data.attributes.price}</Col>
                   <Col>
-                    <Button
-                      style={{
-                        marginBottom: "5%",
-                        marginTop: "-5%",
-                        width: "100px",
-                        color: "white",
-                        backgroundColor: "rgb(43, 157, 45)",
-                        border: "none",
-                      }}
-                    >
-                      จอง
-                    </Button>
+                    {jwt !== null ? (
+                      <Button
+                        style={{
+                          marginBottom: "5%",
+                          marginTop: "-5%",
+                          width: "100px",
+                          color: "white",
+                          backgroundColor: "rgb(43, 157, 45)",
+                          border: "none",
+                        }}
+                        onClick={() => handlereservation()}
+                      >
+                        จอง
+                      </Button>
+                    ) : (
+                      <Button
+                        style={{
+                          marginBottom: "5%",
+                          marginTop: "-5%",
+                          width: "100px",
+                          color: "white",
+                          backgroundColor: "rgb(43, 157, 45)",
+                          border: "none",
+                        }}
+                      >
+                        จอง
+                      </Button>
+                    )}
                   </Col>
                   <hr />
                 </Row>

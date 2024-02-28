@@ -42,6 +42,15 @@
     justify-Content: center;
     align-Items: center;
 }
+.dot-end {
+    background-color: purple;
+    border-radius: 50%;
+    width: 20px;
+    height: 20px;
+    display: flex;
+    justify-Content: center;
+    align-Items: center;
+}
 .comment {
     max-height: 200px;
     overflow-y: scroll;
