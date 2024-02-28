@@ -81,9 +81,10 @@
 .mini-detail {
     overflow: hidden;
     text-overflow: ellipsis;
-    max-height: 7vh;
+    max-height: 8vh;
 }
 .time-tour {
+    white-space: nowrap;
     display: flex;
     justify-content: center;
     align-items: center;
