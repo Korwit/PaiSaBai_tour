@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from "react";
 import { Card, CardImg, CardBody, CardTitle, CardText } from "react-bootstrap";
 import axios from "axios";
+import "../css/BookingHistoryCard.css"
 
 const BookingHistoryCard = () => {
   const [bookings, setBookings] = useState([]);
@@ -32,7 +33,7 @@ const BookingHistoryCard = () => {
       {bookings.map((tour) => {
         //console.log("Go date:", tour.trip_dates?.[0].go_date); 
         return (
-          <Card key={tour.id}>
+          <Card key={tour.id} className="historycard-main" >
             <CardImg 
               variant="top" 
               src={"http://localhost:1337" + tour.image.url}
