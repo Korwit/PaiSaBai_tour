@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from "react";
 import { Card, CardImg, CardBody, CardTitle, CardText, Badge,} from "react-bootstrap";
 import axios from "axios";
+import "../css/PaymentStatuscard.css"
 
 const PaymentStatusCard = () => {
   const [statuses, setStatuses] = useState([]);
@@ -28,7 +29,7 @@ const PaymentStatusCard = () => {
         const paymentStatusColor = e.reservations?.[0].payment_status ? "success" : "danger";
         const paymentStatusText = e.reservations?.[0].payment_status ? "ชำระแล้ว" : "ยังไม่ชำระ";
         return (
-          <Card key={e.id}>
+          <Card key={e.id} className="playmentstatuscard-main">
             <CardImg 
               variant="top" 
               src={"http://localhost:1337" + e.image.url}
