@@ -154,7 +154,7 @@ const Addrecommend = () => {
 
                 <Row>
                     <Form.Group >
-                        <div className="password-input">
+                        <div className="adddetailre">
                             <Form.Label>รายละเอียด</Form.Label>
                             <Form.Control
                                 onChange={handledetail}

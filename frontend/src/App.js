@@ -13,6 +13,7 @@ import Reservation from "./page/Reservation";
 import History from "./page/History";
 import axios from "axios";
 import Addrecommend from "./page/admin/Addrecommend";
+import Addtour from "./page/admin/Addtour";
 
 axios.defaults.baseURL =
   process.env.React_APP_BASE_URL || "http://localhost:1337/api";
@@ -34,6 +35,7 @@ const App = () => {
         <Route path="/reservation" element={<Reservation />} /> 
         <Route path="/history" element={<History />} /> 
         <Route path="/admin/addrecommend" element={< Addrecommend />} /> 
+        <Route path="/admin/addtour" element={< Addtour />} /> 
       </Routes>
     </BrowserRouter>
   );

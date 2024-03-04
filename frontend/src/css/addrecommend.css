@@ -1,4 +1,4 @@
-.password-input {
+.adddetailre {
 
     position: relative;
     margin:auto;
@@ -37,43 +37,10 @@
     margin-left: 50px; 
 }
 
-.password-toggle {
-    position: absolute;
-    top: 50%;
-    transform: translateY(-50%);
-    right: 10px; 
-    cursor: pointer;
-    height: auto;     
-}
 
-.textshow p{
-    position: absolute;
-    top: 30%; 
-    transform: translateY(-70%);
-    left: 10px;  
-    font-size: 15px;         
-}
 
-.textshows p{
-    position: absolute;
-    top: 35%; 
-    transform: translateY(-70%);
-    right: 130px;  
-    font-size: 15px;         
-}
 
-.textshowname p{
-    position: absolute;
-    top: 35%; 
-    transform: translateY(-70%);
-    left: 10px; 
-    font-size: 15px;         
-}
 
-.password-toggle img {
-    width: 20px; 
-    height: 20px; 
-  }
 
   .form-control {
     width: 100%;
