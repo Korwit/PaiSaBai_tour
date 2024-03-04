@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from "react";
 import NavBar from "../component/navbar-main";
 import BookingHistoryCard from "../component/card-history";
-import '../css/history.css'
+import '../css/hs.css'
 
 const BookingHistory = () => {
 

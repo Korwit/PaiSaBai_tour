@@ -29,19 +29,19 @@ const BookingHistoryCard = () => {
 
 
   return (
-    <div>
+    <div className="booking-history-container">
       {bookings.map((tour) => {
         //console.log("Go date:", tour.trip_dates?.[0].go_date); 
         return (
-          <Card key={tour.id} className="historycard-main" >
+          <Card key={tour.id} className="historycard" >
             <CardImg 
               variant="top" 
               src={"http://localhost:1337" + tour.image.url}
               className="img-hs"
             />
-            <CardBody className="B1">
-              <CardTitle className="B2">{tour.name}</CardTitle>
-              <CardText className="B3">
+            <CardBody className="hs-body">
+              <CardTitle className="hs-title">{tour.name}</CardTitle>
+              <CardText className="hs-text">
                 จองสำเร็จ: {tour.created_at}
                 <br />
                 เริ่มเดินทาง: {tour.trip_dates?.[0].go_date}

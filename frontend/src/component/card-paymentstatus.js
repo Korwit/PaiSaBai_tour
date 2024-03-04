@@ -25,7 +25,7 @@ const PaymentStatusCard = () => {
   }, []);
 
   return (
-    <div>
+    <div className="paymentstatus-container">
       {statuses.map((e) => {
         /*console.log("Go date:", e.reservations?.[0].comment); */
         const paymentStatusColor = e.reservations?.[0]?.payment_status ? "success" : "danger";
@@ -37,9 +37,9 @@ const PaymentStatusCard = () => {
               src={"http://localhost:1337" + e.image.url}
               className="img-ps"
             />
-            <CardBody className="B4">
-              <CardTitle className="B5">{e.name}</CardTitle>
-              <CardText className="B6">
+            <CardBody className="ps-body">
+              <CardTitle className="ps-title">{e.name}</CardTitle>
+              <CardText className="ps-text">
                 สถานะ: <Badge bg={paymentStatusColor}>{paymentStatusText}</Badge>
                 <br />
                 วันที่ชำระเงิน: {e.reservations?.[0]?.payment_date}
