@@ -37,11 +37,11 @@ const BookingHistoryCard = () => {
             <CardImg 
               variant="top" 
               src={"http://localhost:1337" + tour.image.url}
-              className="img-card"
+              className="img-hs"
             />
-            <CardBody>
-              <CardTitle>{tour.name}</CardTitle>
-              <CardText>
+            <CardBody className="B1">
+              <CardTitle className="B2">{tour.name}</CardTitle>
+              <CardText className="B3">
                 จองสำเร็จ: {tour.created_at}
                 <br />
                 เริ่มเดินทาง: {tour.trip_dates?.[0].go_date}
