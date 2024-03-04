@@ -17,7 +17,18 @@
     box-shadow: 0 0 20px rgba(0, 0, 0, 0.1);
 }
 
-.sm-cl1 {
+.sm-cl1-pri {
     background-color:#F79400 ;
     border: #F79400;
+
+    &:hover {
+        background-color: #0056b3; /* เปลี่ยนสีเมื่อชี้ */
+      }
+}
+
+
+
+.sm-cl-sec {
+    background-color: tomato;
+    border: tomato;
 }
