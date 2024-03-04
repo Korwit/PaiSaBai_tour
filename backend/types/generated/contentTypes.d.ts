@@ -434,7 +434,7 @@ export interface ApiReservationReservation extends Schema.CollectionType {
       'plugin::users-permissions.user'
     >;
     payment_time: Attribute.Time;
-    payment: Attribute.Media & Attribute.Required;
+    payment: Attribute.Media;
     createdAt: Attribute.DateTime;
     updatedAt: Attribute.DateTime;
     publishedAt: Attribute.DateTime;
