@@ -29,10 +29,10 @@ const Tour = ({ data }) => {
     const hasEndDate = endDates.some((endDate) => isSameDate(endDate, date));
 
     if (hasGoDate) {
-      return <div className="dot-date" style={{ marginLeft: "30%" }} />;
+      return <div className="dot-date" style={{ marginLeft: "40%" }} />;
     }
     if (hasEndDate) {
-      return <div className="dot-end" style={{ marginLeft: "30%" }} />;
+      return <div className="dot-end" style={{ marginLeft: "40%" }} />;
     }
 
     return null;
@@ -86,103 +86,107 @@ const Tour = ({ data }) => {
     );
   };
 
-  const handlereservation = () => {
-    navigate("/reservation");
-  };
-
   return (
     <div>
       <Card className="card-detail">
-        <Row>
-          <Col md={6}>
+        <Row xs={1} md={2} lg={2}>
+          <Col>
+            <img
+              className="img-detail"
+              src={
+                "http://localhost:1337" +
+                data.attributes.image.data.attributes.url
+              }
+            />
+          </Col>
+          <Col>
+            <h4 className="name-tour">{data.attributes.name}</h4>
+            <hr />
+            <h6 className="detail">{data.attributes.detail}</h6>
+          </Col>
+        </Row>
+        <Row xs={1}>
+          <Col>
             <Row>
-              <img
-                className="img-detail"
-                src={
-                  "http://localhost:1337" +
-                  data.attributes.image.data.attributes.url
-                }
-              />
-            </Row>
-            <Row style={{ marginTop: "10%" }}>
-              <Calendar renderCell={DotEvent} />
-              <Col>
-                <div className="dot-date" style={{textIndent: "60%", whiteSpace: "nowrap"}}>=วันออกเดินทาง</div>
+              <Col xs={12}>
+                <Calendar renderCell={DotEvent} />
               </Col>
-              <Col>
-                <div className="dot-end" style={{textIndent: "70%", whiteSpace: "nowrap"}}>=วันกลับ</div>
+            </Row>
+            <Row xs={2} style={{ marginBottom: "30px" }}>
+              <Col xs={6} lg={6}>
+                <h5 className="dot-date">=วันออกเดินทาง</h5>
+              </Col>
+              <Col xs={6} lg={6}>
+                <h5 className="dot-end" style={{ marginRight: "20%" }}>
+                  =วันกลับ
+                </h5>
               </Col>
             </Row>
           </Col>
-          <Col md={6}>
-            <Row>
-              <h4 className="name-tour">{data.attributes.name}</h4>
-              <hr />
-              <div className="detail">
-                <p>{data.attributes.detail}</p>
-              </div>
-            </Row>
-            <Row style={{ marginTop: "10%" }}>
-              <Row>
-                <Col>ช่วงวันเดินทาง</Col>
-                <Col>ราคา</Col>
-                <Col>จอง</Col>
-                <hr />
-              </Row>
+        </Row>
+        <Row>
+          <Col>
+            <Row className="date-datail-tour">
+              <Col>
+                <Row>
+                  <Col>ช่วงวันเดินทาง</Col>
+                  <Col>ราคา</Col>
+                  <Col>จอง</Col>
+                  <hr />
+                </Row>
+              </Col>
               {trip.map((item, index) => (
                 <Row key={index}>
                   {GoToEnd(item.attributes)}
-
                   <Col>{data.attributes.price}</Col>
                   <Col>
                     {jwt !== null ? (
                       <Button
-                        style={{
-                          marginBottom: "5%",
-                          marginTop: "-5%",
-                          width: "100px",
-                          color: "white",
-                          backgroundColor: "rgb(43, 157, 45)",
-                          border: "none",
-                        }}
-                        onClick={() => handlereservation()}
+                        className="bt-detail"
+                        onClick={() => navigate("/reservation")}
                       >
                         จอง
                       </Button>
                     ) : (
-                      <Button
-                        style={{
-                          marginBottom: "5%",
-                          marginTop: "-5%",
-                          width: "100px",
-                          color: "white",
-                          backgroundColor: "rgb(43, 157, 45)",
-                          border: "none",
-                        }}
-                      >
-                        จอง
-                      </Button>
+                      <Button className="bt-detail">จอง</Button>
                     )}
                   </Col>
                   <hr />
                 </Row>
               ))}
-              <h4 style={{ marginTop: "5%" }}>ความคิดเห็น</h4>
-              <Container className="comment">
-                {comment.map((item, index) => (
-                  <Row key={index} style={{ padding: "2%" }}>
-                    <Row>@{item.attributes.owner.data.attributes.username}</Row>
-                    <Row>{item.attributes.comment}</Row>
-                    <Row>{genStar(item.attributes.star)}</Row>
-                    <Row>
-                      <br />
-                    </Row>
-                  </Row>
-                ))}
-              </Container>
             </Row>
           </Col>
         </Row>
+        <h4
+          style={{
+            justifyContent: "center",
+            textAlign: "center",
+            marginTop: "5%",
+          }}
+        >
+          ความคิดเห็น
+        </h4>
+        <Container className="comment">
+          <h6 className="detail">
+            {comment.length === 0 ? (
+              <h6 style={{ textAlign: "center" }}>
+                คุณเป็นคนแรกหากคอมเม้นท์ตอนนี้ <br />{" "}
+                <img src="/chat-left-text.svg" alt="Loading" style={{width: "40px", marginTop: "10px"}} />
+              </h6>
+            ) : (
+              comment.map((item, index) => (
+                <Row key={index} style={{ padding: "2%" }}>
+                  <Row>@{item.attributes.owner.data.attributes.username}</Row>
+                  <Row>{item.attributes.comment}</Row>
+                  <Row>{genStar(item.attributes.star)}</Row>
+                  <Row>
+                    <br />
+                  </Row>
+                </Row>
+              ))
+            )}
+          </h6>
+        </Container>
       </Card>
     </div>
   );

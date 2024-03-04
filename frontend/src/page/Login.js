@@ -143,11 +143,11 @@ const Login = () => {
         </Form.Group>
 
         <div style={{ marginTop: "7px" }}>
-          <p>
+          <h6>
             <a href="http://localhost:3000/email" class="forgot-password-link">
               Forgot password?
             </a>
-          </p>
+          </h6>
           <Button
             variant="primary"
             type="submit"

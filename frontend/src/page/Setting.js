@@ -145,7 +145,7 @@ const Setting = () => {
                 <img src="/user.png" alt="Header Image" className="header-image" style={{ width: '100px', height: '100px' }} />
             </div>
             <div style={{ textAlign: 'center', fontSize: '20px', color: 'white' }}>
-                <p>{!isEditing && setdata && (
+                <h6>{!isEditing && setdata && (
 
                     <React.Fragment>
                         <strong>ชื่อ :</strong> {setdata.username} <strong style={{ marginLeft: '9px' }}>นามสกุล:</strong> {setdata.lastname}<br />
@@ -155,7 +155,7 @@ const Setting = () => {
                         <strong>รหัสผ่าน :</strong> { }<br />
                     </React.Fragment>
 
-                )}</p>
+                )}</h6>
             </div>
             {isEditing && (
                 <Form onSubmit={handleSubmit} className="custom-form" >

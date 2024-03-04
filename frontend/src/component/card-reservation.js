@@ -109,7 +109,7 @@ const ReservationCard = () => {
                 />
             </Form.Group>
             {/* เพิ่ม input fields อื่น ๆ ตามต้องการ */}<br/>
-            <p>ราคา: {price}</p>
+            <h6>ราคา: {price}</h6>
             <Button className='sm-cl1' type="submit">
                 จอง
             </Button>
