@@ -22,9 +22,7 @@ const Setting = () => {
     const [setdata, setData] = useState();
     const jwt = localStorage.getItem('jwt')
     const [isEditing, setIsEditing] = useState(false);
-
     const [phone, setPhone] = useState('');
-
     const [gender, setGender] = useState('');
 
     const handleGenderChange = (e) => {
