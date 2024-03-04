@@ -42,6 +42,15 @@
     },
     "payment_time": {
       "type": "time"
+    },
+    "payment": {
+      "type": "media",
+      "multiple": false,
+      "required": false,
+      "allowedTypes": [
+        "images",
+        "files"
+      ]
     }
   }
 }

@@ -4,6 +4,7 @@ import { useNavigate } from 'react-router-dom';
 import Select from 'react-select';
 import axios from 'axios';
 
+
 const ReservationCard = () => {
     const navigate = useNavigate();
 
@@ -109,10 +110,11 @@ const ReservationCard = () => {
                 />
             </Form.Group>
             {/* เพิ่ม input fields อื่น ๆ ตามต้องการ */}<br/>
-            <h6>ราคา: {price}</h6>
-            <Button className='sm-cl1' type="submit">
+            <p>ราคา: {price}</p>
+            <Button className='sm-cl1-pri' type="submit">
                 จอง
             </Button>
+            <Button className='sm-cl-sec' type="button">ยกเลิก</Button>
         </form>
   );
 };

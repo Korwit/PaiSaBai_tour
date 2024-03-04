@@ -1,0 +1,106 @@
+.adddetailre {
+
+    position: relative;
+    margin:auto;
+    width: 700px;
+    
+}
+
+.password-inpu {
+
+    position: relative;
+
+}
+
+.h1add {
+    color: #ff9d0b;
+    text-align: left;
+    font-family: Semi Bold;
+    margin-top: 50px;
+    margin-left: 50px;
+    margin-bottom: 20px;
+  }
+
+
+
+.password-input3 {
+
+    position: relative;
+    width: 400px;
+    
+}
+
+.custom-Form {
+
+    width: 400px; 
+    margin: left;    
+    margin-left: 50px; 
+}
+
+
+
+
+
+
+  .form-control {
+    width: 100%;
+    margin: 10px 0;
+  }
+
+  h1 {
+    color: #F79400;
+    text-align: center;
+    font-family: Semi Bold;
+    margin-top: 50px;
+    margin-bottom: 20px;
+  }
+
+  .checkbox{
+  
+    display: flex;
+    justify-content: center; 
+    margin-bottom: 20px;
+    margin-top: 10px;
+    align-items: center; 
+  }
+
+.logintext{
+    display: flex;
+    justify-content: center; 
+    margin-bottom: 20px;
+    margin-top: 10px;
+    align-items: center; 
+
+}
+
+.buttons {
+    display: flex;
+    margin-top: 10px;
+    justify-content: center; 
+    align-items: center; 
+    margin:auto;
+    width:200px;
+    font-size: 25px;   
+    height:50px;
+    background-color: #F79400;
+    border-color: #F79400;
+}
+.buttons:hover {
+    background-color: #F79400;
+    border-color: #F79400;
+}
+
+
+.link {
+    color:#ededed;
+    margin-left: 2px;
+  }
+  
+ .form-check-label {
+    margin-left: 5px;
+}
+
+::placeholder {
+    text-align: left;
+    margin-left:20px;
+  }
