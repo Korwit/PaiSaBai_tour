@@ -1,6 +1,6 @@
 .bar-color {
     background-color: #f1bd8d;
-    max-height: 70px;
+    max-height: 60px;
     filter: drop-shadow(2px 2px 10px #ad8764);
 }
 .logo {
@@ -8,7 +8,31 @@
     margin: 0 auto;
     filter: drop-shadow(10px 7px 10px rgb(215, 151, 151));
 }
-.custom-button {
+.custom-button-top {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin: 0 auto;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    max-height: 40px;
+    border-radius: 50px; 
+    background-color: white;
+    color: black; 
+    border: none;
+    padding: 10px 20px;
+    font-size: 16px; 
+    cursor: pointer; 
+    margin-left: 15px;
+    transition: background-color 0.3s ease;
+    box-shadow: 2px 5px 10px rgb(94, 88, 88);
+    &:hover {
+        background-color: white; 
+        color: rgb(160, 17, 227);
+    }
+}
+.custom-button-bottom {
     display: flex;
     justify-content: center;
     align-items: center;
@@ -47,6 +71,33 @@
         color: rebeccapurple;
     }
 }
+.nav-head {
+    margin-right: auto;
+    background-color: #f1bd8d;
+}
 .brand {
     cursor: pointer;
+}
+@media (max-width: 770px) {
+    .logo {
+        max-width: 100px;
+    }
+    .custom-button-bottom {
+        width: 100%;
+        margin: 0 auto;
+        padding: auto;
+        border-radius: 0px;
+        filter: drop-shadow(none);
+    }
+    .custom-button-top {
+        width: 100%;
+        margin: 0 auto;
+        padding: auto;
+        border-radius: 0px;
+        filter: drop-shadow(none);
+        margin-top: 2.5%;
+    }
+    .nav-head {
+        margin-top: 2.5%;
+    }
 }

@@ -232,7 +232,7 @@ const Register = () => {
                             //placeholder="ชื่อ" 
                             />
                             <div className="textshowname" >
-                            {confirst && <p>ชื่อ</p>}
+                            {confirst && <h6>ชื่อ</h6>}
                             </div>
                     </Col> 
                     <Col>
@@ -241,7 +241,7 @@ const Register = () => {
                             // placeholder="นามสกุล"
                               />
                             <div className="textshows" >
-                            {conlast && <p>นามสกุล</p>}
+                            {conlast && <h6>นามสกุล</h6>}
                             </div>
                     </Col>
                     
@@ -256,7 +256,7 @@ const Register = () => {
                            // placeholder="Email" 
                             />
                                                         <div className="textshow" >
-                            {conmail && <p>Email</p>}
+                            {conmail && <h6>Email</h6>}
                             </div>
                     </div>
                     </Form.Group>
@@ -272,7 +272,7 @@ const Register = () => {
                             //placeholder="เบอร์โทรศัพท์" 
                             />
                             <div className="textshow" >
-                            {conphone && <p>เบอร์โทรศัพท์</p>}
+                            {conphone && <h6>เบอร์โทรศัพท์</h6>}
                             </div>
                     </div>
                     </Form.Group>
@@ -293,7 +293,7 @@ const Register = () => {
                                 {showPassword ? <img src="/show.png" alt="Show" /> : <img src="/hide.png" alt="Hide" />}
                             </div>
                             <div className="textshow" >
-                            {conpass && <p>รหัสผ่าน</p>}
+                            {conpass && <h6>รหัสผ่าน</h6>}
                             </div>
                         </div>
                     </Form.Group>
@@ -318,14 +318,14 @@ const Register = () => {
                                 {showPasswords ? <img src="/show.png" alt="Show" /> : <img src="/hide.png" alt="Hide" />}
                             </div>
                             <div className="textshow" >
-                            {conpasscon && <p>ยืนยันรหัสผ่าน</p>}
+                            {conpasscon && <h6>ยืนยันรหัสผ่าน</h6>}
                             </div>
                         </div>
 
                     </Form.Group>
                 </Row>
 
-                {errorMessages && <p style={{ color: 'red' }}>{errorMessages}</p>}
+                {errorMessages && <h6 style={{ color: 'red' }}>{errorMessages}</h6>}
                 <Form.Check className="checkbox"
                     type="checkbox"
                     label={<span>คุณยอมรับ  <a href="#" onClick={handleShowModal} class="link" >ข้อตกลงตามเงื่อนไข</a></span>}

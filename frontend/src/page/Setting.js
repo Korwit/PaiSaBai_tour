@@ -271,7 +271,7 @@ const Setting = () => {
 
 
             <div style={{ textAlign: 'center', fontSize: '20px', color: 'white' }}>
-                <p>{(!isEditing && !isEditingpass)  && setdata && (
+                {(!isEditing && !isEditingpass)  && setdata && (
 
                     <React.Fragment>
                         <strong>ชื่อ :</strong> {setdata.username} <strong style={{ marginLeft: '9px' }}>นามสกุล:</strong> {setdata.lastname}<br />
@@ -281,7 +281,7 @@ const Setting = () => {
 
                     </React.Fragment>
 
-                )}</p>
+                )}
             </div>
             <div style={{ display: 'flex', justifyContent: 'center' }}>
                 {isEditing && profile && (

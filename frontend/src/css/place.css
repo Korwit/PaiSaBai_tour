@@ -11,5 +11,7 @@
     background-color: #f6f6f6;
 }
 .img-detail {
-    max-width: 400px;
+    max-width: 500px;
+    object-fit: cover;
+    width: 100%;
 }

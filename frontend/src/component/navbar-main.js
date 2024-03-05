@@ -16,25 +16,9 @@ function NavBar({ allData, closeFilter, closeTour, closePlace }) {
     }
   };
 
-  const handlelogin = () => {
-    navigate("/login");
-  };
-
-  const handleregister = () => {
-    navigate("/register");
-  };
-
   const handlelogout = () => {
     localStorage.removeItem("jwt");
     window.location.reload();
-  };
-
-  const handlesetting = () => {
-    navigate("/setting");
-  };
-
-  const handlepayment = () => {
-    navigate("/payment");
   };
 
   return (
@@ -43,20 +27,20 @@ function NavBar({ allData, closeFilter, closeTour, closePlace }) {
         <Navbar.Brand onClick={() => toMain()} className="brand">
           <img src="/logoo.png" className="logo" alt="Logo" />
         </Navbar.Brand>
-        <Navbar.Toggle aria-controls="responsive-navbar-nav" />
+        <Navbar.Toggle aria-controls="responsive-navbar-nav" variant="light" />
         <Navbar.Collapse id="responsive-navbar-nav">
           {jwt !== null && (
-            <Nav className="me-auto" style={{ backgroundColor: "#f1bd8d" }}>
+            <Nav className="nav-head">
               <Nav.Link className="text" href="/history">
                 ประวัติการจอง
               </Nav.Link>
               <Nav.Link className="text" href="/paymentstatus">
                 สถานะการชำระเงิน
               </Nav.Link>
-              <Nav.Link className="text" onClick={() => handlepayment()}>
+              <Nav.Link className="text" href="/payment">
                 ชำระเงิน
               </Nav.Link>
-              <Nav.Link className="text" onClick={() => handlesetting()}>
+              <Nav.Link className="text" href="/setting">
                 การตั้งค่า
               </Nav.Link>
             </Nav>
@@ -64,14 +48,14 @@ function NavBar({ allData, closeFilter, closeTour, closePlace }) {
           {jwt === null ? (
             <Nav className="ms-auto">
                 <Button
-                  className="custom-button  "
-                  onClick={() => handlelogin()}
+                  className="custom-button-top" 
+                  onClick={() => navigate("/login")}
                 >
                   เข้าสู่ระบบ
                 </Button>
                 <Button
-                  className="custom-button"
-                  onClick={() => handleregister()}
+                  className="custom-button-bottom"
+                  onClick={() => navigate("/register")}
                 >
                   สมัครสมาชิก
                 </Button>
@@ -79,8 +63,7 @@ function NavBar({ allData, closeFilter, closeTour, closePlace }) {
           ) : (
             <Nav>
               <Button
-                className="custom-button"
-                style={{ textAlign: "right" }}
+                className="custom-button-bottom"
                 onClick={() => handlelogout()}
               >
                 ออกจากระบบ
