@@ -8,6 +8,7 @@ import NavBar from "../component/navbar-main";
 import Search from "../component/search";
 import Tour from "./detail-tour";
 import Place from "./detail-place";
+import Footer from "../component/footer";
 
 const Main = () => {
   const [data, setData] = useState(null);
@@ -39,51 +40,36 @@ const Main = () => {
     }
   };
 
-  const HandleFilter = (data) => {
-    setFilter(data);
-  };
-
-  const HandleDetail = (data) => {
-    setDetail(data);
-  };
-
-  const HandlePlace = (data) => {
-    setPlace(data);
-  };
-
   return (
     <div>
-      <div>
-        <img src="/imgg-main.png" alt="Loading" className="main-img" />
-      </div>
+      <div className="main-img" />
       <div className="background" />
       <NavBar
         allData={cards}
-        closeFilter={HandleFilter}
-        closeTour={HandleDetail}
-        closePlace={HandlePlace}
+        closeFilter={setFilter}
+        closeTour={setDetail}
+        closePlace={setPlace}
       />
       {data && detail.length === 0 && place.length === 0 && (
-        <Slice data={data} detailClick={HandlePlace} />
+        <Slice data={data} detailClick={setPlace} />
       )}
       <Card className="main-card">
         {cards && (
           <Search
             data={cards}
-            onFilter={HandleFilter}
-            closeTour={HandleDetail}
-            closePlace={HandlePlace}
+            onFilter={setFilter}
+            closeTour={setDetail}
+            closePlace={setPlace}
           />
         )}
         {cards && detail.length === 0 && place.length === 0 ? (
-          <Cards data={cards} search={filter} detailClick={HandleDetail} />
+          <Cards data={cards} search={filter} detailClick={setDetail} />
         ) : (
           (detail.length !== 0 && <Tour data={detail} />) ||
-          (place.length !== 0 && (
-            <Place data={place} detailClick={HandleDetail} />
-          ))
+          (place.length !== 0 && <Place data={place} detailClick={setDetail} />)
         )}
       </Card>
+      {<Footer />}
     </div>
   );
 };

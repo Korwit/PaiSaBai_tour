@@ -22,7 +22,7 @@ const Addrecommend = () => {
     const [checkboxData, setCheckboxData] = useState([]);
     const [selectedCheckboxes, setSelectedCheckboxes] = useState([]);
     const jwt = localStorage.getItem("jwt");
-
+    axios.defaults.headers.common = { 'Authorization': `bearer ${jwt}` }
 
     const handleShowModal = () => setShowModal(true);
 
@@ -59,7 +59,7 @@ const Addrecommend = () => {
             try {
                 const response = await axios.get('/tours');
                 setdata(response.data.data);
-                console.log(response.data.data)
+                //console.log(response.data.data)
                 if (Array.isArray(response.data.data)) {
 
                     setCheckboxData(response.data.data.map(item => ({
@@ -67,6 +67,13 @@ const Addrecommend = () => {
                         label: item.attributes.name,
                         checked: false
                     })));
+                }
+                const result = await axios.get('/users/me?populate=role');
+                console.log(result.data.role)
+                if (result.data.role) {
+                    if (result.data.role.name === 'Member') {
+                        navigate('/');
+                    }  
                 }
             } catch (error) {
                 console.error('Error fetching data:', error);
@@ -80,7 +87,7 @@ const Addrecommend = () => {
         e.preventDefault();
         setSubmitEnabled(false);
         try {
-            axios.defaults.headers.common = { 'Authorization': `bearer ${jwt}` }
+            
             setIsLoading(true)
             const result = await axios.post('/recommend-places', {
                 data:

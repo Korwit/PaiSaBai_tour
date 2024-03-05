@@ -1,6 +1,11 @@
 .each-card {
     margin-bottom: 8%;
     filter: drop-shadow(10px 7px 10px rgb(198, 181, 181));
+    max-width: 250px;
+    cursor: pointer;
+    &:hover {
+        padding: 2px;   
+    }
 }
 .img-card {
     object-fit: cover;
@@ -12,7 +17,7 @@
     justify-content: space-around;
 }
 .img-detail {
-    max-width: 400px;
+    max-width: 200px;
 }
 .button-detail {
     margin-left: 30px; 
@@ -41,6 +46,8 @@
     display: flex;
     justify-Content: center;
     align-Items: center;
+    text-indent: 60%;
+    white-space: nowrap;
 }
 .dot-end {
     background-color: purple;
@@ -50,6 +57,8 @@
     display: flex;
     justify-Content: center;
     align-Items: center;
+    text-indent: 70%;
+    white-space: nowrap;
 }
 .comment {
     max-height: 200px;
@@ -81,13 +90,44 @@
 .mini-detail {
     overflow: hidden;
     text-overflow: ellipsis;
-    max-height: 8vh;
+    height: 6.8vh;
+    font-size: 16px;
 }
 .time-tour {
+    font-size: 16px;
     white-space: nowrap;
     display: flex;
     justify-content: center;
     align-items: center;
     background-color: rgb(201, 201, 201);
     color: #000000;
+    margin-left: 1%;
+    margin-right: 1%;
+}
+.bt-detail {
+    max-width: 80px;
+    width: 100%;
+    background-color: green;
+    border: none;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin-bottom: 5%;
+    &:hover {
+        background-color: rgb(15, 137, 15);
+    }
+}
+.date-datail-tour {
+    margin-left: 15%;
+    margin-right: 15%;
+}
+@media (max-width: 770px) {
+    .time-tour {
+        font-size: 14px;
+        white-space: pre;
+        padding: 0%;
+    }
+    .date-datail-tour {
+        margin: 0%;
+    }
 }

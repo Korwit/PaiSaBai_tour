@@ -23,7 +23,7 @@ const Place = ({ data, detailClick }) => {
     <div>
       <Card className="card-detail">
         <Row>
-          <Col>
+          <Col xs={12} md={6} lg={6}>
             <img
               className="img-detail"
               src={
@@ -32,16 +32,16 @@ const Place = ({ data, detailClick }) => {
               }
             />
           </Col>
-          <Col>
-            <h4 className="name-tour">{data.attributes.name}</h4>
+          <Col xs={12} md={6} lg={6}>
+            <h4 style={{marginTop: "2%", color: "red"}}>{data.attributes.name}</h4>
             <hr />
-            <div className="detail">
-              <p>{data.attributes.description}</p>
-            </div>
+            <h6 className="detail">{data.attributes.description}</h6>
           </Col>
         </Row>
         <hr />
-        {Tour && <Cards data={Tour} search={NameTour} detailClick={detailClick}/>}
+        {Tour && (
+          <Cards data={Tour} search={NameTour} detailClick={detailClick} />
+        )}
       </Card>
     </div>
   );

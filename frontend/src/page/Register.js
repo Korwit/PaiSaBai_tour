@@ -1,10 +1,9 @@
-import React, { useState ,useEffect} from 'react';
+import React, { useState, useEffect } from 'react';
 import { Form, Button, Alert, Spinner, Row, Col, Modal } from 'react-bootstrap';
 import { ToastContainer, toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 import axios from 'axios';
 import { useNavigate } from 'react-router-dom';
-import { FormGroup, FormControl } from "react-bootstrap";
 import '../css/register.css';
 
 const Register = () => {
@@ -51,7 +50,7 @@ const Register = () => {
 
     const handleClose = () => {
         setShow(false);
-        
+
     }
     const handleShow = () => setShow(true);
     const handleCloseSuccess = () => setShowSuccess(false);
@@ -67,51 +66,50 @@ const Register = () => {
 
     const handlePasswordChange = (e) => {
         setPassword(e.target.value);
-        if(e.target.value == '')
-        {
+        if (e.target.value == '') {
             setErrorMessages('');
         }
-        else if (e.target.value.length < 6 ) {
+        else if (e.target.value.length < 6) {
             setErrorMessages('รหัสผ่านต้องมีอย่างน้อย 6 ตัวอักษร');
-        }        
+        }
         else {
             setErrorMessages('');
         }
-        setconpass(false);  
+        setconpass(false);
         setconpass(e.target.value === '');
 
     };
 
     const handleEmail = (e) => {
         setEmail(e.target.value);
-        setconmail(false);  
+        setconmail(false);
         setconmail(e.target.value === '');
     };
 
     const handleFirstname = (e) => {
         setFirstname(e.target.value);
-        setconfirst(false);  
+        setconfirst(false);
         setconfirst(e.target.value === '');
     };
 
     const handleLastname = (e) => {
         setLastname(e.target.value);
-        setconlast(false);  
+        setconlast(false);
         setconlast(e.target.value === '');
     };
 
     const handlePasswordChanges = (e) => {
-        setPasswordConfirm(e.target.value);  
-        setconpasscon(false);  
+        setPasswordConfirm(e.target.value);
+        setconpasscon(false);
         setconpasscon(e.target.value === '');
     };
-   
+
     const handlephone = (e) => {
         if (/^\d+$/.test(e.target.value) || e.target.value === '') {
             if (e.target.value.length <= 10) {
                 setPhone(e.target.value);
             }
-            setconphone(false);  
+            setconphone(false);
             setconphone(e.target.value === '');
         }
 
@@ -163,7 +161,7 @@ const Register = () => {
                                 setShowSuccess(true)
                                 setTimeout(() => {
                                     navigate('/login');
-                                }, 5000);
+                                }, 3000);
 
                             } catch (e) {
                                 console.log(e);
@@ -173,7 +171,7 @@ const Register = () => {
                             } finally {
                                 setSubmitEnabled(true);
                                 setIsLoading(false)
-                                
+
                             }
                         }
 
@@ -220,45 +218,45 @@ const Register = () => {
                 </Modal.Footer>
             </Modal>
 
-            <h1>สมัครสมาชิก</h1>
+            <h1 className="custom-h1">สมัครสมาชิก</h1>
 
             <Form onSubmit={handleSubmit} className="custom-form">
-            <div className="password-inpu">
-                <Row>
-                    <Col>
-                    
-                        <Form.Control onChange={handleFirstname}
-                            required value={firstname} style={{ height: '55px',backgroundColor: '#FFF48F' }} 
+                <div className="password-inpu">
+                    <Row>
+                        <Col>
+
+                            <Form.Control onChange={handleFirstname}
+                                required value={firstname} style={{ height: '55px', backgroundColor: '#FFF48F' }}
                             //placeholder="ชื่อ" 
                             />
-                            <div className="textshowname" >
-                            {confirst && <p>ชื่อ</p>}
+                            <div className="register-textshowname" >
+                                {confirst && <h6>ชื่อ</h6>}
                             </div>
-                    </Col> 
-                    <Col>
-                        <Form.Control onChange={handleLastname}
-                            required value={lastname} style={{ height: '55px',backgroundColor: '#FFF48F' }}
+                        </Col>
+                        <Col>
+                            <Form.Control onChange={handleLastname}
+                                required value={lastname} style={{ height: '55px', backgroundColor: '#FFF48F' }}
                             // placeholder="นามสกุล"
-                              />
-                            <div className="textshows" >
-                            {conlast && <p>นามสกุล</p>}
+                            />
+                            <div className="register-textshows" >
+                                {conlast && <h6>นามสกุล</h6>}
                             </div>
-                    </Col>
-                    
-                </Row>
-          </div>
+                        </Col>
+
+                    </Row>
+                </div>
                 <Row>
 
-                <Form.Group>
-                    <div className="password-input3">
-                        <Form.Control onChange={handleEmail}
-                            required value={email} style={{ width: '400px',height: '55px', backgroundColor: '#FFF48F' }} type="email" 
-                           // placeholder="Email" 
+                    <Form.Group>
+                        <div className="register-input3">
+                            <Form.Control onChange={handleEmail}
+                                required value={email} style={{ width: '400px', height: '55px', backgroundColor: '#FFF48F' }} type="email"
+                            // placeholder="Email" 
                             />
-                                                        <div className="textshow" >
-                            {conmail && <p>Email</p>}
+                            <div className="register-textshow" >
+                                {conmail && <h6>Email</h6>}
                             </div>
-                    </div>
+                        </div>
                     </Form.Group>
 
 
@@ -266,34 +264,34 @@ const Register = () => {
 
                 <Row>
                     <Form.Group>
-                    <div className="password-input">                    
-                        <Form.Control onChange={handlephone}
-                            required value={phone} style={{  width: '400px',height: '55px',backgroundColor: '#FFF48F' }} 
+                        <div className="register-input">
+                            <Form.Control onChange={handlephone}
+                                required value={phone} style={{ width: '400px', height: '55px', backgroundColor: '#FFF48F' }}
                             //placeholder="เบอร์โทรศัพท์" 
                             />
-                            <div className="textshow" >
-                            {conphone && <p>เบอร์โทรศัพท์</p>}
+                            <div className="register-textshow" >
+                                {conphone && <h6>เบอร์โทรศัพท์</h6>}
                             </div>
-                    </div>
+                        </div>
                     </Form.Group>
                 </Row>
 
                 <Row>
                     <Form.Group>
-                        <div className="password-input1">
+                        <div className="register-input1">
                             <Form.Control
-                                style={{ width: '400px',height: '55px', backgroundColor: '#FFF48F' }}
+                                style={{ width: '400px', height: '55px', backgroundColor: '#FFF48F' }}
                                 type={showPassword ? 'text' : 'password'}
                                 //placeholder="Password"
                                 value={password}
                                 onChange={handlePasswordChange}
                                 required
                             />
-                            <div className="password-toggle" onClick={togglePasswordVisibility}>
+                            <div className="register-toggle" onClick={togglePasswordVisibility}>
                                 {showPassword ? <img src="/show.png" alt="Show" /> : <img src="/hide.png" alt="Hide" />}
                             </div>
-                            <div className="textshow" >
-                            {conpass && <p>รหัสผ่าน</p>}
+                            <div className="register-textshow" >
+                                {conpass && <h6>รหัสผ่าน</h6>}
                             </div>
                         </div>
                     </Form.Group>
@@ -304,28 +302,28 @@ const Register = () => {
                 <Row>
                     <Form.Group controlId="formBasicPasswords" >
 
-                        <div className="password-input2">
+                        <div className="register-input2">
                             <Form.Control
-                                style={{ width: '400px',height: '55px', backgroundColor: '#FFF48F' }}
+                                style={{ width: '400px', height: '55px', backgroundColor: '#FFF48F' }}
                                 type={showPasswords ? 'text' : 'password'}
                                 //placeholder="Confirm Password"
                                 value={passwordConfirm}
                                 onChange={handlePasswordChanges}
-                                
+
                                 required
                             />
-                            <div className="password-toggle" onClick={togglePasswordVisibilitys}>
+                            <div className="register-toggle" onClick={togglePasswordVisibilitys}>
                                 {showPasswords ? <img src="/show.png" alt="Show" /> : <img src="/hide.png" alt="Hide" />}
                             </div>
-                            <div className="textshow" >
-                            {conpasscon && <p>ยืนยันรหัสผ่าน</p>}
+                            <div className="register-textshow" >
+                                {conpasscon && <h6>ยืนยันรหัสผ่าน</h6>}
                             </div>
                         </div>
 
                     </Form.Group>
                 </Row>
 
-                {errorMessages && <p style={{ color: 'red' }}>{errorMessages}</p>}
+                {errorMessages && <h6 style={{ color: 'red' }}>{errorMessages}</h6>}
                 <Form.Check className="checkbox"
                     type="checkbox"
                     label={<span>คุณยอมรับ  <a href="#" onClick={handleShowModal} class="link" >ข้อตกลงตามเงื่อนไข</a></span>}
@@ -333,20 +331,20 @@ const Register = () => {
                     onChange={handleCheckboxChange}
                 />
 
-                <Button variant="primary" type="submit" className="buttons">
+                <Button variant="primary" type="submit" className="buttonregister">
                     {isLoading ? <Spinner animation="border" size="sm" /> : 'สมัครสมาชิก'}
                 </Button>  {errorMessage && <Alert variant="danger">{errorMessage}</Alert>}
 
 
             </Form>
-           
+
 
             <Modal show={showModal} onHide={handleCloseModal}>
                 <Modal.Header closeButton>
                     <Modal.Title>ข้อตกลงตามเงื่อนไข</Modal.Title>
                 </Modal.Header>
                 <Modal.Body>
-                    ที่นี่คือเนื้อหาของข้อตกลงตามเงื่อนไข
+                    คุณได้ยอมรับการส่งอีเมลไปให้คุณ เพื่อยืนยันการลงทะเบียนสมัครสมาชิกและตั้งค่ารหัสผ่านใหม่
                 </Modal.Body>
                 <Modal.Footer>
                     <Button variant="secondary" onClick={handleCloseModal}>
@@ -354,10 +352,10 @@ const Register = () => {
                     </Button>
                 </Modal.Footer>
             </Modal>
-            <span className='logintext'>มีบัญชีอยู่แล้ว?<a href="#" onClick={Loginpage} class="link" > เข้าสู่ระบบ</a></span> .
-            
-           
-            
+            <span className='register-logintext'>มีบัญชีอยู่แล้ว?<a href="#" onClick={Loginpage} class="link" > เข้าสู่ระบบ</a></span> .
+
+
+
             <ToastContainer />
         </div>
 

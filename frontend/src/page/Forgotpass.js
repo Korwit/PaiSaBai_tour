@@ -28,6 +28,13 @@ const Forgotpass = () => {
     const [showPassword, setShowPassword] = useState(false);
     const [showPasswords, setShowPasswords] = useState(false);
     const [showAlert, setShowAlert] = useState(false);
+    const jwt = localStorage.getItem("jwt");
+
+    useEffect(() => {
+        if (jwt != null) {
+            navigate('/')
+        }
+    }, [jwt]);
 
     useEffect(() => {
         if (showAlert) {
@@ -66,14 +73,16 @@ const Forgotpass = () => {
                 if (password.length < 6) {
                     toast("รหัสผ่านต้องมีอย่างน้อย 6 ตัวอักษร");
                 }
-                else
-                {
+                else {
                     let result = await axios.post('http://localhost:1337/api/auth/reset-password', {
-                    code: code,
-                    password: password,
-                    passwordConfirmation: passwordConfirm
-                });
-                navigate('/');
+                        code: code,
+                        password: password,
+                        passwordConfirmation: passwordConfirm
+                    });
+                    toast("ตั้งรหัสผ่านใหม่เรียบร้อย");
+                    setTimeout(() => {
+                        navigate('/');
+                    }, 1000);
                 }
 
             }
@@ -98,8 +107,8 @@ const Forgotpass = () => {
     return (
 
         <div className="body">
-             <ToastContainer />
-             <h1>ตั้งรหัสผ่านใหม่</h1>
+            <ToastContainer />
+            <h1>ตั้งรหัสผ่านใหม่</h1>
             <Form onSubmit={handleSubmit} className="custom-form" >
 
 
@@ -122,7 +131,7 @@ const Forgotpass = () => {
                     </div>
 
                 </Form.Group>
-         
+
                 <Form.Group controlId="formBasicPasswords" >
 
                     <div className="password-input">
