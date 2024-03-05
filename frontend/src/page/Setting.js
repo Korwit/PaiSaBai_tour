@@ -214,7 +214,7 @@ const Setting = () => {
             toast("บันทึกข้อมูลเรียบร้อย");
             setTimeout(() => {
                 navigate('/');
-            }, 1500);
+            }, 1000);
 
 
             // axiosConfig.jwt = result.data.jwt;

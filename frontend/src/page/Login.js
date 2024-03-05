@@ -16,6 +16,7 @@ const Login = () => {
     const [errorMessage, setErrorMessage] = useState('');
     const [isLoading, setIsLoading] = useState(false)
     const [isLoading2, setIsLoading2] = useState(false)
+    const [isLoading3, setIsLoading3] = useState(false)
     const [showPassword, setShowPassword] = useState(false);
     const [showPasswords, setShowPasswords] = useState(false);
     const jwt = localStorage.getItem("jwt");
@@ -46,7 +47,7 @@ const Login = () => {
     }
 
     const handlemain = async () => {
-
+        setIsLoading3(true)
         navigate('/');
     }
 
@@ -91,7 +92,7 @@ const Login = () => {
             console.log(e.response.data.error.message);
         } finally {
             setSubmitEnabled(true);
-            setIsLoading(false)
+            setIsLoading(true)
 
         }
     };
@@ -154,13 +155,10 @@ const Login = () => {
                 {isLoading2 ? <Spinner animation="border" size="sm" /> : 'Sign up'}
             </Button>
             <Button variant="primary" type="submit" onClick={handlemain} disabled={!submitEnabled} className="buttonsign">
-                {isLoading2 ? <Spinner animation="border" size="sm" /> : 'กลับสู่หน้าหลัก'}
+                {isLoading3 ? <Spinner animation="border"/> : 'กลับสู่หน้าหลัก'}
             </Button>
             <ToastContainer />
         </div>
-
-
-
     );
 };
 

@@ -1,37 +1,37 @@
-.password-input {
+.register-input {
 
     position: relative;
     width: 400px;
 
     
 }
-.password-inpu {
+.register-inpu {
 
     position: relative;
 
 }
 
-.password-input1 {
-
-    position: relative;
-    width: 400px;
-    
-}
-.password-input2 {
+.register-input1 {
 
     position: relative;
     width: 400px;
     
 }
-
-.password-input3 {
+.register-input2 {
 
     position: relative;
     width: 400px;
     
 }
 
-.password-toggle {
+.register-input3 {
+
+    position: relative;
+    width: 400px;
+    
+}
+
+.register-toggle {
     position: absolute;
     top: 50%;
     transform: translateY(-50%);
@@ -40,41 +40,43 @@
     height: auto;     
 }
 
-.textshow p{
+
+
+
+.register-textshowname {
     position: absolute;
-    top: 30%; 
+    top: 40%; 
     transform: translateY(-70%);
-    left: 10px;  
+    left: 10px; 
     font-size: 15px;         
 }
 
-.textshows p{
-    position: absolute;
-    top: 35%; 
-    transform: translateY(-70%);
-    right: 130px;  
-    font-size: 15px;         
-}
-
-.textshowname p{
+.register-textshow {
     position: absolute;
     top: 35%; 
     transform: translateY(-70%);
     left: 10px; 
     font-size: 15px;         
 }
+.register-textshows {
+    position: absolute;
+    top: 35%; 
+    transform: translateY(-70%);
+    right:120px; 
+    font-size: 15px;         
+}
 
-.password-toggle img {
+.register-toggle img {
     width: 20px; 
     height: 20px; 
   }
 
-  .form-control {
+.register-form-control {
     width: 100%;
     margin: 10px 0;
   }
 
-  h1 {
+.custom-h1 {
     color: #F79400;
     text-align: center;
     font-family: Semi Bold;
@@ -82,7 +84,7 @@
     margin-bottom: 20px;
   }
 
-  .checkbox{
+.checkbox{
   
     display: flex;
     justify-content: center; 
@@ -91,7 +93,7 @@
     align-items: center; 
   }
 
-.logintext{
+.register-logintext{
     display: flex;
     justify-content: center; 
     margin-bottom: 20px;
@@ -100,7 +102,7 @@
 
 }
 
-.buttons {
+.buttonregister {
     display: flex;
     margin-top: 10px;
     justify-content: center; 
@@ -112,14 +114,14 @@
     background-color: #F79400;
     border-color: #F79400;
 }
-.buttons:hover {
-    background-color: #F79400;
+.buttonregister:hover {
+    background-color: #976111;
     border-color: #F79400;
 }
 
 
 .link {
-    color:#9225FF;
+    color:#e0dee2;
     margin-left: 2px;
   }
   

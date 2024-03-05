@@ -4,8 +4,10 @@ import axios from "axios";
 import '../../css/PaymentStatuscard.css'
 import '../../css/editpayment.css'
 import NavBar from "../../component/navbar-main";
+import { useNavigate } from 'react-router-dom';
 
 const Editpayment = () => {
+    const navigate = useNavigate();
     const [statuses, setStatuses] = useState([]);
     const jwt = localStorage.getItem('jwt')
     const [paymentStatus, setPaymentStatus] = useState([]);
@@ -21,6 +23,13 @@ const Editpayment = () => {
             setStatuses(response.data.data);
             setPaymentStatus(response.data.data.map(item => item.attributes.payment_status));
         }
+        const result = await axios.get('/users/me?populate=role');                
+        if (result.data.role) {
+            if (result.data.role.name === 'Member') {
+                navigate('/');
+            }  
+        }
+        
     };
     const handleChange = async (index,e) => {        
         try {

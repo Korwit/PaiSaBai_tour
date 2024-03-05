@@ -2,9 +2,17 @@ import React, { useState, useEffect } from "react";
 import NavBar from "../component/navbar-main";
 import PaymentStatusCard from "../component/card-paymentstatus";
 import '../css/paymentstatus.css'
+import { useNavigate } from 'react-router-dom';
 
 const PaymentStatus = () => {
-
+  const navigate = useNavigate();
+  const jwt = localStorage.getItem("jwt");    
+  useEffect(() => {    
+      if (jwt == null) {
+        window.location.reload();
+        navigate('/')
+      }
+  }, [jwt]);
   return (
     <div>
       <NavBar />
