@@ -143,7 +143,6 @@ const Login = () => {
           </div>
         </Form.Group>
 
-       
         <div style={{ marginTop: "7px" }}>
           <p>
             <a href="http://localhost:3000/email" class="forgot-password-link">

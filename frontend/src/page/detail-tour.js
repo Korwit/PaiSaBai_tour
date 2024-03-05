@@ -21,8 +21,8 @@ const Tour = ({ data }) => {
   const trip = data.attributes.trip_dates.data;
 
   const DotEvent = (date) => {
-    const goDates = trip.map((day) => new Date(day.attributes.go_date));
-    const endDates = trip.map((day) => new Date(day.attributes.end_date));
+    const goDates = trip.map((day) => new Date(day.attributes?.go_date));
+    const endDates = trip.map((day) => new Date(day.attributes?.end_date));
 
     const hasGoDate = goDates.some((goDate) => isSameDate(goDate, date));
 
@@ -143,7 +143,7 @@ const Tour = ({ data }) => {
                     {jwt !== null ? (
                       <Button
                         className="bt-detail"
-                        onClick={() => navigate("/reservation")}
+                        onClick={() => navigate(`/reservation/${data.id}`)}
                       >
                         จอง
                       </Button>
