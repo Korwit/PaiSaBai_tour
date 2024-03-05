@@ -2,6 +2,10 @@
     margin-bottom: 8%;
     filter: drop-shadow(10px 7px 10px rgb(198, 181, 181));
     max-width: 250px;
+    cursor: pointer;
+    &:hover {
+        padding: 2px;   
+    }
 }
 .img-card {
     object-fit: cover;
@@ -86,7 +90,7 @@
 .mini-detail {
     overflow: hidden;
     text-overflow: ellipsis;
-    max-height: 7.5vh;
+    height: 7.4vh;
     font-size: 16px;
 }
 .time-tour {
@@ -119,8 +123,9 @@
 }
 @media (max-width: 770px) {
     .time-tour {
-        font-size: 13px;
+        font-size: 14px;
         white-space: pre;
+        padding: 0%;
     }
     .date-datail-tour {
         margin: 0%;
