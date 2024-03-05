@@ -3,72 +3,84 @@ import { Form, Button } from 'react-bootstrap';
 import { useNavigate } from 'react-router-dom';
 import Select from 'react-select';
 import axios from 'axios';
+import { setDate } from 'rsuite/esm/utils/dateUtils';
 
 
-const ReservationCard = () => {
+const ReservationCard = ({data}) => {
     const navigate = useNavigate();
-
-    const [formData, setFormData] = useState({
-        firstname:'',
-        lastname:'',
-        phone:'',
-        submitEnabled:'true',
-
-    })
-    
+    const [firstName, setFirstname] = useState('');
+    const [lastName, setLastname] = useState('');
+    const [phone, setPhone] = useState('');
+    const [submitEnabled, setSubmitEnabled] = useState(true);
+    const [isLoading, setIsLoading] = useState(false)
     const [options, setOptions] = useState([]);
     const [selectedOption, setSelectedOption] = useState(null);
     const [price, setPrice] = useState(0);
-
+    const jwt = localStorage.getItem('jwt')
+    axios.defaults.headers.common = { 'Authorization': `bearer ${jwt}` }
+    console.log(data)
+    //const { tourId } = useParams();
     useEffect(() => {
         // ทำการดึงข้อมูลจาก Strapi
+        //console.log(data.id)
         const fetchData = async () => {
-          try {
-            const response = await axios.get('URL_TO_STRAPI_ENDPOINT');
-            // นำข้อมูลมาแปลงเป็นรูปแบบที่ react-select รับ
-            const formattedOptions = response.data.map((item) => ({
-                label: item.label,  // ตามข้อมูลจริงใน Strapi
-                value: item.value,  // ตามข้อมูลจริงใน Strapi
-                price: item.price,
-            }));
-            setOptions(formattedOptions);
-          } catch (error) {
-            console.error('Error fetching data from Strapi:', error);
-          }
-        };
-
-        fetchData();
-    }, []); // ให้ useEffect ทำงานเฉพาะครั้งแรก
+            try {
+                const userData = await axios.get(`/users/me`);
+                console.log(userData)
+                setFirstname(userData.data.firstname);
+                setLastname(userData.data.lastname);
+                setPhone(userData.data.phone);
+        
+                const tourData = await axios.get(`/tours/${data.tour.id}`);
+                const formattedOptions = tourData.data.map((item) => ({
+                  label: item.label,
+                  value: item.value,
+                  price: item.price,
+                }));
+                setOptions(formattedOptions);
+              } catch (error) {
+                console.error('Error fetching data:', error);
+              }
+            };
+        
+            fetchData();
+          }, []);
 
     const handleSelectChange = (selected) => {
         setSelectedOption(selected);
         setPrice(selected?.price || 0);
     };
 
-    const handleChange = (e) => {
-    // อัปเดต state เมื่อมีการเปลี่ยนแปลงใน input fields
-        setFormData({
-            ...formData,
-            [e.target.name]: e.target.value,
-            
+    const handleSubmit = async (e) => {
+        e.preventDefault(false);
+        try {
+            // ทำ HTTP request ไปยัง Strapi API โดยใช้ axios
+            setIsLoading(true)
+            await axios.post('http://localhost:1337/api/auth/local/reservation', {
+                firstName: firstName,
+                lastName: lastName,
+                phone:phone,
+                selectedOption: selectedOption?.value || null, 
         });
+        
+        } catch (error) {
+            console.error('Error sending data to Strapi:', error);
+  
+        // Handle error as needed
+  
+        } finally {
+            setSubmitEnabled(false);
+            setIsLoading(false);
+        }
     };
 
-    const handleSubmit = async (e) => {
-        e.preventDefault();
-        try {
-        // ทำ HTTP request ไปยัง Strapi API โดยใช้ axios
-        const response = await axios.post('URL_TO_STRAPI_API', {formData,
-            selectedOption: selectedOption?.value || null,
-            
-        });
-        console.log('Data sent to Strapi:', response.data);
-        // ทำการจัดการ response ตามที่ต้องการ
-        } catch (error) {
-        console.error('Error sending data to Strapi:', error);
-        // ทำการจัดการ error ตามที่ต้องการ
+    const handlePaymet = () => {
+        navigate("/Payment")
     }
-  };
+
+    const handlemain = () => {
+        navigate("/")
+    }
 
   return (
         <form onSubmit={handleSubmit}>
@@ -82,39 +94,19 @@ const ReservationCard = () => {
                 placeholder="เลือกวันที่เดินทาง"
             /><br/>
             
-            <Form.Group controlId="firstName">
-                <Form.Label>ชื่อ :</Form.Label>
-                <Form.Control
-                    type="text"
-                    name="firstName"
-                    value={formData.firstName}
-                    onChange={handleChange}
-                />
-            </Form.Group>
-            <Form.Group controlId="lastName">
-                <Form.Label>นามสกุล :</Form.Label>
-                <Form.Control
-                    type="text"
-                    name="lastName"
-                    value={formData.lastName}
-                    onChange={handleChange}
-                />
-            </Form.Group>
-            <Form.Group controlId="lastName">
-                <Form.Label>เบอร์โทรศัพท์ :</Form.Label>
-                <Form.Control
-                    type="text"
-                    name="lastName"
-                    value={formData.phone}
-                    onChange={handleChange}
-                />
-            </Form.Group>
-            {/* เพิ่ม input fields อื่น ๆ ตามต้องการ */}<br/>
-            <p>ราคา: {price}</p>
-            <Button className='sm-cl1-pri' type="submit">
+            <React.Fragment>
+                <strong>ชื่อ :</strong> {firstName} <strong>นามสกุล :</strong> {lastName}<br />
+                <strong>เบอร์โทรศัพท์ :</strong> {phone} <br />
+                <strong>ราคา:</strong> {selectedOption?.price} ฿<br />
+            </React.Fragment>
+            <Button
+                className='sm-cl1-pri' 
+                type="submit"
+                onClick={() => handlePaymet()}
+            >
                 จอง
-            </Button>
-            <Button className='sm-cl-sec' type="button">ยกเลิก</Button>
+            </Button>&nbsp;&nbsp;<p />
+            <Button className='sm-cl-sec' type="button" onClick={() => handlemain()}>ยกเลิก</Button>
         </form>
   );
 };

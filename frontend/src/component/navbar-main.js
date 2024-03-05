@@ -6,7 +6,7 @@ import axios from "axios";
 
 function NavBar({ allData, closeFilter, closeTour, closePlace }) {
   const jwt = localStorage.getItem("jwt");
-  axios.defaults.headers.common = { Authorization: `bearer ${jwt}` };
+  
   const [userInfo, setUserInfo] = useState([]);
   const [showProfileMenu, setShowProfileMenu] = useState(false);
   const profileRef = useRef(null);
