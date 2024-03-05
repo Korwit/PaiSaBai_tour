@@ -143,30 +143,6 @@ const Login = () => {
           </div>
         </Form.Group>
 
-        <Form.Group controlId="formBasicPassword">
-          <div className="password-input">
-            <div className="password-lock">
-              <img src="/lock.png" alt="Show" />
-            </div>
-            <Form.Control
-              className="custom-form1"
-              style={{ width: "400px" }}
-              type={showPassword ? "text" : "password"}
-              placeholder="Password"
-              value={password}
-              onChange={handlePasswordChange}
-              required
-            />
-            <div className="password-toggle" onClick={togglePasswordVisibility}>
-              {showPassword ? (
-                <img src="/show.png" alt="Show" />
-              ) : (
-                <img src="/hide.png" alt="Hide" />
-              )}
-            </div>
-          </div>
-        </Form.Group>
-
         <div style={{ marginTop: "7px" }}>
           <p>
             <a href="http://localhost:3000/email" class="forgot-password-link">

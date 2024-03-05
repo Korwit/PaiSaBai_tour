@@ -78,6 +78,42 @@
 .brand {
     cursor: pointer;
 }
+
+.menu-profile {
+    position: absolute;
+    top: 100%;
+    right: 0;
+    background-color: white;
+    border: none;
+    width: 150px;
+    height: auto;
+    display: flex;
+    justify-content: left;
+    text-align: left;
+}
+.user-profile {
+    object-fit: cover;
+    width: 50px;
+    height: 50px;
+    border-radius: 50%;
+}
+.shape-profile {
+    border-radius: 50%;
+    width: 50px;
+    height: 50px;
+    background-color: transparent;
+    border: none;
+    justify-content: center;
+    display: flex;
+    align-items: center;
+}
+.icon-user {
+    border-radius: 50%;
+    width: 30px;
+    height: 30px;
+    border: none;
+}
+
 @media (max-width: 770px) {
     .logo {
         max-width: 100px;
@@ -99,5 +135,13 @@
     }
     .nav-head {
         margin-top: 2.5%;
+    }
+    .shape-profile {
+        width: 40px;
+        height: 40px;
+    }
+    .user-profile {
+        width: 40px;
+        height: 40px;
     }
 }
