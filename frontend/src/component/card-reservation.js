@@ -8,6 +8,7 @@ import { useParams } from 'react-router-dom';
 
 
 const ReservationCard = ({data}) => {
+    const [name, setName] = useState('');
     const { cardId } = useParams();
     const navigate = useNavigate();
     const [firstName, setFirstname] = useState('');
@@ -18,6 +19,7 @@ const ReservationCard = ({data}) => {
     const [options, setOptions] = useState([]);
     const [selectedOption, setSelectedOption] = useState(null);
     const [price, setPrice] = useState(0);
+
     const jwt = localStorage.getItem('jwt')
     axios.defaults.headers.common = { 'Authorization': `bearer ${jwt}` }
     console.log(cardId)
@@ -35,12 +37,15 @@ const ReservationCard = ({data}) => {
                 setFirstname(userData.data.firstname);
                 setLastname(userData.data.lastname);
                 setPhone(userData.data.phone);
-        
-                const tourData = await axios.get(`/tours/${cardId}`);
-                const formattedOptions = tourData.data.map((item) => ({
+                const tourData = await axios.get(`/tours/${cardId}?populate=*`);
+
+                console.log(tourData)
+                setName(tourData.data.name);
+                setPrice(tourData.data.price);
+                console.log(price)
+                const formattedOptions = tourData.data.trip_date.map((item) => ({
                   label: item.label,
                   value: item.value,
-                  price: item.price,
                 }));
                 setOptions(formattedOptions);
               } catch (error) {
@@ -62,9 +67,7 @@ const ReservationCard = ({data}) => {
             // ทำ HTTP request ไปยัง Strapi API โดยใช้ axios
             setIsLoading(true)
             await axios.post('http://localhost:1337/api/auth/local/reservation', {
-                firstName: firstName,
-                lastName: lastName,
-                phone:phone,
+                
                 selectedOption: selectedOption?.value || null, 
         });
         
@@ -91,6 +94,7 @@ const ReservationCard = ({data}) => {
         <form onSubmit={handleSubmit}>
             <h2>ข้อมูลผู้เข้าจอง</h2>
             <h4>กรุณากรอกข้อมูลและตรวจสอบการจอง</h4>
+            <h3>โปรแกรมทัวร์</h3>{name}
             <Form.Label>วันที่เดินทาง :</Form.Label>
             <Select
                 options={options}
@@ -102,16 +106,16 @@ const ReservationCard = ({data}) => {
             <React.Fragment>
                 <strong>ชื่อ :</strong> {firstName} <strong>นามสกุล :</strong> {lastName}<br />
                 <strong>เบอร์โทรศัพท์ :</strong> {phone} <br />
-                <strong>ราคา:</strong> {selectedOption?.price} ฿<br />
-            </React.Fragment>
-            <Button
+                <strong>ราคา:</strong> {price} ฿<br />
+            </React.Fragment><br />
+            <center><Button
                 className='sm-cl1-pri' 
                 type="submit"
-                onClick={() => handlePaymet()}
+                onClick={() => handleSubmit()}
             >
                 จอง
-            </Button>&nbsp;&nbsp;<p />
-            <Button className='sm-cl-sec' type="button" onClick={() => handlemain()}>ยกเลิก</Button>
+            </Button>&nbsp;&nbsp;&nbsp;&nbsp;
+            <Button className='sm-cl-sec' type="button" onClick={() => handlemain()}>ยกเลิก</Button></center>
         </form>
   );
 };

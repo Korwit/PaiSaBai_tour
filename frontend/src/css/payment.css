@@ -1,12 +1,6 @@
-.frame-large0 {
-    border:5px solid #FFF48F;
-    width:900px;
-    margin:auto;
-    border-radius:20px ;
-    margin-top: 20px;
-}
-.frame-large {
-    width: 600px;
+
+.frame-large{
+    width: 500px;
     height: 900px;
     margin:  auto;
     margin-top: 160px;

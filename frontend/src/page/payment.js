@@ -6,6 +6,7 @@ import axios from 'axios';
 import NavBar from '../component/navbar-main';
 import PaymentCard from '../component/card-payment';
 import { useNavigate } from 'react-router-dom';
+import Footer from '../component/footer';
 
 const PaymentPage = () => {
   const navigate = useNavigate();
