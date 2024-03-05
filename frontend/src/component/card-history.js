@@ -1,3 +1,4 @@
+// BookingHistoryCard.js
 import React, { useState, useEffect } from "react";
 import { Card, CardImg, CardBody, CardTitle, CardText } from "react-bootstrap";
 import RatingCommentInput from "./RatingCommentInput";
@@ -86,6 +87,14 @@ const BookingHistoryCard = () => {
     fetchBookings();
   }, []);
 
+  // ตรวจสอบว่ามีข้อมูลความคิดเห็นและดาวหรือไม่
+  const hasCommentAndRating = (tour) => {
+    return (
+      tour.tour?.reservations?.[0]?.comment &&
+      tour.tour?.reservations?.[0]?.star
+    );
+  };
+
   return (
     <div className="booking-history-container">
       {bookings.map((tour) => (
@@ -106,12 +115,12 @@ const BookingHistoryCard = () => {
               <br />
               รูปแบบการเดินทาง: {tour.tour?.travel_by}
               <br />
-              {canRateAndComment(tour) && submittedComment && submittedRating && (
+              {canRateAndComment(tour) && hasCommentAndRating(tour) && (
                 <div>
-                  <p>ความคิดเห็น: {submittedComment}</p>
+                  <p>ความคิดเห็น: {tour.tour?.reservations?.[0]?.comment}</p>
                   <ReactStars
                     count={5}
-                    value={submittedRating}
+                    value={tour.tour?.reservations?.[0]?.star}
                     size={24}
                     activeColor="#ffd700"
                     edit={false}
@@ -119,18 +128,24 @@ const BookingHistoryCard = () => {
                 </div>
               )}
 
-              {canRateAndComment(tour) && !submittedComment && !submittedRating && isRatingInputVisible && (
-                <RatingCommentInput
-                  onSubmit={({ rating, comment }) => {
-                    const reservationId = tour.tour?.reservations?.[0]?.id;
-                    if (reservationId) {
-                      submitRatingAndComment(reservationId, rating, comment);
-                    } else {
-                      console.error("No reservation ID found.");
-                    }
-                  }}
-                />
-              )}
+              {canRateAndComment(tour) &&
+                !hasCommentAndRating(tour) &&
+                isRatingInputVisible && (
+                  <RatingCommentInput
+                    onSubmit={({ rating, comment }) => {
+                      const reservationId = tour.tour?.reservations?.[0]?.id;
+                      if (reservationId) {
+                        submitRatingAndComment(
+                          reservationId,
+                          rating,
+                          comment
+                        );
+                      } else {
+                        console.error("No reservation ID found.");
+                      }
+                    }}
+                  />
+                )}
             </CardText>
           </CardBody>
         </Card>
