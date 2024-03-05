@@ -4,9 +4,11 @@ import { useNavigate } from 'react-router-dom';
 import Select from 'react-select';
 import axios from 'axios';
 import { setDate } from 'rsuite/esm/utils/dateUtils';
+import { useParams } from 'react-router-dom';
 
 
 const ReservationCard = ({data}) => {
+    const { cardId } = useParams();
     const navigate = useNavigate();
     const [firstName, setFirstname] = useState('');
     const [lastName, setLastname] = useState('');
@@ -18,9 +20,11 @@ const ReservationCard = ({data}) => {
     const [price, setPrice] = useState(0);
     const jwt = localStorage.getItem('jwt')
     axios.defaults.headers.common = { 'Authorization': `bearer ${jwt}` }
+    
     console.log(data)
     //const { tourId } = useParams();
     useEffect(() => {
+        
         // ทำการดึงข้อมูลจาก Strapi
         //console.log(data.id)
         const fetchData = async () => {

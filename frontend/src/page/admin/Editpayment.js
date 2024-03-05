@@ -14,7 +14,13 @@ const Editpayment = () => {
     axios.defaults.headers.common = {
         Authorization: `Bearer ${jwt}`,
     };
-
+  
+    useEffect(() => {    
+        if (jwt == null) {
+          window.location.reload();
+          navigate('/admin')
+        }
+    }, [jwt]);
     const fetchStatuses = async () => {
         if (jwt != null) {
             const response = await axios.get(

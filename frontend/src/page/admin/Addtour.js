@@ -29,6 +29,12 @@ const Addtour = () => {
     const [selectedOption, setSelectedOption] = useState('');
     const [selectedOptions, setSelectedOptions] = useState('');
     axios.defaults.headers.common = { 'Authorization': `bearer ${jwt}` }  
+    useEffect(() => {    
+        if (jwt == null) {
+          window.location.reload();
+          navigate('/admin')
+        }
+    }, [jwt]);
 
 
     const handleShowModal = async () => {
