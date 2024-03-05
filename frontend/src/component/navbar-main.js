@@ -6,11 +6,12 @@ import axios from "axios";
 
 function NavBar({ allData, closeFilter, closeTour, closePlace }) {
   const jwt = localStorage.getItem("jwt");
-  
+  axios.defaults.headers.common = { Authorization: `bearer ${jwt}` };
   const [userInfo, setUserInfo] = useState([]);
   const [showProfileMenu, setShowProfileMenu] = useState(false);
   const profileRef = useRef(null);
   const navigate = useNavigate();
+  const [screen, setScreen] = useState(window.innerWidth);
 
   const toMain = () => {
     try {
@@ -53,21 +54,35 @@ function NavBar({ allData, closeFilter, closeTour, closePlace }) {
     };
   }, []);
 
+  useEffect(() => {
+    const handleResize = () => {
+      setScreen(window.innerWidth);
+    };
+    window.addEventListener("resize", handleResize);
+
+    return () => {
+      window.removeEventListener("resize", handleResize);
+    };
+  }, [screen]);
+
   return (
     <Navbar className="bar-color" sticky="top" collapseOnSelect expand="md">
       <Container>
         <Navbar.Brand onClick={() => toMain()} className="brand">
           <img src="/logoo.png" className="logo" alt="Logo" />
         </Navbar.Brand>
-        <Navbar.Toggle aria-controls="responsive-navbar-nav" className="shape-profile">
-            <img
-              src={
-                userInfo.profile != null
-                  ? "http://localhost:1337" + userInfo.profile.url
-                  : "/user.png"
-              }
-             className="user-profile"
-            />
+        <Navbar.Toggle
+          aria-controls="responsive-navbar-nav"
+          className="shape-profile"
+        >
+          <img
+            src={
+              userInfo.profile != null
+                ? "http://localhost:1337" + userInfo.profile.url
+                : "/user.png"
+            }
+            className="user-profile"
+          />
         </Navbar.Toggle>
         <Navbar.Collapse id="responsive-navbar-nav">
           {jwt !== null && (
@@ -81,6 +96,19 @@ function NavBar({ allData, closeFilter, closeTour, closePlace }) {
               <Nav.Link className="text" href="/payment">
                 ชำระเงิน
               </Nav.Link>
+              {screen < 770 && (
+                <Nav>
+                  <Nav.Link className="text" href="/setting">
+                    โปรไฟล์
+                  </Nav.Link>
+                  <Button
+                    className="custom-button-top"
+                    onClick={() => handlelogout()}
+                  >
+                    ออกจากระบบ
+                  </Button>
+                </Nav>
+              )}
             </Nav>
           )}
           {jwt === null ? (
@@ -98,7 +126,7 @@ function NavBar({ allData, closeFilter, closeTour, closePlace }) {
                 สมัครสมาชิก
               </Button>
             </Nav>
-          ) : (
+          ) : screen >= 770 && (
             <Nav>
               <div ref={profileRef} style={{ position: "relative" }}>
                 <Button
@@ -116,13 +144,13 @@ function NavBar({ allData, closeFilter, closeTour, closePlace }) {
                 </Button>
                 {showProfileMenu && (
                   <Card className="menu-profile">
-                    <Row style={{marginLeft: "1%"}}>
+                    <Row style={{ marginLeft: "1%" }}>
                       <Nav.Link>@{userInfo.username}</Nav.Link>
                     </Row>
-                    <Row style={{marginLeft: "1%"}}>
+                    <Row style={{ marginLeft: "1%" }}>
                       <Nav.Link href="/setting">โปรไฟล์</Nav.Link>
                     </Row>
-                    <Row style={{marginLeft: "1%"}}>
+                    <Row style={{ marginLeft: "1%" }}>
                       <Nav.Link onClick={() => handlelogout()}>
                         ออกจากระบบ
                       </Nav.Link>
