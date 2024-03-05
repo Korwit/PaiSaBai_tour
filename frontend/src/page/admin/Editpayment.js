@@ -2,6 +2,7 @@ import React, { useState, useEffect } from "react";
 import { Card, Form, CardImg, CardBody, CardTitle, CardText, Badge, Button } from "react-bootstrap";
 import axios from "axios";
 import '../../css/PaymentStatuscard.css'
+import '../../css/editpayment.css'
 import NavBar from "../../component/navbar-main";
 
 const Editpayment = () => {
@@ -45,6 +46,8 @@ const Editpayment = () => {
     return (
         <div>
             <NavBar />
+            <div className="card-container">
+            <h1>ตรวจสอบการชำระเงิน</h1>
             {statuses.map((e, index) => {
                 //console.log(e)
                 return (
@@ -80,7 +83,7 @@ const Editpayment = () => {
                     </Card>
                 );
             })}
-
+            </div>
         </div>
     );
 };
