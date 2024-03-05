@@ -15,10 +15,12 @@ import axios from "axios";
 import Addrecommend from "./page/admin/Addrecommend";
 import Addtour from "./page/admin/Addtour";
 import Editpayment from "./page/admin/Editpayment";
+import EditTour from "./page/admin/Edittour";
+import EditPlace from "./page/admin/Editplace";
 
 axios.defaults.baseURL =
   process.env.React_APP_BASE_URL || "http://localhost:1337/api";
-  /*const result = localStorage.getItem('jwt');
+/*const result = localStorage.getItem('jwt');
   axios.defaults.headers.common = { 'Authorization': `bearer ${result}` };*/
 const App = () => {
   return (
@@ -27,16 +29,18 @@ const App = () => {
         <Route path="/" element={<Main />} />
         <Route path="/forgot" element={<Forgotpass />} />
         <Route path="/email" element={<Emailsend />} />
-        <Route path="/register" element={<Register />} /> 
-        <Route path="/login" element={<Login />} />         
-        <Route path="/paymentstatus" element={<PaymentStatus />} /> 
-        <Route path="/setting" element={<Setting />} /> 
-        <Route path="/payment" element={<Payment />} /> 
-        <Route path="/reservation" element={<Reservation />} /> 
-        <Route path="/history" element={<History />} /> 
-        <Route path="/admin/addrecommend" element={< Addrecommend />} /> 
-        <Route path="/admin/addtour" element={< Addtour />} /> 
-        <Route path="/admin/editpayment" element={< Editpayment />} /> 
+        <Route path="/register" element={<Register />} />
+        <Route path="/login" element={<Login />} />
+        <Route path="/paymentstatus" element={<PaymentStatus />} />
+        <Route path="/setting" element={<Setting />} />
+        <Route path="/payment" element={<Payment />} />
+        <Route path="/reservation" element={<Reservation />} />
+        <Route path="/history" element={<History />} />
+        <Route path="/admin/addrecommend" element={<Addrecommend />} />
+        <Route path="/admin/addtour" element={<Addtour />} />
+        <Route path="/admin/editpayment" element={<Editpayment />} />
+        <Route path="/admin/edittour/:id" element={<EditTour />} />
+        <Route path="/admin/editplace/:id" element={<EditPlace />} />
       </Routes>
     </BrowserRouter>
   );

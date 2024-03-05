@@ -6,7 +6,6 @@ import axios from "axios";
 
 function NavBar({ allData, closeFilter, closeTour, closePlace }) {
   const jwt = localStorage.getItem("jwt");
-  axios.defaults.headers.common = { Authorization: `bearer ${jwt}` };
   const [userInfo, setUserInfo] = useState([]);
   const [showProfileMenu, setShowProfileMenu] = useState(false);
   const profileRef = useRef(null);
@@ -38,7 +37,9 @@ function NavBar({ allData, closeFilter, closeTour, closePlace }) {
   useEffect(() => {
     const user = async () => {
       try {
-        const response = await axios.get("/users/me?populate=*");
+        const response = await axios.get("/users/me?populate=*", {
+          headers: { Authorization: `Bearer ${jwt}` },
+        });
         setUserInfo(response.data);
       } catch (error) {
         console.log(error);
@@ -85,7 +86,7 @@ function NavBar({ allData, closeFilter, closeTour, closePlace }) {
           />
         </Navbar.Toggle>
         <Navbar.Collapse id="responsive-navbar-nav">
-          {jwt !== null && (
+          {(jwt !== null) & (userInfo.role?.name != "Admin") ? (
             <Nav className="nav-head">
               <Nav.Link className="text" href="/history">
                 ประวัติการจอง
@@ -110,6 +111,33 @@ function NavBar({ allData, closeFilter, closeTour, closePlace }) {
                 </Nav>
               )}
             </Nav>
+          ) : (
+            userInfo.role.name == "Admin" && (
+              <Nav className="nav-head">
+                <Nav.Link className="text" href="/admin/addrecommend">
+                  เพิ่มสถานที่แนะนำ
+                </Nav.Link>
+                <Nav.Link className="text" href="/admin/addtour">
+                  เพิ่มโปรแกรมทัวร์
+                </Nav.Link>
+                <Nav.Link className="text" href="/admin/editpayment">
+                  แก้ไขสถานะการชำระเงิน
+                </Nav.Link>
+                {screen < 770 && (
+                  <Nav>
+                    <Nav.Link className="text" href="/setting">
+                      โปรไฟล์
+                    </Nav.Link>
+                    <Button
+                      className="custom-button-top"
+                      onClick={() => handlelogout()}
+                    >
+                      ออกจากระบบ
+                    </Button>
+                  </Nav>
+                )}
+              </Nav>
+            )
           )}
           {jwt === null ? (
             <Nav className="ms-auto">
@@ -126,39 +154,41 @@ function NavBar({ allData, closeFilter, closeTour, closePlace }) {
                 สมัครสมาชิก
               </Button>
             </Nav>
-          ) : screen >= 770 && (
-            <Nav>
-              <div ref={profileRef} style={{ position: "relative" }}>
-                <Button
-                  className="shape-profile"
-                  onClick={() => setShowProfileMenu(!showProfileMenu)}
-                >
-                  <img
-                    src={
-                      userInfo.profile != null
-                        ? "http://localhost:1337" + userInfo.profile.url
-                        : "/user.png"
-                    }
-                    className="user-profile"
-                  />
-                </Button>
-                {showProfileMenu && (
-                  <Card className="menu-profile">
-                    <Row style={{ marginLeft: "1%" }}>
-                      <Nav.Link>@{userInfo.username}</Nav.Link>
-                    </Row>
-                    <Row style={{ marginLeft: "1%" }}>
-                      <Nav.Link href="/setting">โปรไฟล์</Nav.Link>
-                    </Row>
-                    <Row style={{ marginLeft: "1%" }}>
-                      <Nav.Link onClick={() => handlelogout()}>
-                        ออกจากระบบ
-                      </Nav.Link>
-                    </Row>
-                  </Card>
-                )}
-              </div>
-            </Nav>
+          ) : (
+            screen >= 770 && (
+              <Nav>
+                <div ref={profileRef} style={{ position: "relative" }}>
+                  <Button
+                    className="shape-profile"
+                    onClick={() => setShowProfileMenu(!showProfileMenu)}
+                  >
+                    <img
+                      src={
+                        userInfo.profile != null
+                          ? "http://localhost:1337" + userInfo.profile.url
+                          : "/user.png"
+                      }
+                      className="user-profile"
+                    />
+                  </Button>
+                  {showProfileMenu && (
+                    <Card className="menu-profile">
+                      <Row style={{ marginLeft: "1%" }}>
+                        <Nav.Link>@{userInfo.username}</Nav.Link>
+                      </Row>
+                      <Row style={{ marginLeft: "1%" }}>
+                        <Nav.Link href="/setting">โปรไฟล์</Nav.Link>
+                      </Row>
+                      <Row style={{ marginLeft: "1%" }}>
+                        <Nav.Link onClick={() => handlelogout()}>
+                          ออกจากระบบ
+                        </Nav.Link>
+                      </Row>
+                    </Card>
+                  )}
+                </div>
+              </Nav>
+            )
           )}
         </Navbar.Collapse>
       </Container>

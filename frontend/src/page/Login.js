@@ -74,7 +74,7 @@ const Login = () => {
           navigate("/");
         }
         if (result.data.role.name === "Admin") {
-          navigate("/admin");
+          navigate("/");
         }
       }
     } catch (e) {
