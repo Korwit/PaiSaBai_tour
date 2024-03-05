@@ -2,8 +2,10 @@ import React, { useState, useEffect } from "react";
 import { Card, CardImg, CardBody, CardTitle, CardText, Badge, Button } from "react-bootstrap";
 import axios from "axios";
 import '../css/PaymentStatuscard.css'
+import { useNavigate } from 'react-router-dom';
 
 const PaymentStatusCard = () => {
+  const navigate = useNavigate();
   const [statuses, setStatuses] = useState([]);
   const [isCancelling, setIsCancelling] = useState(false);
   const jwt = localStorage.getItem('jwt')
@@ -18,6 +20,9 @@ const PaymentStatusCard = () => {
     );
     setStatuses(response.data.tours);
     console.log("First: ", response.data);}
+    else{
+      navigate('/')
+    }
   };
 
   useEffect(() => {

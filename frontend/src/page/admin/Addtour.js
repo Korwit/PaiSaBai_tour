@@ -6,7 +6,6 @@ import axios from 'axios';
 import { useNavigate } from 'react-router-dom';
 import '../../css/addrecommend.css';
 import NavBar from "../../component/navbar-main";
-import { addHours } from 'date-fns';
 
 const Addtour = () => {
     const navigate = useNavigate();
@@ -29,6 +28,7 @@ const Addtour = () => {
     const [daydataId, setdaydataId] = useState([]);
     const [selectedOption, setSelectedOption] = useState('');
     const [selectedOptions, setSelectedOptions] = useState('');
+    axios.defaults.headers.common = { 'Authorization': `bearer ${jwt}` }  
 
 
     const handleShowModal = async () => {
@@ -98,7 +98,6 @@ const Addtour = () => {
                     {
                         go_date: go,
                         end_date: Return,
-
                     }
                 });
         } catch(error)
@@ -129,8 +128,7 @@ const Addtour = () => {
     useEffect(() => {
         const getData = async () => {
             try {
-                axios.defaults.headers.common = { 'Authorization': `bearer ${jwt}` }
-                //console.log(new Date())
+                            
                 const response = await axios.get('/tours');
                 const responsetrip = await axios.get('/trip-dates');
 
@@ -143,6 +141,12 @@ const Addtour = () => {
                         label: item.attributes.name,
                         checked: false
                     })));
+                }
+                const result = await axios.get('/users/me?populate=role');                
+                if (result.data.role) {
+                    if (result.data.role.name === 'Member') {
+                        navigate('/');
+                    }  
                 }
             } catch (error) {
                 console.error('Error fetching data:', error);

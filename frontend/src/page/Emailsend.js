@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState,useEffect } from 'react';
 import { Form, Button, Alert, Spinner } from 'react-bootstrap';
 import axios from 'axios';
 //import axiosConfig from './axios-interceptor';
@@ -18,6 +18,14 @@ const Emailsend = () => {
     const [errorMessage, setErrorMessage] = useState('');
     const [isLoading, setIsLoading] = useState(false)
     const [showPassword, setShowPassword] = useState(false);
+    const jwt = localStorage.getItem("jwt");
+    const [isLoading2, setIsLoading2] = useState(false)
+    
+    useEffect(() => {
+        if (jwt != null) {
+            navigate('/')
+        }
+    }, [jwt]);
     
 
     const handleUsernameChange = (e) => {
@@ -41,7 +49,7 @@ const Emailsend = () => {
             toast("ส่งลิงค์การรีเซ็ทหัสผ่านในอีเมลของคุณแล้ว");
             setTimeout(() => {
                 navigate('/login');
-            }, 6000);
+            }, 1000);
 
             
         } catch (e) {
@@ -53,6 +61,9 @@ const Emailsend = () => {
             setIsLoading(false)
         }
     };
+    const handlemain = async () => {
+        navigate('/login');
+    }
 
 
     return (
@@ -82,6 +93,9 @@ const Emailsend = () => {
             </div>
         </Form>
         <ToastContainer />
+        <Button variant="primary" type="submit" onClick={handlemain} disabled={!submitEnabled} className="buttonsigns">
+                {isLoading2 ? <Spinner animation="border" size="sm" /> : 'หน้าเข้าสู่ระบบ'}
+        </Button>
       
         </div>
         

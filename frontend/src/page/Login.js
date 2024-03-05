@@ -16,7 +16,9 @@ const Login = () => {
   const [errorMessage, setErrorMessage] = useState("");
   const [isLoading, setIsLoading] = useState(false);
   const [isLoading2, setIsLoading2] = useState(false);
+  const [isLoading3, setIsLoading3] = useState(false);
   const [showPassword, setShowPassword] = useState(false);
+  const [showPasswords, setShowPasswords] = useState(false);
   const jwt = localStorage.getItem("jwt");
 
   useEffect(() => {
@@ -32,6 +34,10 @@ const Login = () => {
   const handlePasswordChange = (e) => {
     setPassword(e.target.value);
   };
+  const handlemain = async () => {
+    setIsLoading3(true);
+    navigate("/");
+  };
 
   const togglePasswordVisibility = () => {
     setShowPassword(!showPassword);
@@ -40,10 +46,6 @@ const Login = () => {
   const handleSignup = async () => {
     setIsLoading2(true);
     navigate("/register");
-  };
-
-  const handlemain = async () => {
-    navigate("/");
   };
 
   const handleSubmit = async (e) => {
@@ -141,6 +143,30 @@ const Login = () => {
           </div>
         </Form.Group>
 
+        <Form.Group controlId="formBasicPassword">
+          <div className="password-input">
+            <div className="password-lock">
+              <img src="/lock.png" alt="Show" />
+            </div>
+            <Form.Control
+              className="custom-form1"
+              style={{ width: "400px" }}
+              type={showPassword ? "text" : "password"}
+              placeholder="Password"
+              value={password}
+              onChange={handlePasswordChange}
+              required
+            />
+            <div className="password-toggle" onClick={togglePasswordVisibility}>
+              {showPassword ? (
+                <img src="/show.png" alt="Show" />
+              ) : (
+                <img src="/hide.png" alt="Hide" />
+              )}
+            </div>
+          </div>
+        </Form.Group>
+
         <div style={{ marginTop: "7px" }}>
           <p>
             <a href="http://localhost:3000/email" class="forgot-password-link">
@@ -174,11 +200,7 @@ const Login = () => {
         disabled={!submitEnabled}
         className="buttonsign"
       >
-        {isLoading2 ? (
-          <Spinner animation="border" size="sm" />
-        ) : (
-          "กลับสู่หน้าหลัก"
-        )}
+        {isLoading3 ? <Spinner animation="border" /> : "กลับสู่หน้าหลัก"}
       </Button>
       <ToastContainer />
     </div>

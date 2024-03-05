@@ -12,6 +12,9 @@ import Payment from "./page/Payment";
 import Reservation from "./page/Reservation";
 import History from "./page/History";
 import axios from "axios";
+import Addrecommend from "./page/admin/Addrecommend";
+import Addtour from "./page/admin/Addtour";
+import Editpayment from "./page/admin/Editpayment";
 
 axios.defaults.baseURL =
   process.env.React_APP_BASE_URL || "http://localhost:1337/api";
@@ -25,13 +28,15 @@ const App = () => {
         <Route path="/forgot" element={<Forgotpass />} />
         <Route path="/email" element={<Emailsend />} />
         <Route path="/register" element={<Register />} /> 
-        <Route path="/login" element={<Login />} /> 
-        <Route path="/history" element={<BookingHistory />} /> 
+        <Route path="/login" element={<Login />} />         
         <Route path="/paymentstatus" element={<PaymentStatus />} /> 
         <Route path="/setting" element={<Setting />} /> 
         <Route path="/payment" element={<Payment />} /> 
         <Route path="/reservation" element={<Reservation />} /> 
         <Route path="/history" element={<History />} /> 
+        <Route path="/admin/addrecommend" element={< Addrecommend />} /> 
+        <Route path="/admin/addtour" element={< Addtour />} /> 
+        <Route path="/admin/editpayment" element={< Editpayment />} /> 
       </Routes>
     </BrowserRouter>
   );
