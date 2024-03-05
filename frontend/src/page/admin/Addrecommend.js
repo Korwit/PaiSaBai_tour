@@ -105,7 +105,7 @@ const Addrecommend = () => {
             const formData = new FormData()
             formData.append('files', files[0])
             formData.append('refId', result.data.data.id)
-            formData.append('field', 'payment')
+            formData.append('field', 'image')
             formData.append('ref', 'api::recommend-place.recommend-place')
             axios.post("/upload", formData)
             setTimeout(() => {

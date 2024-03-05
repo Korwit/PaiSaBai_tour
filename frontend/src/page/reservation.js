@@ -5,7 +5,7 @@ import ReservationCard from "../component/card-reservation";
 import { useParams } from 'react-router-dom';
 
 const ReservationPage = () => {
-  const { tourId } = useParams();
+  const { cardId } = useParams();
   return (
     <div>
       <NavBar />

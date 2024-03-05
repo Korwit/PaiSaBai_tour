@@ -20,7 +20,7 @@ const ReservationCard = ({data}) => {
     const [price, setPrice] = useState(0);
     const jwt = localStorage.getItem('jwt')
     axios.defaults.headers.common = { 'Authorization': `bearer ${jwt}` }
-    
+    console.log(cardId)
     console.log(data)
     //const { tourId } = useParams();
     useEffect(() => {

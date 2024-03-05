@@ -41,8 +41,13 @@ const ReservationForm = () => {
                 // นำข้อมูลมาแปลงเป็นรูปแบบที่ react-select รับ
                 console.log(response.data.data?.[0]?.attributes.tour.data.attributes.name)
                 console.log(response.data.data)
-                const tours = response.data.data?.map(item => item.attributes.tour.data.attributes.name) || [];
+
+                let tours;
+                if (response.data.data && Array.isArray(response.data.data)) {
+                     tours = response.data.data.filter(item => item.attributes.payment_time === null).map(item => item.attributes.tour.data.attributes.name);
+                }
                 setTourData(tours.map(tour => ({ label: tour, checked: false })));
+                console.log(tours)
                 const IDs = response.data.data?.map(item => item.id) || [];
                 setdata(response.data.data);
                 setID(IDs)
