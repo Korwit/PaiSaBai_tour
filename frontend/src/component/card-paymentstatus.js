@@ -16,9 +16,9 @@ const PaymentStatusCard = () => {
   const fetchStatuses = async () => {
     if (jwt != null){
     const response = await axios.get(
-      "http://localhost:1337/api/users/me?populate[tours][populate]=*"
+      "http://localhost:1337/api/users/me?populate[reservations][populate][tour][populate]=*"
     );
-    setStatuses(response.data.tours);
+    setStatuses(response.data.reservations);
     console.log("First: ", response.data);}
     else{
       navigate('/')

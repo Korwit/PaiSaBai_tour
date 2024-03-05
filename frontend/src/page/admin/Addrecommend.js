@@ -23,6 +23,12 @@ const Addrecommend = () => {
     const [selectedCheckboxes, setSelectedCheckboxes] = useState([]);
     const jwt = localStorage.getItem("jwt");
     axios.defaults.headers.common = { 'Authorization': `bearer ${jwt}` }
+    useEffect(() => {    
+        if (jwt == null) {
+          window.location.reload();
+          navigate('/admin')
+        }
+    }, [jwt]);
 
     const handleShowModal = () => setShowModal(true);
 
@@ -68,8 +74,7 @@ const Addrecommend = () => {
                         checked: false
                     })));
                 }
-                const result = await axios.get('/users/me?populate=role');
-                console.log(result.data.role)
+                const result = await axios.get('/users/me?populate=role');                
                 if (result.data.role) {
                     if (result.data.role.name === 'Member') {
                         navigate('/');
@@ -100,7 +105,7 @@ const Addrecommend = () => {
             const formData = new FormData()
             formData.append('files', files[0])
             formData.append('refId', result.data.data.id)
-            formData.append('field', 'image')
+            formData.append('field', 'payment')
             formData.append('ref', 'api::recommend-place.recommend-place')
             axios.post("/upload", formData)
             setTimeout(() => {
