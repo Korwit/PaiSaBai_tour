@@ -17,14 +17,18 @@ const PaymentStatusCard = () => {
       const response = await axios.get(
         "http://localhost:1337/api/users/me?populate[reservations][populate][tour][populate]=*"
       );
+      console.log("API Response:", response.data);
       setStatuses(response.data.reservations);
       console.log("First: ", response.data);
     }
   };
 
   const formatstatusDate = (dateString) => {
+    if (!dateString) return 'N/A'; 
+    
     const options = { year: 'numeric', month: 'long', day: 'numeric' };
     return new Date(dateString).toLocaleDateString('th-TH', options);
+    
   };
 
   const formatStatusTime = (timeString) => {

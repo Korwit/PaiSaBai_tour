@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 import ReactStars from "react-rating-stars-component";
 
-const RatingCommentInput = ({ onSubmit, onUpdateTour }) => {
+const RatingCommentInput = ({ onSubmit }) => {
   const [rating, setRating] = useState(0);
   const [comment, setComment] = useState("");
 
