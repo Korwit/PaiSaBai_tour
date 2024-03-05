@@ -37,7 +37,7 @@
 
       return (
         <Row className="time-tour">
-          <Col xs={12}>
+          <Col xs={12} style={{justifyContent: "center", textAlign: "center"}}>
             {month}
             {year}
           </Col>
@@ -68,7 +68,7 @@
         <Row xs={2} md={3} xl={4}>
           {searchData.map((item, index) => (
             <Col key={index}>
-              <Card className="each-card">
+              <Card className="each-card" onClick={() => detailClick(item)}>
                 <Card.Img
                   variant="top"
                   src={
