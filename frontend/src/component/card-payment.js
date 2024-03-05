@@ -5,20 +5,17 @@ import axios from 'axios';
 import DatePicker from 'react-datepicker';
 import 'react-datepicker/dist/react-datepicker.css';
 import qrcode from '../img/qrpayment.png';
-
+import '../css/payment.css'
 
 const ReservationForm = () => {
     const navigate = useNavigate();
 
-    const [formData, setFormData] = useState({
-        datetimepayment:new Date(),
-        submitEnabled:'true',
-
-    })
-
+    const [datetimepayment, setDatetime] = useState(new Date());
+    const [submitEnabled, setSubmit] = useState('true');
     const [imageFile, setImageFile] = useState(null);
-    
     const [price, setPrice] = useState(0);
+
+    const jwt = localStorage.getItem("jwt");
 
     useEffect(() => {
         // ทำการดึงข้อมูลจาก Strapi
@@ -45,17 +42,8 @@ const ReservationForm = () => {
         setImageFile(file);
      };
 
-    const handleChange = (e) => {
-    // อัปเดต state เมื่อมีการเปลี่ยนแปลงใน input fields
-        setFormData({
-            ...formData,
-            [e.target.name]: e.target.value,
-            
-        });
-    };
-
     const handleDateChange = (date) => {
-        setFormData({formData, datetimepayment: date,});
+        setDatetime(date);
       };
 
     const handleSubmit = async (e) => {
@@ -102,7 +90,7 @@ const ReservationForm = () => {
             <Form.Group controlId="datetimepayment">
                 <Form.Label>วันและเวลาที่ชำระเงิน :</Form.Label>
                 <DatePicker
-                    selected={formData.datetimepayment}
+                    selected={datetimepayment}
                     onChange={handleDateChange}
                     showTimeSelect
                     timeFormat="HH:mm"
@@ -111,10 +99,9 @@ const ReservationForm = () => {
                     dateFormat="yyyy-MM-dd HH:mm"
                 />
             </Form.Group>
-            <label>*หากกดบันทึก จะไม่สามารถแก้ไขข้อมูลได้อีก*</label>
             {/* เพิ่ม input fields อื่น ๆ ตามต้องการ */}<br/>
             <Button className='sm-cl1' type="submit">บันทึก</Button>
-            <Button className='sm-cl1' type="submit">สถานะการชำระเงิน</Button>
+            <Button className='sm-cl1' type="button">สถานะการชำระเงิน</Button>
 
         </form>
   );
