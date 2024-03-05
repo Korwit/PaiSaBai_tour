@@ -25,21 +25,18 @@ const ReservationCard = ({data}) => {
         //console.log(data.id)
         const fetchData = async () => {
             try {
-                //const userData = await axios.get(`/users/${data.user.id}`);
                 const userData = await axios.get(`/users/me`);
-                
+                console.log(userData)
                 setFirstname(userData.data.firstname);
                 setLastname(userData.data.lastname);
                 setPhone(userData.data.phone);
         
                 const tourData = await axios.get(`/tours/${data.tour.id}`);
-                
                 const formattedOptions = tourData.data.map((item) => ({
                   label: item.label,
                   value: item.value,
                   price: item.price,
                 }));
-                
                 setOptions(formattedOptions);
               } catch (error) {
                 console.error('Error fetching data:', error);
