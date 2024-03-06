@@ -6,7 +6,7 @@
 
 .frame-large {
     width: 450px;
-    height: 780px;
+    height: 600px;
     margin:  auto;
     margin-top: 30px;
     margin-bottom: 160px;
@@ -22,13 +22,17 @@
     border: #F79400;
 
     &:hover {
-        background-color: #0056b3; /* เปลี่ยนสีเมื่อชี้ */
+        background-color:#F03A00;
       }
 }
 
 
 
 .sm-cl-sec {
-    background-color: tomato;
-    border: tomato;
+    background-color: dimgrey;
+    border: dimgray;
+
+    &:hover {
+        background-color: black;
+      }
 }
