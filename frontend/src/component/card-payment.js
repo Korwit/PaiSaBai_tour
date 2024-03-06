@@ -53,11 +53,7 @@ const ReservationForm = () => {
                 setID(IDs)
                 const pc = response.data.data?.map(item => item.attributes.tour.data.attributes.price) || [];
                 setPrice(pc);
-                const formattedOptions = response.data.map((item) => ({
-                    label: item.label,  // ตามข้อมูลจริงใน Strapi
-                    value: item.value,  // ตามข้อมูลจริงใน Strapi
-                    price: item.price,
-                }));
+              
             } catch (error) {
                 console.error('Error fetching data from Strapi:', error);
             }

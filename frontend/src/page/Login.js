@@ -55,6 +55,7 @@ const Login = () => {
     try {
       setIsLoading(true);
       //axiosConfig.jwt = {};
+      axios.defaults.headers.common = {  }
       let result = await axios.post("/auth/local", {
         identifier: username,
         password: password,
