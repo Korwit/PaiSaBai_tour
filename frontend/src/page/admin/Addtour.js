@@ -8,27 +8,34 @@ import "../../css/addrecommend.css";
 import NavBar from "../../component/navbar-main";
 
 const Addtour = () => {
-  const navigate = useNavigate();
-  const [detail, setDetail] = useState("");
-  const [count, setCount] = useState("");
-  const [price, setPrice] = useState("");
-  const [topic, setTopic] = useState("");
-  const [submitEnabled, setSubmitEnabled] = useState(true);
-  const [errorMessage, setErrorMessage] = useState("");
-  const [isLoading, setIsLoading] = useState(false);
-  const [data, setdata] = useState("");
-  const [isChecked, setIsChecked] = useState(false);
-  const [files, setFiles] = useState();
-  const [showModal, setShowModal] = useState(false);
-  const [checkboxData, setCheckboxData] = useState([]);
-  const [selectedCheckboxes, setSelectedCheckboxes] = useState([]);
-  const jwt = localStorage.getItem("jwt");
-  const [eff, setEff] = useState(null);
-  const [daydata, setdaydata] = useState([]);
-  const [daydataId, setdaydataId] = useState([]);
-  const [selectedOption, setSelectedOption] = useState("");
-  const [selectedOptions, setSelectedOptions] = useState("");
-  axios.defaults.headers.common = { Authorization: `bearer ${jwt}` };
+    const navigate = useNavigate();
+    const [detail, setDetail] = useState('');
+    const [count, setCount] = useState('');
+    const [price, setPrice] = useState('');
+    const [topic, setTopic] = useState('');
+    const [submitEnabled, setSubmitEnabled] = useState(true);
+    const [errorMessage, setErrorMessage] = useState('');
+    const [isLoading, setIsLoading] = useState(false)
+    const [data, setdata] = useState('');
+    const [isChecked, setIsChecked] = useState(false);
+    const [files, setFiles] = useState()
+    const [showModal, setShowModal] = useState(false);
+    const [checkboxData, setCheckboxData] = useState([]);
+    const [selectedCheckboxes, setSelectedCheckboxes] = useState([]);
+    const jwt = localStorage.getItem("jwt");
+    const [eff, setEff] = useState(null);
+    const [daydata, setdaydata] = useState([]);
+    const [daydataId, setdaydataId] = useState([]);
+    const [selectedOption, setSelectedOption] = useState('');
+    const [selectedOptions, setSelectedOptions] = useState('');
+    axios.defaults.headers.common = { 'Authorization': `bearer ${jwt}` }  
+    useEffect(() => {    
+        if (jwt == null) {
+          window.location.reload();
+          navigate('/admin')
+        }
+    }, [jwt]);
+
 
   const handleShowModal = async () => {
     const result = await axios.get(

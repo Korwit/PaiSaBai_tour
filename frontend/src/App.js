@@ -34,7 +34,7 @@ const App = () => {
         <Route path="/paymentstatus" element={<PaymentStatus />} />
         <Route path="/setting" element={<Setting />} />
         <Route path="/payment" element={<Payment />} />
-        <Route path="/reservation" element={<Reservation />} />
+        <Route path="/reservation/:cardId" element={<Reservation />} />
         <Route path="/history" element={<History />} />
         <Route path="/admin/addrecommend" element={<Addrecommend />} />
         <Route path="/admin/addtour" element={<Addtour />} />
