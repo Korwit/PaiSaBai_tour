@@ -5,6 +5,7 @@ import 'react-toastify/dist/ReactToastify.css';
 import axios from 'axios';
 import { useNavigate } from 'react-router-dom';
 import '../css/register.css';
+import config from '../config';
 
 const Register = () => {
     const navigate = useNavigate();
@@ -150,7 +151,7 @@ const Register = () => {
                             try {
 
                                 setIsLoading(true)
-                                let result = await axios.post('http://localhost:1337/api/auth/local/register', {
+                                let result = await axios.post(`${config.serverAdminUrlPrefix}/api/auth/local/register`, {
                                     email: email,
                                     username: firstname,
                                     password: password,

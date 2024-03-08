@@ -8,6 +8,7 @@ import { useParams, useLocation } from 'react-router-dom';
 import { ToastContainer, toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 import '../css/email.css';
+import config from '../config';
 
 const Forgotpass = () => {
     const navigate = useNavigate();
@@ -74,7 +75,7 @@ const Forgotpass = () => {
                     toast("รหัสผ่านต้องมีอย่างน้อย 6 ตัวอักษร");
                 }
                 else {
-                    let result = await axios.post('http://localhost:1337/api/auth/reset-password', {
+                    let result = await axios.post(`${config.serverAdminUrlPrefix}/api/auth/reset-password`, {
                         code: code,
                         password: password,
                         passwordConfirmation: passwordConfirm

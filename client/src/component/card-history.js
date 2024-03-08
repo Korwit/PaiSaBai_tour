@@ -5,6 +5,7 @@ import RatingCommentInput from "./RatingCommentInput";
 import ReactStars from "react-rating-stars-component";
 import axios from "axios";
 import "../css/BookingHistoryCard.css";
+import config from "../config";
 
 const BookingHistoryCard = () => {
   const [bookings, setBookings] = useState([]);
@@ -48,7 +49,7 @@ const BookingHistoryCard = () => {
 
     try {
       const response = await axios.put(
-        `http://localhost:1337/api/reservations/${targetId}`,
+        `${config.serverAdminUrlPrefix}/api/reservations/${targetId}`,
         payload
       );
 
@@ -70,7 +71,7 @@ const BookingHistoryCard = () => {
   const fetchBookings = async () => {
     try {
       const response = await axios.get(
-        "http://localhost:1337/api/users/me?populate[reservations][populate][tour][populate]=*"
+        `${config.serverAdminUrlPrefix}/api/users/me?populate[reservations][populate][tour][populate]=*`
       );
 
       const filteredBookings = response.data.reservations.filter((tour) => {
@@ -104,7 +105,7 @@ const BookingHistoryCard = () => {
           <Card key={tour.id} className="historycard">
             <CardImg
               variant="top"
-              src={`http://localhost:1337${tour.tour?.image.url}`}
+              src={`${config.serverAdminUrlPrefix}${tour.tour?.image.url}`}
               className="img-hs"
             />
             <CardBody className="hs-body">

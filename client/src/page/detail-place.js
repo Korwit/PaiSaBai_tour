@@ -4,6 +4,7 @@ import Cards from "../component/card-tour";
 import { useEffect, useState } from "react";
 import axios from "axios";
 import { useNavigate } from "react-router-dom";
+import config from "../config";
 
 const Place = ({ data, detailClick }) => {
   const [userRole, setUserRole] = useState('')
@@ -40,7 +41,7 @@ const Place = ({ data, detailClick }) => {
             <img
               className="img-detail"
               src={
-                "http://localhost:1337" +
+                config.serverAdminUrlPrefix +
                 data?.attributes?.image?.data.attributes.url
               }
             />

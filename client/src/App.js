@@ -17,9 +17,9 @@ import Addtour from "./page/admin/Addtour";
 import Editpayment from "./page/admin/Editpayment";
 import EditTour from "./page/admin/Edittour";
 import EditPlace from "./page/admin/Editplace";
+import config from "./config";
 
-axios.defaults.baseURL =
-  process.env.React_APP_BASE_URL || "http://localhost:1337/api";
+axios.defaults.baseURL = config.serverUrlPrefix;
 /*const result = localStorage.getItem('jwt');
   axios.defaults.headers.common = { 'Authorization': `bearer ${result}` };*/
 const App = () => {

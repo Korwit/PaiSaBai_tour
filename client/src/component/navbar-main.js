@@ -3,6 +3,7 @@ import "../css/nav.css";
 import { useNavigate } from "react-router-dom";
 import { useEffect, useState, useRef } from "react";
 import axios from "axios";
+import config from "../config";
 
 function NavBar({ allData, closeFilter, closeTour, closePlace }) {
   const jwt = localStorage.getItem("jwt");
@@ -79,14 +80,17 @@ function NavBar({ allData, closeFilter, closeTour, closePlace }) {
           <img
             src={
               userInfo.profile != null
-                ? "http://localhost:1337" + userInfo.profile.url
+                ? config.serverAdminUrlPrefix + userInfo.profile.url
                 : "/user.png"
             }
             className="user-profile"
           />
         </Navbar.Toggle>
         <Navbar.Collapse id="responsive-navbar-nav">
-          {(jwt !== null && userInfo && userInfo.role && userInfo.role.name !== "Admin") ? (
+          {jwt !== null &&
+          userInfo &&
+          userInfo.role &&
+          userInfo.role.name !== "Admin" ? (
             <Nav className="nav-head">
               <Nav.Link className="text" href="/history">
                 ประวัติการจอง
@@ -112,7 +116,9 @@ function NavBar({ allData, closeFilter, closeTour, closePlace }) {
               )}
             </Nav>
           ) : (
-            (userInfo && userInfo.role && userInfo.role.name === "Admin") && (
+            userInfo &&
+            userInfo.role &&
+            userInfo.role.name === "Admin" && (
               <Nav className="nav-head">
                 <Nav.Link className="text" href="/admin/addrecommend">
                   เพิ่มสถานที่แนะนำ
@@ -165,7 +171,7 @@ function NavBar({ allData, closeFilter, closeTour, closePlace }) {
                     <img
                       src={
                         userInfo.profile != null
-                          ? "http://localhost:1337" + userInfo.profile.url
+                          ? config.serverAdminUrlPrefix + userInfo.profile.url
                           : "/user.png"
                       }
                       className="user-profile"

@@ -3,13 +3,17 @@ import { Card, Button, Row, Col } from "react-bootstrap";
 import "../css/tour.css";
 import { useNavigate } from "react-router-dom";
 import axios from "axios";
+import config from "../config";
 
 const Cards = ({ data, search, detailClick }) => {
   const navigate = useNavigate();
   const jwt = localStorage.getItem("jwt");
-  {jwt && (axios.defaults.headers.common = {
-    Authorization: `bearer ${jwt}`,
-  })}
+  {
+    jwt &&
+      (axios.defaults.headers.common = {
+        Authorization: `bearer ${jwt}`,
+      });
+  }
   const searchData = search.map((name) =>
     data.find((item) => item.attributes.name === name)
   );
@@ -89,7 +93,7 @@ const Cards = ({ data, search, detailClick }) => {
               <Card.Img
                 variant="top"
                 src={
-                  "http://localhost:1337" +
+                  config.serverAdminUrlPrefix +
                   item.attributes.image.data.attributes.url
                 }
                 className="img-card"
@@ -156,7 +160,12 @@ const Cards = ({ data, search, detailClick }) => {
                         จองเลย
                       </Button>
                     ) : userRole != "Admin" ? (
-                      <Button className="reserve-button" onClick={() => navigate('/login')}>จองเลย</Button>
+                      <Button
+                        className="reserve-button"
+                        onClick={() => navigate("/login")}
+                      >
+                        จองเลย
+                      </Button>
                     ) : (
                       <Button
                         variant="danger"

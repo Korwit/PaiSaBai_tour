@@ -8,6 +8,7 @@ import { useNavigate } from "react-router-dom";
 //import { useAuth } from './AuthContext';
 import "../css/setting.css";
 import NavBar from "../component/navbar-main";
+import config from "../config";
 
 const Setting = () => {
   const navigate = useNavigate();
@@ -142,7 +143,7 @@ const Setting = () => {
         setUsername(result.data.username);
         setLastname(result.data.lastname);
         if (result.data?.profile?.url)
-          setProfile("http://localhost:1337" + result.data.profile.url);
+          setProfile(config.serverAdminUrlPrefix + result.data.profile.url);
 
         setPhone(result.data.phone);
       } catch (error) {

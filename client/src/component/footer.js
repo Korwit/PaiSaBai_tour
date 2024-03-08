@@ -1,4 +1,4 @@
-import "../css/main.css"
+import "../css/main.css";
 const Footer = () => {
   return (
     <footer
@@ -109,4 +109,4 @@ const Footer = () => {
     </footer>
   );
 };
-export default Footer
+export default Footer;

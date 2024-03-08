@@ -7,6 +7,7 @@ import { useNavigate } from 'react-router-dom';
 import '../css/email.css';
 import { ToastContainer, toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
+import config from '../config';
 
 const Emailsend = () => {
     const navigate = useNavigate();
@@ -41,7 +42,7 @@ const Emailsend = () => {
         try {
             setIsLoading(true)
             //axiosConfig.jwt = {};
-            const result = await axios.post('http://localhost:1337/api/auth/forgot-password', {
+            const result = await axios.post(`${config.serverAdminUrlPrefix}/api/auth/forgot-password`, {
                 email: username
                
             });

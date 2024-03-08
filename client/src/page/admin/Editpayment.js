@@ -14,6 +14,7 @@ import "../../css/PaymentStatuscard.css";
 import "../../css/editpayment.css";
 import NavBar from "../../component/navbar-main";
 import { useNavigate } from "react-router-dom";
+import config from "../config";
 
 const Editpayment = () => {
   const navigate = useNavigate();
@@ -79,7 +80,7 @@ const Editpayment = () => {
                 variant="top"
                 src={
                   e.attributes?.payment?.data?.attributes?.url
-                    ? "http://localhost:1337" +
+                    ? config.serverAdminUrlPrefix +
                       e.attributes.payment.data.attributes.url
                     : ""
                 }

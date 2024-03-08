@@ -2,6 +2,7 @@ import axios from "axios";
 import { useEffect, useState } from "react";
 import { Card, Form, Button, Container } from "react-bootstrap";
 import { useNavigate, useParams } from "react-router-dom";
+import config from "../../config";
 
 const EditTour = () => {
   const navigate = useNavigate();
@@ -92,7 +93,7 @@ const EditTour = () => {
     }));
   };
 
-  const TourImg = "http://localhost:1337" + tour.image.data.attributes.url;
+  const TourImg = config.serverAdminUrlPrefix + tour.image.data.attributes.url;
 
   return (
     <div

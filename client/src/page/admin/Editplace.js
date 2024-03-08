@@ -2,6 +2,7 @@ import axios from "axios";
 import { useEffect, useState } from "react";
 import { useNavigate, useParams } from "react-router-dom";
 import { Card, Form, Button, Container } from "react-bootstrap";
+import config from "../../config";
 
 const EditPlace = () => {
   const navigate = useNavigate();
@@ -75,7 +76,7 @@ const EditPlace = () => {
     }));
   };
 
-  const PlaceImg = "http://localhost:1337" + place.image.data.attributes.url;
+  const PlaceImg = config.serverAdminUrlPrefix + place.image.data.attributes.url;
 
   return (
     <div

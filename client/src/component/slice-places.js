@@ -1,17 +1,21 @@
 import { Container, Carousel, Button } from "react-bootstrap";
 import "../css/slice.css";
+import config from "../config";
 
-const Slice = ({data,detailClick}) => {
+const Slice = ({ data, detailClick }) => {
   return (
     <Container>
       <Carousel className="carousel">
         {data.map((item, index) => (
           <Carousel.Item key={index}>
-            <Button className="carousel-button" onClick={() => detailClick(item)}>
+            <Button
+              className="carousel-button"
+              onClick={() => detailClick(item)}
+            >
               <img
                 className="carousel-img"
                 src={
-                  "http://localhost:1337" +
+                  config.serverAdminUrlPrefix +
                   item.attributes.image.data.attributes.url
                 }
                 alt="Loading"

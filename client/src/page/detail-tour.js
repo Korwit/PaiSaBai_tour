@@ -4,6 +4,7 @@ import "../css/tour.css";
 import { useEffect, useState } from "react";
 import axios from "axios";
 import { useNavigate } from "react-router-dom";
+import config from "../config";
 
 const Tour = ({ data }) => {
   const [comment, setComment] = useState([]);
@@ -99,7 +100,7 @@ const Tour = ({ data }) => {
                 data.attributes.image &&
                 data.attributes.image.data &&
                 data.attributes.image.data.attributes.url
-                  ? "http://localhost:1337" +
+                  ? config.serverAdminUrlPrefix +
                     data.attributes.image.data.attributes.url
                   : ""
               }
