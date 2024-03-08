@@ -41,7 +41,7 @@ const Place = ({ data, detailClick }) => {
               className="img-detail"
               src={
                 "http://localhost:1337" +
-                data.attributes.image.data.attributes.url
+                data?.attributes?.image?.data.attributes.url
               }
             />
           </Col>

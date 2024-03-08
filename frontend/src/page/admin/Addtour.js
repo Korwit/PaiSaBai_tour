@@ -32,7 +32,7 @@ const Addtour = () => {
     useEffect(() => {    
         if (jwt == null) {
           window.location.reload();
-          navigate('/admin')
+          navigate('/')
         }
     }, [jwt]);
 

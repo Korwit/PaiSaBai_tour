@@ -1,9 +1,10 @@
 import axios from "axios";
 import { useEffect, useState } from "react";
 import { Card, Form, Button, Container } from "react-bootstrap";
-import { useParams } from "react-router-dom";
+import { useNavigate, useParams } from "react-router-dom";
 
 const EditTour = () => {
+  const navigate = useNavigate();
   const jwt = localStorage.getItem("jwt");
   axios.defaults.headers.common = {
     Authorization: `bearer ${jwt}`,
@@ -48,10 +49,10 @@ const EditTour = () => {
       formData.append("field", "image");
       formData.append("ref", "api::tour.tour");
       if (formData) {
-        axios.post("/upload", formData)
-          .then(response => {
-          })
-          .catch(error => {
+        axios
+          .post("/upload", formData)
+          .then((response) => {})
+          .catch((error) => {
             console.log(error);
           });
       }
@@ -102,7 +103,7 @@ const EditTour = () => {
         height: "100vh",
       }}
     >
-      <Container>
+      <Container style={{ marginTop: "10%" }}>
         <Card style={{ width: "40rem" }}>
           <Card.Body>
             <Card.Title>Edit Tour</Card.Title>
@@ -206,7 +207,11 @@ const EditTour = () => {
                   onChange={handleTravelMethodChange}
                 />
               </Form.Group>
-              <Button variant="primary" type="submit">
+              <Button
+                variant="primary"
+                type="submit"
+                onClick={() => navigate("/")}
+              >
                 Save
               </Button>
             </Form>

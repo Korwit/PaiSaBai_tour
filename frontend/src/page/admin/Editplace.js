@@ -1,9 +1,10 @@
 import axios from "axios";
 import { useEffect, useState } from "react";
-import { useParams } from "react-router-dom";
+import { useNavigate, useParams } from "react-router-dom";
 import { Card, Form, Button, Container } from "react-bootstrap";
 
 const EditPlace = () => {
+  const navigate = useNavigate();
   const { id } = useParams();
   const [place, setPlace] = useState({
     image: { data: { attributes: { url: "" } } },
@@ -119,7 +120,7 @@ const EditPlace = () => {
               <Form.Group controlId="details">
                 <Form.Label>รายละเอียด:</Form.Label>
                 <Form.Control
-                style={{height: "150px"}}
+                  style={{ height: "150px" }}
                   as="textarea"
                   value={place.description}
                   onChange={(e) =>
@@ -131,7 +132,11 @@ const EditPlace = () => {
                 />
               </Form.Group>
 
-              <Button variant="primary" type="submit">
+              <Button
+                variant="primary"
+                type="submit"
+                onClick={() => navigate("/")}
+              >
                 Save
               </Button>
             </Form>

@@ -1,7 +1,18 @@
-
+.frame-large1{
+    width: 500px;
+    height: fit-content;
+    margin:  auto;
+    margin-top: 160px;
+    margin-bottom: 160px;
+    background-color:white;
+    padding: 30px;
+    border:10px solid #FFF48F;
+    border-radius: 50px;
+    box-shadow: 0 0 20px rgba(0, 0, 0, 0.1);
+}
 .frame-large{
     width: 500px;
-    height: 900px;
+    height: 1200px;
     margin:  auto;
     margin-top: 160px;
     margin-bottom: 160px;

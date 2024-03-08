@@ -97,59 +97,62 @@ const BookingHistoryCard = () => {
 
   return (
     <div className="booking-history-container">
-      {bookings.map((tour) => (
-        <Card key={tour.id} className="historycard">
-          <CardImg
-            variant="top"
-            src={`http://localhost:1337${tour.tour?.image.url}`}
-            className="img-hs"
-          />
-          <CardBody className="hs-body">
-            <CardTitle className="hs-title">{tour.name}</CardTitle>
-            <CardText className="hs-text">
-              จองสำเร็จ: {tour.created_at}
-              <br />
-              เริ่มเดินทาง: {formatDate(tour.tour?.trip_dates?.[0]?.go_date)}
-              <br />
-              เดินทางกลับ: {formatDate(tour.tour?.trip_dates?.[0]?.end_date)}
-              <br />
-              รูปแบบการเดินทาง: {tour.tour?.travel_by}
-              <br />
-              {canRateAndComment(tour) && hasCommentAndRating(tour) && (
-                <div>
-                  <p>ความคิดเห็น: {tour.tour?.reservations?.[0]?.comment}</p>
-                  <ReactStars
-                    count={5}
-                    value={tour.tour?.reservations?.[0]?.star}
-                    size={24}
-                    activeColor="#ffd700"
-                    edit={false}
-                  />
-                </div>
-              )}
-
-              {canRateAndComment(tour) &&
-                !hasCommentAndRating(tour) &&
-                isRatingInputVisible && (
-                  <RatingCommentInput
-                    onSubmit={({ rating, comment }) => {
-                      const reservationId = tour.tour?.reservations?.[0]?.id;
-                      if (reservationId) {
-                        submitRatingAndComment(
-                          reservationId,
-                          rating,
-                          comment
-                        );
-                      } else {
-                        console.error("No reservation ID found.");
-                      }
-                    }}
-                  />
+      {bookings.length === 0 ? (
+        <h1>จองทัวร์กันเถอะ!</h1>
+      ) : (
+        bookings.map((tour) => (
+          <Card key={tour.id} className="historycard">
+            <CardImg
+              variant="top"
+              src={`http://localhost:1337${tour.tour?.image.url}`}
+              className="img-hs"
+            />
+            <CardBody className="hs-body">
+              <CardTitle className="hs-title">{tour.name}</CardTitle>
+              <CardText className="hs-text">
+                จองสำเร็จ: {tour.created_at}
+                <br />
+                เริ่มเดินทาง: {formatDate(tour.tour?.trip_dates?.[0]?.go_date)}
+                <br />
+                เดินทางกลับ: {formatDate(tour.tour?.trip_dates?.[0]?.end_date)}
+                <br />
+                รูปแบบการเดินทาง: {tour.tour?.travel_by}
+                <br />
+                {canRateAndComment(tour) && hasCommentAndRating(tour) && (
+                  <div>
+                    <p>ความคิดเห็น: {tour.tour?.reservations?.[0]?.comment}</p>
+                    <ReactStars
+                      count={5}
+                      value={tour.tour?.reservations?.[0]?.star}
+                      size={24}
+                      activeColor="#ffd700"
+                      edit={false}
+                    />
+                  </div>
                 )}
-            </CardText>
-          </CardBody>
-        </Card>
-      ))}
+                {canRateAndComment(tour) &&
+                  !hasCommentAndRating(tour) &&
+                  isRatingInputVisible && (
+                    <RatingCommentInput
+                      onSubmit={({ rating, comment }) => {
+                        const reservationId = tour.tour?.reservations?.[0]?.id;
+                        if (reservationId) {
+                          submitRatingAndComment(
+                            reservationId,
+                            rating,
+                            comment
+                          );
+                        } else {
+                          console.error("No reservation ID found.");
+                        }
+                      }}
+                    />
+                  )}
+              </CardText>
+            </CardBody>
+          </Card>
+        ))
+      )}
     </div>
   );
 };

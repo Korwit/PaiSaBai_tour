@@ -18,7 +18,7 @@ const Tour = ({ data }) => {
     };
     FetchData();
   }, []);
-  const trip = data.attributes.trip_dates.data;
+  const trip = data?.attributes?.trip_dates.data;
 
   const DotEvent = (date) => {
     const goDates = trip.map((day) => new Date(day.attributes?.go_date));
@@ -94,15 +94,25 @@ const Tour = ({ data }) => {
             <img
               className="img-detail"
               src={
-                "http://localhost:1337" +
+                data &&
+                data.attributes &&
+                data.attributes.image &&
+                data.attributes.image.data &&
                 data.attributes.image.data.attributes.url
+                  ? "http://localhost:1337" +
+                    data.attributes.image.data.attributes.url
+                  : ""
               }
             />
           </Col>
           <Col>
-            <h4 className="name-tour">{data.attributes.name}</h4>
+            <h4 className="name-tour">
+              {data && data.attributes && data.attributes.name}
+            </h4>
             <hr />
-            <h6 className="detail">{data.attributes.detail}</h6>
+            <h6 className="detail">
+              {data && data.attributes && data.attributes.detail}
+            </h6>
           </Col>
         </Row>
         <Row xs={1}>
@@ -138,7 +148,7 @@ const Tour = ({ data }) => {
               {trip.map((item, index) => (
                 <Row key={index}>
                   {GoToEnd(item.attributes)}
-                  <Col>{data.attributes.price}</Col>
+                  <Col>{data && data.attributes && data.attributes.price}</Col>
                   <Col>
                     {jwt !== null ? (
                       <Button
@@ -148,7 +158,7 @@ const Tour = ({ data }) => {
                         จอง
                       </Button>
                     ) : (
-                      <Button className="bt-detail">จอง</Button>
+                      <Button className="bt-detail" onClick={() => navigate('/login')}>จอง</Button>
                     )}
                   </Col>
                   <hr />
@@ -171,14 +181,26 @@ const Tour = ({ data }) => {
             {comment.length === 0 ? (
               <h6 style={{ textAlign: "center" }}>
                 คุณเป็นคนแรกหากคอมเม้นท์ตอนนี้ <br />{" "}
-                <img src="/chat-left-text.svg" alt="Loading" style={{width: "40px", marginTop: "10px"}} />
+                <img
+                  src="/chat-left-text.svg"
+                  alt="Loading"
+                  style={{ width: "40px", marginTop: "10px" }}
+                />
               </h6>
             ) : (
               comment.map((item, index) => (
                 <Row key={index} style={{ padding: "2%" }}>
-                  <Row>@{item.attributes.owner.data.attributes.username}</Row>
-                  <Row>{item.attributes.comment}</Row>
-                  <Row>{genStar(item.attributes.star)}</Row>
+                  <Row>
+                    @
+                    {item.attributes.owner &&
+                      item.attributes.owner.data &&
+                      item.attributes.owner.data.attributes &&
+                      item.attributes.owner.data.attributes.username}
+                  </Row>
+                  {item.attributes.comment && (
+                    <Row>{item.attributes.comment}</Row>
+                  )}
+                  <Row>{genStar(item.attributes?.star)}</Row>
                   <Row>
                     <br />
                   </Row>

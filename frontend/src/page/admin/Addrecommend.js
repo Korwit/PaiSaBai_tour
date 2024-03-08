@@ -25,7 +25,7 @@ const Addrecommend = () => {
     useEffect(() => {    
         if (jwt == null) {
           window.location.reload();
-          navigate('/admin')
+          navigate('/')
         }
     }, [jwt]);
 
@@ -110,7 +110,7 @@ const Addrecommend = () => {
             formData.append('ref', 'api::recommend-place.recommend-place')
             axios.post("/upload", formData)
             setTimeout(() => {
-                navigate('/admin');
+                navigate('/');
             }, 1000);
             toast("บันทึกข้อมูลเรียบร้อย");
 

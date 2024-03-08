@@ -18,9 +18,9 @@ const PaymentPage = () => {
       }
   }, [jwt]);
   return (
-    <div>
+    <div >
     <NavBar />
-    <div className="frame-large">
+    <div className="frame-large1">
       <center><h2>ชำระเงิน</h2></center>
       <PaymentCard />
     </div>

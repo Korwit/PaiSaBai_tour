@@ -86,7 +86,7 @@ function NavBar({ allData, closeFilter, closeTour, closePlace }) {
           />
         </Navbar.Toggle>
         <Navbar.Collapse id="responsive-navbar-nav">
-          {(jwt !== null) & (userInfo.role?.name != "Admin") ? (
+          {(jwt !== null && userInfo && userInfo.role && userInfo.role.name !== "Admin") ? (
             <Nav className="nav-head">
               <Nav.Link className="text" href="/history">
                 ประวัติการจอง
@@ -112,7 +112,7 @@ function NavBar({ allData, closeFilter, closeTour, closePlace }) {
               )}
             </Nav>
           ) : (
-            userInfo.role.name == "Admin" && (
+            (userInfo && userInfo.role && userInfo.role.name === "Admin") && (
               <Nav className="nav-head">
                 <Nav.Link className="text" href="/admin/addrecommend">
                   เพิ่มสถานที่แนะนำ

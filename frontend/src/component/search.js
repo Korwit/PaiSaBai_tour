@@ -109,6 +109,7 @@ const Search = ({ data, onFilter, closeTour, closePlace }) => {
           <h5 style={{ fontWeight: "bold" }}>ค้นหาทัวร์ / แพ็คเกจ :</h5>
         </Row>
         <Row>
+          
           <Col xs={6} md={6} lg={3}>
             <FormControl
               type="text"
