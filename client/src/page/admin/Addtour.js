@@ -6,6 +6,7 @@ import axios from "axios";
 import { useNavigate } from "react-router-dom";
 import "../../css/addrecommend.css";
 import NavBar from "../../component/navbar-main";
+import config from "../../config";
 
 const Addtour = () => {
     const navigate = useNavigate();
@@ -39,7 +40,7 @@ const Addtour = () => {
 
   const handleShowModal = async () => {
     const result = await axios.get(
-      "/trip-dates?populate[0]=tour&filters[tour][name][$null]=*"
+      `${config.serverUrlPrefix}/trip-dates?populate[0]=tour&filters[tour][name][$null]=*`
     );
     setdaydata(result.data.data);
     //console.log(daydata)
@@ -57,7 +58,7 @@ const Addtour = () => {
 
   const handleDelete = async (e) => {
     console.log(e);
-    const result = await axios.delete(`/trip-dates/${e}`);
+    const result = await axios.delete(`${config.serverUrlPrefix}/trip-dates/${e}`);
     setShowModal(false);
     handleShowModal();
   };
@@ -97,7 +98,7 @@ const Addtour = () => {
     const go = document.getElementById("date").value;
     const Return = document.getElementById("dates").value;
     try {
-      await axios.post("/trip-dates", {
+      await axios.post(`${config.serverUrlPrefix}/trip-dates`, {
         data: {
           go_date: go,
           end_date: Return,
@@ -127,8 +128,8 @@ const Addtour = () => {
   useEffect(() => {
     const getData = async () => {
       try {
-        const response = await axios.get("/tours");
-        const responsetrip = await axios.get("/trip-dates");
+        const response = await axios.get(`${config.serverUrlPrefix}/tours`);
+        const responsetrip = await axios.get(`${config.serverUrlPrefix}/trip-dates`);
 
         setdata(response.data.data);
         //console.log(response.data.data)
@@ -141,7 +142,7 @@ const Addtour = () => {
             }))
           );
         }
-        const result = await axios.get("/users/me?populate=role");
+        const result = await axios.get(`${config.serverUrlPrefix}/users/me?populate=role`);
         if (result.data.role) {
           if (result.data.role.name === "Member") {
             navigate("/");
@@ -161,7 +162,7 @@ const Addtour = () => {
     try {
       axios.defaults.headers.common = { Authorization: `bearer ${jwt}` };
       setIsLoading(true);
-      const result = await axios.post("/tours", {
+      const result = await axios.post(`${config.serverUrlPrefix}/tours`, {
         data: {
           name: topic,
           detail: detail,
@@ -179,7 +180,7 @@ const Addtour = () => {
       formData.append("refId", result.data.data.id);
       formData.append("field", "image");
       formData.append("ref", "api::tour.tour");
-      axios.post("/upload", formData);
+      axios.post(`${config.serverUrlPrefix}/upload`, formData);
 
       setTimeout(() => {
         navigate("/");

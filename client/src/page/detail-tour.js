@@ -13,7 +13,7 @@ const Tour = ({ data }) => {
   useEffect(() => {
     const FetchData = async () => {
       const Data = await axios.get(
-        `/reservations?populate=*&filters[tour][id]=${data.id}`
+        `${config.serverUrlPrefix}/reservations?populate=*&filters[tour][id]=${data.id}`
       );
       setComment(Data.data.data);
     };

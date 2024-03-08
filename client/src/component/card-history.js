@@ -49,7 +49,7 @@ const BookingHistoryCard = () => {
 
     try {
       const response = await axios.put(
-        `${config.serverAdminUrlPrefix}/api/reservations/${targetId}`,
+        `${config.serverUrlPrefix}/reservations/${targetId}`,
         payload
       );
 
@@ -71,7 +71,7 @@ const BookingHistoryCard = () => {
   const fetchBookings = async () => {
     try {
       const response = await axios.get(
-        `${config.serverAdminUrlPrefix}/api/users/me?populate[reservations][populate][tour][populate]=*`
+        `${config.serverUrlPrefix}/users/me?populate[reservations][populate][tour][populate]=*`
       );
 
       const filteredBookings = response.data.reservations.filter((tour) => {
@@ -88,7 +88,6 @@ const BookingHistoryCard = () => {
     fetchBookings();
   }, []);
 
-  // ตรวจสอบว่ามีข้อมูลความคิดเห็นและดาวหรือไม่
   const hasCommentAndRating = (tour) => {
     return (
       tour.tour?.reservations?.[0]?.comment &&

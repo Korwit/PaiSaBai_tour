@@ -23,7 +23,7 @@ const PaymentStatusCard = () => {
   const fetchStatuses = async () => {
     if (jwt != null) {
       const response = await axios.get(
-        `${config.serverAdminUrlPrefix}/api/users/me?populate[reservations][populate][tour][populate]=*`
+        `${config.serverUrlPrefix}/users/me?populate[reservations][populate][tour][populate]=*`
       );
       console.log("API Response:", response.data);
       setStatuses(response.data.reservations);
@@ -50,7 +50,7 @@ const PaymentStatusCard = () => {
       setIsCancelling(true);
 
       const response = await axios.delete(
-        `${config.serverAdminUrlPrefix}/api/reservations/${reservationId}`
+        `${config.serverUrlPrefix}/reservations/${reservationId}`
       );
       console.log("Cancellation response: ", response.data.reservations);
 

@@ -22,14 +22,16 @@ const Cards = ({ data, search, detailClick }) => {
   useEffect(() => {
     const fetchData = async () => {
       try {
-        const role = await axios.get("/users/me?populate=role");
+        const role = await axios.get(
+          `${config.serverUrlPrefix}/users/me?populate=role`
+        );
         setUserRole(role.data.role.name);
       } catch (error) {
-        console.log(error);
+        console.log("You Are Public");
       }
     };
     fetchData();
-  }, [userRole]);
+  }, []);
 
   const Date = (time, current, max) => {
     const [YG, MG, DG] = time.go_date.split("-");

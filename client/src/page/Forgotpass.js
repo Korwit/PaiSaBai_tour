@@ -75,7 +75,7 @@ const Forgotpass = () => {
                     toast("รหัสผ่านต้องมีอย่างน้อย 6 ตัวอักษร");
                 }
                 else {
-                    let result = await axios.post(`${config.serverAdminUrlPrefix}/api/auth/reset-password`, {
+                    let result = await axios.post(`${config.serverUrlPrefix}/auth/reset-password`, {
                         code: code,
                         password: password,
                         passwordConfirmation: passwordConfirm

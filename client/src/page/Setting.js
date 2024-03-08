@@ -75,7 +75,7 @@ const Setting = () => {
           toast("กรุณาตั้งรหัสผ่านที่ไม่ซ้ำกับรหัสผ่านปัจจุบัน");
         } else {
           axios.defaults.headers.common = { Authorization: `bearer ${jwt}` };
-          let result = await axios.post("/auth/change-password", {
+          let result = await axios.post(`${config.serverUrlPrefix}/auth/change-password`, {
             currentPassword: passwordCur,
             password: password,
             passwordConfirmation: passwordConfirm,
@@ -136,7 +136,7 @@ const Setting = () => {
     const fetchData = async () => {
       try {
         axios.defaults.headers.common = { Authorization: `bearer ${jwt}` };
-        const result = await axios.get("/users/me?populate=*");
+        const result = await axios.get(`${config.serverUrlPrefix}/users/me?populate=*`);
         setData(result.data);
         console.log(result.data);
         setGender(result.data.gender);
@@ -168,7 +168,7 @@ const Setting = () => {
       else {
         const data = setdata.id;
 
-        const results = await axios.put(`users/${data}`, {
+        const results = await axios.put(`${config.serverUrlPrefix}/users/${data}`, {
           username: username,
           lastname: lastname,
           firstname: username,
@@ -183,11 +183,11 @@ const Setting = () => {
           formData.append("refId", results.data.id);
           formData.append("field", "profile");
           formData.append("ref", "plugin::users-permissions.user");
-          axios.post("/upload", formData);
+          axios.post(`${config.serverUrlPrefix}/upload`, formData);
         }
         if (isEditings) {
           const data = setdata.profile.id;
-          await axios.delete(`/upload/files/${data}`);
+          await axios.delete(`${config.serverUrlPrefix}/upload/files/${data}`);
         }
       }
 

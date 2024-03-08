@@ -14,7 +14,7 @@ import "../../css/PaymentStatuscard.css";
 import "../../css/editpayment.css";
 import NavBar from "../../component/navbar-main";
 import { useNavigate } from "react-router-dom";
-import config from "../config";
+import config from "../../config";
 
 const Editpayment = () => {
   const navigate = useNavigate();
@@ -34,14 +34,14 @@ const Editpayment = () => {
   const fetchStatuses = async () => {
     if (jwt != null) {
       const response = await axios.get(
-        "/reservations?populate=*&filters[payment_time][$null]=false"
+        `${config.serverUrlPrefix}/reservations?populate=*&filters[payment_time][$null]=false`
       );
       setStatuses(response.data.data);
       setPaymentStatus(
         response.data.data.map((item) => item.attributes.payment_status)
       );
     }
-    const result = await axios.get("/users/me?populate=role");
+    const result = await axios.get(`${config.serverUrlPrefix}/users/me?populate=role`);
     if (result.data.role) {
       if (result.data.role.name === "Member") {
         navigate("/");
@@ -53,7 +53,7 @@ const Editpayment = () => {
       const newPaymentStatus = [...paymentStatus];
       newPaymentStatus[index] = !newPaymentStatus[index];
       setPaymentStatus(newPaymentStatus);
-      const response = await axios.put(`/reservations/${statuses[index].id}`, {
+      const response = await axios.put(`${config.serverUrlPrefix}/reservations/${statuses[index].id}`, {
         data: {
           payment_status: newPaymentStatus[index],
         },

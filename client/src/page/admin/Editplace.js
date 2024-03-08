@@ -16,7 +16,7 @@ const EditPlace = () => {
   useEffect(() => {
     const fetchData = async () => {
       try {
-        const getPlace = await axios.get(`/recommend-places/${id}?populate=*`);
+        const getPlace = await axios.get(`${config.serverUrlPrefix}/recommend-places/${id}?populate=*`);
         setPlace(getPlace.data.data.attributes);
       } catch (error) {
         console.log(error);
@@ -28,7 +28,7 @@ const EditPlace = () => {
   const handleSubmit = async (event) => {
     event.preventDefault();
     try {
-      await axios.put(`/recommend-places/${id}`, {
+      await axios.put(`${config.serverUrlPrefix}/recommend-places/${id}`, {
         data: {
           name: place.name,
           description: place.description,

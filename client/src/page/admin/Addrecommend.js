@@ -6,28 +6,29 @@ import axios from "axios";
 import { useNavigate } from "react-router-dom";
 import "../../css/addrecommend.css";
 import NavBar from "../../component/navbar-main";
+import config from "../../config";
 
 const Addrecommend = () => {
-    const navigate = useNavigate();
-    const [detail, setDetail] = useState('');
-    const [topic, setTopic] = useState('');
-    const [submitEnabled, setSubmitEnabled] = useState(true);
-    const [errorMessage, setErrorMessage] = useState('');
-    const [isLoading, setIsLoading] = useState(false)
-    const [data, setdata] = useState('');
-    const [isChecked, setIsChecked] = useState(false);
-    const [files, setFiles] = useState()
-    const [showModal, setShowModal] = useState(false);
-    const [checkboxData, setCheckboxData] = useState([]);
-    const [selectedCheckboxes, setSelectedCheckboxes] = useState([]);
-    const jwt = localStorage.getItem("jwt");
-    axios.defaults.headers.common = { 'Authorization': `bearer ${jwt}` }
-    useEffect(() => {    
-        if (jwt == null) {
-          window.location.reload();
-          navigate('/')
-        }
-    }, [jwt]);
+  const navigate = useNavigate();
+  const [detail, setDetail] = useState("");
+  const [topic, setTopic] = useState("");
+  const [submitEnabled, setSubmitEnabled] = useState(true);
+  const [errorMessage, setErrorMessage] = useState("");
+  const [isLoading, setIsLoading] = useState(false);
+  const [data, setdata] = useState("");
+  const [isChecked, setIsChecked] = useState(false);
+  const [files, setFiles] = useState();
+  const [showModal, setShowModal] = useState(false);
+  const [checkboxData, setCheckboxData] = useState([]);
+  const [selectedCheckboxes, setSelectedCheckboxes] = useState([]);
+  const jwt = localStorage.getItem("jwt");
+  axios.defaults.headers.common = { Authorization: `bearer ${jwt}` };
+  useEffect(() => {
+    if (jwt == null) {
+      window.location.reload();
+      navigate("/");
+    }
+  }, [jwt]);
 
   const handleShowModal = () => setShowModal(true);
 
@@ -61,69 +62,67 @@ const Addrecommend = () => {
     }
   };
 
-    useEffect(() => {
-        const getData = async () => {
-            try {
-                const response = await axios.get('/tours');
-                setdata(response.data.data);
-                //console.log(response.data.data)
-                if (Array.isArray(response.data.data)) {
-
-                    setCheckboxData(response.data.data.map(item => ({
-                        id: item.id,
-                        label: item.attributes.name,
-                        checked: false
-                    })));
-                }
-                const result = await axios.get('/users/me?populate=role');                
-                if (result.data.role) {
-                    if (result.data.role.name === 'Member') {
-                        navigate('/');
-                    }  
-                }
-            } catch (error) {
-                console.error('Error fetching data:', error);
-            }
-        };
-        getData();
-    }, []);
-
-    const handleSubmit = async (e) => {
-
-        e.preventDefault();
-        setSubmitEnabled(false);
-        try {
-            
-            setIsLoading(true)
-            const result = await axios.post('/recommend-places', {
-                data:
-                {
-                    name: topic,
-                    description: detail,
-                    tours: selectedCheckboxes,
-                }
-            });
-            const formData = new FormData()
-            formData.append('files', files[0])
-            formData.append('refId', result.data.data.id)
-            formData.append('field', 'image')
-            formData.append('ref', 'api::recommend-place.recommend-place')
-            axios.post("/upload", formData)
-            setTimeout(() => {
-                navigate('/');
-            }, 1000);
-            toast("บันทึกข้อมูลเรียบร้อย");
-
-        } catch (e) {
-            console.log(e);
-       
-        } finally {
-            setSubmitEnabled(true);
-            setIsLoading(false)
-
+  useEffect(() => {
+    const getData = async () => {
+      try {
+        const response = await axios.get(`${config.serverUrlPrefix}/tours`);
+        setdata(response.data.data);
+        if (Array.isArray(response.data.data)) {
+          setCheckboxData(
+            response.data.data.map((item) => ({
+              id: item.id,
+              label: item.attributes.name,
+              checked: false,
+            }))
+          );
         }
+        const result = await axios.get(
+          `${config.serverUrlPrefix}/users/me?populate=role`
+        );
+        if (result.data.role) {
+          if (result.data.role.name === "Member") {
+            navigate("/");
+          }
+        }
+      } catch (error) {
+        console.error("Error fetching data:", error);
+      }
     };
+    getData();
+  }, []);
 
+  const handleSubmit = async (e) => {
+    e.preventDefault();
+    setSubmitEnabled(false);
+    try {
+      setIsLoading(true);
+      const result = await axios.post(
+        `${config.serverUrlPrefix}/recommend-places`,
+        {
+          data: {
+            name: topic,
+            description: detail,
+            tours: selectedCheckboxes,
+          },
+        }
+      );
+      const formData = new FormData();
+      formData.append("files", files[0]);
+      formData.append("refId", result.data.data.id);
+      formData.append("field", "image");
+      formData.append("ref", "api::recommend-place.recommend-place");
+      axios.post(`${config.serverUrlPrefix}/upload`, formData);
+      setTimeout(() => {
+        navigate("/");
+      }, 1000);
+      toast("บันทึกข้อมูลเรียบร้อย");
+    } catch (e) {
+      console.log(e);
+    } finally {
+      setSubmitEnabled(true);
+      setIsLoading(false);
+    }
+  };
 
   return (
     <div className="body">

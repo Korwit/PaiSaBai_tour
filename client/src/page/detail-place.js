@@ -7,8 +7,9 @@ import { useNavigate } from "react-router-dom";
 import config from "../config";
 
 const Place = ({ data, detailClick }) => {
-  const [userRole, setUserRole] = useState('')
-  const navigate = useNavigate()
+  const jwt = localStorage.getItem("jwt");
+  const [userRole, setUserRole] = useState("");
+  const navigate = useNavigate();
   const NameTour = data.attributes.tours.data.map(
     (item) => item.attributes.name
   );
@@ -17,17 +18,23 @@ const Place = ({ data, detailClick }) => {
 
   useEffect(() => {
     const fetchData = async () => {
-      const response = await axios.get(`/tours?populate=*${api}`);
+      const response = await axios.get(
+        `${config.serverUrlPrefix}/tours?populate=*${api}`
+      );
       setTour(response.data.data);
     };
     fetchData();
-    Rerole();
+    if (jwt) {
+      Rerole();
+    }
   }, []);
 
   const Rerole = async () => {
     try {
-      const response = await axios.get(`/users/me?populate=role`);
-      setUserRole(response.data.role.name)
+      const response = await axios.get(
+        `${config.serverUrlPrefix}/users/me?populate=role`
+      );
+      setUserRole(response.data.role.name);
     } catch (error) {
       console.log(error);
     }
@@ -54,7 +61,14 @@ const Place = ({ data, detailClick }) => {
             <h6 className="detail">{data.attributes.description}</h6>
           </Col>
         </Row>
-        <Button variant="danger" onClick={() => navigate(`/admin/editplace/${data.id}`)}>แก้ไข</Button>
+        {userRole == "Admin" && (
+          <Button
+            variant="danger"
+            onClick={() => navigate(`/admin/editplace/${data.id}`)}
+          >
+            แก้ไข
+          </Button>
+        )}
         <hr />
         {Tour && (
           <Cards data={Tour} search={NameTour} detailClick={detailClick} />

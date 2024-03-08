@@ -38,12 +38,15 @@ function NavBar({ allData, closeFilter, closeTour, closePlace }) {
   useEffect(() => {
     const user = async () => {
       try {
-        const response = await axios.get("/users/me?populate=*", {
-          headers: { Authorization: `Bearer ${jwt}` },
-        });
+        const response = await axios.get(
+          `${config.serverUrlPrefix}/users/me?populate=*`,
+          {
+            headers: { Authorization: `Bearer ${jwt}` },
+          }
+        );
         setUserInfo(response.data);
       } catch (error) {
-        console.log(error);
+        console.log("You Are Public");
       }
     };
     user();

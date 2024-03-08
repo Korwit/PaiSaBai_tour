@@ -8,6 +8,7 @@ import qrcode from "../img/qrpayment.png";
 import "../css/payment.css";
 import { ToastContainer, toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
+import config from "../config";
 
 const ReservationForm = () => {
   const navigate = useNavigate();
@@ -31,16 +32,13 @@ const ReservationForm = () => {
   };
 
   useEffect(() => {
-    // ทำการดึงข้อมูลจาก Strapi
     const fetchData = async () => {
       try {
-        const result = await axios.get("/users/me");
-        //console.log(result)
+        const result = await axios.get(`${config.serverUrlPrefix}/users/me`);
 
         const response = await axios.get(
-          `/reservations?populate=*&filters[owner][username][$eq]=${result.data.username}`
+          `${config.serverUrlPrefix}/reservations?populate=*&filters[owner][username][$eq]=${result.data.username}`
         );
-        // นำข้อมูลมาแปลงเป็นรูปแบบที่ react-select รับ
         console.log(
           response.data.data?.[0]?.attributes.tour.data.attributes.name
         );
@@ -107,7 +105,7 @@ const ReservationForm = () => {
       formData.append("refId", ID[ID2]);
       formData.append("field", "payment");
       formData.append("ref", "api::reservation.reservation");
-      axios.post("/upload", formData);
+      axios.post(`${config.serverUrlPrefix}/upload`, formData);
       const dateObject = new Date(datetimepayment);
       const time = dateObject.toTimeString().split(" ")[0];
       const year = dateObject.getFullYear();
@@ -118,12 +116,15 @@ const ReservationForm = () => {
       console.log(date);
       console.log(time);
       console.log(dateObject);
-      const response = await axios.put(`/reservations/${ID[ID2]}`, {
-        data: {
-          payment_time: time,
-          payment_date: date,
-        },
-      });
+      const response = await axios.put(
+        `${config.serverUrlPrefix}/reservations/${ID[ID2]}`,
+        {
+          data: {
+            payment_time: time,
+            payment_date: date,
+          },
+        }
+      );
       console.log("Data sent to Strapi:", response.data);
       toast("บันทึกข้อมูลเรียบร้อย");
       setTimeout(() => {

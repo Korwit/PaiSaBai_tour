@@ -42,7 +42,7 @@ const Emailsend = () => {
         try {
             setIsLoading(true)
             //axiosConfig.jwt = {};
-            const result = await axios.post(`${config.serverAdminUrlPrefix}/api/auth/forgot-password`, {
+            const result = await axios.post(`${config.serverUrlPrefix}/auth/forgot-password`, {
                 email: username
                
             });

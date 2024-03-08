@@ -7,6 +7,7 @@ import { useNavigate } from "react-router-dom";
 import { ToastContainer, toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 import "../css/login.css";
+import config from "../config";
 
 const Login = () => {
   const navigate = useNavigate();
@@ -56,7 +57,7 @@ const Login = () => {
       setIsLoading(true);
       //axiosConfig.jwt = {};
       axios.defaults.headers.common = {  }
-      let result = await axios.post("/auth/local", {
+      let result = await axios.post(`${config.serverUrlPrefix}/auth/local`, {
         identifier: username,
         password: password,
       });
@@ -69,7 +70,7 @@ const Login = () => {
       axios.defaults.headers.common = {
         Authorization: `bearer ${result.data.jwt}`,
       };
-      result = await axios.get("/users/me?populate=role");
+      result = await axios.get(`${config.serverUrlPrefix}/users/me?populate=role`);
       if (result.data.role) {
         if (result.data.role.name === "Member") {
           navigate("/");

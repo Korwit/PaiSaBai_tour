@@ -23,7 +23,7 @@ const EditTour = () => {
   useEffect(() => {
     const fetchData = async () => {
       try {
-        const getTour = await axios.get(`/tours/${id}?populate=*`);
+        const getTour = await axios.get(`${config.serverUrlPrefix}/tours/${id}?populate=*`);
         setTour(getTour.data.data.attributes);
       } catch (error) {
         console.log(error);
@@ -35,7 +35,7 @@ const EditTour = () => {
   const handleSubmit = async (event) => {
     event.preventDefault();
     try {
-      await axios.put(`/tours/${id}`, {
+      await axios.put(`${config.serverUrlPrefix}/tours/${id}`, {
         data: {
           name: tour.name,
           detail: tour.detail,

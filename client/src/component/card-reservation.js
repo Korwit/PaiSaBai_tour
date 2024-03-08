@@ -6,6 +6,7 @@ import axios from "axios";
 import { setDate } from "rsuite/esm/utils/dateUtils";
 import { useParams } from "react-router-dom";
 import "../css/reservation.css";
+import config from "../config";
 
 const ReservationCard = ({ data }) => {
   const { cardId } = useParams();
@@ -24,16 +25,16 @@ const ReservationCard = ({ data }) => {
   axios.defaults.headers.common = { Authorization: `bearer ${jwt}` };
 
   useEffect(() => {
-    // ทำการดึงข้อมูลจาก Strapi
-    //console.log(data.id)
     const fetchData = async () => {
       try {
-        const userData = await axios.get(`/users/me`);
+        const userData = await axios.get(`${config.serverUrlPrefix}/users/me`);
         setFirstname(userData.data.firstname);
         setLastname(userData.data.lastname);
         setPhone(userData.data.phone);
         setowners(userData.data.id);
-        const tourData = await axios.get(`/tours/${cardId}?populate=*`);
+        const tourData = await axios.get(
+          `${config.serverUrlPrefix}/tours/${cardId}?populate=*`
+        );
         setdata(tourData.data.data);
         const r =
           tourData.data.data.attributes.trip_dates.data?.map((item) => ({
@@ -61,11 +62,11 @@ const ReservationCard = ({ data }) => {
   };
 
   const handleSubmit = async (e) => {
-    console.log(datas.attributes.id);
+    console.log(data.attributes.id);
     try {
-      await axios.post("/reservations", {
+      await axios.post(`${config.serverUrlPrefix}/reservations`, {
         data: {
-          tour: [datas.id],
+          tour: [data.id],
           owner: owners,
         },
       });
