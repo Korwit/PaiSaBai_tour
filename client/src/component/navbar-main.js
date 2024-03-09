@@ -26,7 +26,7 @@ function NavBar({ allData, closeFilter, closeTour, closePlace }) {
 
   const handlelogout = () => {
     localStorage.removeItem("jwt");
-    window.location.reload();
+    navigate('/')
   };
 
   const handleClickOutside = (event) => {

@@ -1,4 +1,3 @@
-// BookingHistoryCard.js
 import React, { useState, useEffect } from "react";
 import { Card, CardImg, CardBody, CardTitle, CardText } from "react-bootstrap";
 import RatingCommentInput from "./RatingCommentInput";
@@ -31,7 +30,7 @@ const BookingHistoryCard = () => {
     if (
       today >= endDate &&
       hasReservations &&
-      tour.tour?.reservations[0].payment_status == true
+      tour.payment_status == true
     ) {
       return true;
     } else {
@@ -49,11 +48,11 @@ const BookingHistoryCard = () => {
 
     try {
       const response = await axios.put(
-        `${config.serverUrlPrefix}/reservations/${targetId}`,
+        `${config.serverAdminUrlPrefix}/api/reservations/${targetId}`,
         payload
       );
 
-      console.log("Rating and comment submitted successfully", response.data);
+      //console.log("Rating and comment submitted successfully", response.data);
 
       setSubmittedRating(rating);
       setSubmittedComment(comment);
@@ -61,7 +60,7 @@ const BookingHistoryCard = () => {
 
       fetchBookings();
     } catch (error) {
-      console.error("Error submitting rating and comment:", error);
+      //console.error("Error submitting rating and comment:", error);
       alert(
         "An error occurred while submitting your rating and comment. Please try again later."
       );
@@ -71,16 +70,16 @@ const BookingHistoryCard = () => {
   const fetchBookings = async () => {
     try {
       const response = await axios.get(
-        `${config.serverUrlPrefix}/users/me?populate[reservations][populate][tour][populate]=*`
+        `${config.serverAdminUrlPrefix}/api/users/me?populate[reservations][populate][tour][populate]=*`
       );
 
       const filteredBookings = response.data.reservations.filter((tour) => {
-        return tour.tour?.reservations?.[0]?.payment_status === true;
+        return tour.payment_status === true;
       });
 
       setBookings(filteredBookings);
     } catch (error) {
-      console.error("Error fetching bookings:", error);
+      //console.error("Error fetching bookings:", error);
     }
   };
 
@@ -88,6 +87,7 @@ const BookingHistoryCard = () => {
     fetchBookings();
   }, []);
 
+  // ตรวจสอบว่ามีข้อมูลความคิดเห็นและดาวหรือไม่
   const hasCommentAndRating = (tour) => {
     return (
       tour.tour?.reservations?.[0]?.comment &&
@@ -110,7 +110,7 @@ const BookingHistoryCard = () => {
             <CardBody className="hs-body">
               <CardTitle className="hs-title">{tour.name}</CardTitle>
               <CardText className="hs-text">
-                จองสำเร็จ: {tour.created_at}
+                จองสำเร็จ: {formatDate(tour.tour?.reservations?.[0]?.updatedAt)}
                 <br />
                 เริ่มเดินทาง: {formatDate(tour.tour?.trip_dates?.[0]?.go_date)}
                 <br />
@@ -143,7 +143,7 @@ const BookingHistoryCard = () => {
                             comment
                           );
                         } else {
-                          console.error("No reservation ID found.");
+                          //console.error("No reservation ID found.");
                         }
                       }}
                     />

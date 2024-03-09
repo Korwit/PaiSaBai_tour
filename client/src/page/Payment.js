@@ -16,7 +16,7 @@ const PaymentPage = () => {
         window.location.reload();
         navigate('/')
       }
-  }, [jwt]);
+  }, []);
   return (
     <div >
     <NavBar />

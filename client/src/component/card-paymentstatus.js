@@ -23,11 +23,9 @@ const PaymentStatusCard = () => {
   const fetchStatuses = async () => {
     if (jwt != null) {
       const response = await axios.get(
-        `${config.serverUrlPrefix}/users/me?populate[reservations][populate][tour][populate]=*`
+        `${config.serverAdminUrlPrefix}/api/users/me?populate[reservations][populate][tour][populate]=*`
       );
-      console.log("API Response:", response.data);
       setStatuses(response.data.reservations);
-      console.log("First: ", response.data);
     }
   };
 
@@ -50,13 +48,13 @@ const PaymentStatusCard = () => {
       setIsCancelling(true);
 
       const response = await axios.delete(
-        `${config.serverUrlPrefix}/reservations/${reservationId}`
+        `${config.serverAdminUrlPrefix}/api/reservations/${reservationId}`
       );
-      console.log("Cancellation response: ", response.data.reservations);
+      //console.log("Cancellation response: ", response.data.reservations);
 
       fetchStatuses();
     } catch (error) {
-      console.error("Cancellation error: ", error);
+      //console.error("Cancellation error: ", error);
     } finally {
       setIsCancelling(false);
     }
@@ -69,15 +67,10 @@ const PaymentStatusCard = () => {
   return (
     <div className="paymentstatus-container">
       {statuses.map((e) => {
-        const paymentStatusColor = e.tour?.reservations?.[0]?.payment_status
-          ? "success"
-          : "danger";
-        const paymentStatusText = e.tour?.reservations?.[0]?.payment_status
-          ? "ชำระแล้ว"
-          : "ยังไม่ชำระ";
-        console.log(e.tour?.reservations?.[0]?.payment_status);
+        const paymentStatusColor = e.payment_status ? "success" : "danger";
+        const paymentStatusText = e.payment_status ? "ชำระแล้ว" : "ยังไม่ชำระ";
         return (
-          <Card key={e.id} className="paymentstatus-main">
+          <Card key={e} className="paymentstatus-main">
             <CardImg
               variant="top"
               src={config.serverAdminUrlPrefix + e.tour?.image.url}
@@ -88,18 +81,20 @@ const PaymentStatusCard = () => {
               <CardText className="ps-text">
                 สถานะ:{" "}
                 <Badge bg={paymentStatusColor}>{paymentStatusText}</Badge>
+                {e.payment_status && (
+                  <>
+                    <br />
+                    วันที่ชำระเงิน: {formatstatusDate(e.payment_date)}
+                    <br />
+                    เวลาที่ชำระเงิน: {formatStatusTime(e.payment_time)} น.
+                  </>
+                )}
                 <br />
-                วันที่ชำระเงิน:{" "}
-                {formatstatusDate(e.tour?.reservations?.[0]?.payment_date)}
-                <br />
-                เวลาที่ชำระเงิน:{" "}
-                {formatStatusTime(e.tour?.reservations?.[0]?.payment_time)} น.
-                <br />
-                {!e.tour?.reservations?.[0]?.payment_status && (
+                {!e.payment_status && (
                   <Button
                     variant="danger"
                     disabled={isCancelling}
-                    onClick={() => handleCancelReservation(e.id)}
+                    onClick={() => handleCancelReservation(e)}
                   >
                     {isCancelling ? "กำลังยกเลิก..." : "ยกเลิกการจอง"}
                   </Button>

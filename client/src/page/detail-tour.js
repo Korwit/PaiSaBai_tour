@@ -159,7 +159,12 @@ const Tour = ({ data }) => {
                         จอง
                       </Button>
                     ) : (
-                      <Button className="bt-detail" onClick={() => navigate('/login')}>จอง</Button>
+                      <Button
+                        className="bt-detail"
+                        onClick={() => navigate("/login")}
+                      >
+                        จอง
+                      </Button>
                     )}
                   </Col>
                   <hr />

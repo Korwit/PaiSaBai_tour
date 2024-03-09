@@ -62,11 +62,11 @@ const ReservationCard = ({ data }) => {
   };
 
   const handleSubmit = async (e) => {
-    console.log(data.attributes.id);
+    console.log(datas.attributes.id);
     try {
       await axios.post(`${config.serverUrlPrefix}/reservations`, {
         data: {
-          tour: [data.id],
+          tour: [datas.id],
           owner: owners,
         },
       });

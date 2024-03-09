@@ -147,7 +147,7 @@ const Login = () => {
 
         <div style={{ marginTop: "7px" }}>
           <p>
-            <a href="http://localhost:3000/email" class="forgot-password-link">
+            <a href="https://wd04.cloud-workshop.online/email" class="forgot-password-link">
               Forgot password?
             </a>
           </p>
