@@ -3,7 +3,6 @@ import { Form, Button } from "react-bootstrap";
 import { useNavigate } from "react-router-dom";
 import Select from "react-select";
 import axios from "axios";
-import { setDate } from "rsuite/esm/utils/dateUtils";
 import { useParams } from "react-router-dom";
 import "../css/reservation.css";
 import config from "../config";
@@ -57,12 +56,12 @@ const ReservationCard = ({ data }) => {
 
   const handleSelectChange = (selected) => {
     setSelectedOption(selected);
-    console.log(selected);
+    // console.log(selected);
     setPrice(selected?.price || 0);
   };
 
   const handleSubmit = async (e) => {
-    console.log(datas.attributes.id);
+    // console.log(datas.attributes.id);
     try {
       await axios.post(`${config.serverUrlPrefix}/reservations`, {
         data: {

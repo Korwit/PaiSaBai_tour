@@ -81,12 +81,10 @@ const Login = () => {
       }
     } catch (e) {
       console.log(e);
-      let message = e.response.data.error.message;
+      let message = e.response?.data?.error?.message;
       if (message == "Your account email is not confirmed")
         toast("กรุณายืนยันอีเมลของคุณก่อนเข้าสู่ระบบ");
       else toast("อีเมลหรือรหัสผ่านของคุณผิด");
-
-      console.log(e.response.data.error.message);
     } finally {
       setSubmitEnabled(true);
       setIsLoading(false);
