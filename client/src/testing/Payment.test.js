@@ -20,5 +20,6 @@ describe('Payment Page', () => {
       expect(uploadedImage).toBeInTheDocument();
       expect(uploadedImage.src).toContain('test-image.jpg');
     });
+    
   });
 });
