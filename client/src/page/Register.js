@@ -43,7 +43,7 @@ const Register = () => {
     if (jwt != null) {
       navigate("/");
     }
-  }, [jwt]);
+  }, []);
 
   const handleCheckboxChange = (e) => {
     setIsChecked(e.target.checked);

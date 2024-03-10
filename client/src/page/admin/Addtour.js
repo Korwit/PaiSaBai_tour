@@ -57,7 +57,7 @@ const Addtour = () => {
   };
 
   const handleDelete = async (e) => {
-    console.log(e);
+    // console.log(e);
     const result = await axios.delete(`${config.serverUrlPrefix}/trip-dates/${e}`);
     setShowModal(false);
     handleShowModal();
@@ -89,7 +89,7 @@ const Addtour = () => {
 
   const handleCloseModal = () => {
     setShowModal(false);
-    console.log(daydataId);
+    // console.log(daydataId);
     setEff(null);
   };
 
@@ -196,7 +196,7 @@ const Addtour = () => {
 
   const handleRadioChange = (event) => {
     setSelectedOption(event.target.value);
-    console.log(event.target.value);
+    // console.log(event.target.value);
   };
 
   const handleRadioChanges = (event) => {

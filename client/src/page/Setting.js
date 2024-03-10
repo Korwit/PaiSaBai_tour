@@ -138,7 +138,7 @@ const Setting = () => {
         axios.defaults.headers.common = { Authorization: `bearer ${jwt}` };
         const result = await axios.get(`${config.serverUrlPrefix}/users/me?populate=*`);
         setData(result.data);
-        console.log(result.data);
+        // console.log(result.data);
         setGender(result.data.gender);
         setUsername(result.data.username);
         setLastname(result.data.lastname);
@@ -176,7 +176,7 @@ const Setting = () => {
           gender: gender,
         });
 
-        console.log(results.data.id);
+        // console.log(results.data.id);
         if (files != null) {
           const formData = new FormData();
           formData.append("files", files[0]);
@@ -200,9 +200,9 @@ const Setting = () => {
       // axios.defaults.headers.common = { 'Authorization': `bearer ${result.data.jwt}` };
     } catch (e) {
       console.log(e);
-      let message = e.response.data.error.message;
+      // let message = e.response.data.error.message;
 
-      console.log(e.response.data.error.message);
+      // console.log(e.response.data.error.message);
     } finally {
       setSubmitEnabled(true);
       setIsLoading(false);

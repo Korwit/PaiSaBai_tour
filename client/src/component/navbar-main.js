@@ -26,7 +26,7 @@ function NavBar({ allData, closeFilter, closeTour, closePlace }) {
 
   const handlelogout = () => {
     localStorage.removeItem("jwt");
-    window.location.reload();
+    navigate("/");
   };
 
   const handleClickOutside = (event) => {
@@ -189,7 +189,9 @@ function NavBar({ allData, closeFilter, closeTour, closePlace }) {
                         <Nav.Link href="/setting">โปรไฟล์</Nav.Link>
                       </Row>
                       <Row style={{ marginLeft: "1%" }}>
-                        <Nav.Link onClick={() => handlelogout()}>
+                        <Nav.Link
+                          onClick={() => handlelogout()}
+                        >
                           ออกจากระบบ
                         </Nav.Link>
                       </Row>

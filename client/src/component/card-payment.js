@@ -8,7 +8,6 @@ import qrcode from "../img/qrpayment.png";
 import "../css/payment.css";
 import { ToastContainer, toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
-import config from "../config";
 
 const ReservationForm = () => {
   const navigate = useNavigate();
@@ -34,15 +33,16 @@ const ReservationForm = () => {
   useEffect(() => {
     const fetchData = async () => {
       try {
-        const result = await axios.get(`${config.serverUrlPrefix}/users/me`);
+        const result = await axios.get("/users/me");
+        //console.log(result)
 
         const response = await axios.get(
-          `${config.serverUrlPrefix}/reservations?populate=*&filters[owner][username][$eq]=${result.data.username}`
+          `/reservations?populate=*&filters[owner][username][$eq]=${result.data.username}`
         );
-        console.log(
-          response.data.data?.[0]?.attributes.tour.data.attributes.name
-        );
-        console.log(response.data.data);
+        // console.log(
+        //   response.data.data?.[0]?.attributes.tour.data.attributes.name
+        // );
+        // console.log(response.data.data);
 
         let tours;
         if (response.data.data && Array.isArray(response.data.data)) {
@@ -51,7 +51,7 @@ const ReservationForm = () => {
             .map((item) => item.attributes.tour.data.attributes.name);
         }
         setTourData(tours.map((tour) => ({ label: tour, checked: false })));
-        console.log(tours);
+        // console.log(tours);
         const IDs = response.data.data?.map((item) => item.id) || [];
         setdata(response.data.data);
         setID(IDs);
@@ -86,7 +86,7 @@ const ReservationForm = () => {
     setTourData(updatedTourData);
     setID2(i);
     setPrices(price[i]);
-    console.log(i);
+    // console.log(i);
   };
   const handleShowModal = () => setShowModal(true);
   const handleDateChange = (date) => {
@@ -96,16 +96,18 @@ const ReservationForm = () => {
 
   const handleSubmit = async (e) => {
     e.preventDefault();
+    axios.defaults.headers.common = {
+      Authorization: `Bearer ${jwt}`,
+    };
+    let check = true;
     try {
-      axios.defaults.headers.common = {
-        Authorization: `Bearer ${jwt}`,
-      };
       const formData = new FormData();
       formData.append("files", imageFile[0]);
       formData.append("refId", ID[ID2]);
       formData.append("field", "payment");
       formData.append("ref", "api::reservation.reservation");
-      axios.post(`${config.serverUrlPrefix}/upload`, formData);
+      await axios.post("/upload", formData);
+
       const dateObject = new Date(datetimepayment);
       const time = dateObject.toTimeString().split(" ")[0];
       const year = dateObject.getFullYear();
@@ -113,25 +115,22 @@ const ReservationForm = () => {
       const day = String(dateObject.getDate()).padStart(2, "0");
       const date = `${year}-${month}-${day}`;
 
-      console.log(date);
-      console.log(time);
-      console.log(dateObject);
-      const response = await axios.put(
-        `${config.serverUrlPrefix}/reservations/${ID[ID2]}`,
-        {
-          data: {
-            payment_time: time,
-            payment_date: date,
-          },
-        }
-      );
-      console.log("Data sent to Strapi:", response.data);
+      const response = await axios.put(`/reservations/${ID[ID2]}`, {
+        data: {
+          payment_time: time,
+          payment_date: date,
+        },
+      });
+    } catch (error) {
+      toast("กรุณาเลือกทัวร์ที่ต้องการชำระเงินและอัพโหลดรูปภาพ");
+      check = false;
+    }
+
+    if (check == true) {
       toast("บันทึกข้อมูลเรียบร้อย");
       setTimeout(() => {
         navigate("/");
       }, 1000);
-    } catch (error) {
-      console.error("Error sending data to Strapi:", error);
     }
   };
 
@@ -153,7 +152,7 @@ const ReservationForm = () => {
           ))}
         </Modal.Body>
         <Modal.Footer>
-          <Button variant="secondary" onClick={handleCloseModal}>
+          <Button className="sm-cl2" onClick={handleCloseModal}>
             บันทึก
           </Button>
         </Modal.Footer>
@@ -210,6 +209,7 @@ const ReservationForm = () => {
           บันทึก
         </Button>
       </form>
+      <ToastContainer />
     </div>
   );
 };

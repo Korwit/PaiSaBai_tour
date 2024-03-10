@@ -81,12 +81,10 @@ const Login = () => {
       }
     } catch (e) {
       console.log(e);
-      let message = e.response.data.error.message;
+      let message = e.response?.data?.error?.message;
       if (message == "Your account email is not confirmed")
         toast("กรุณายืนยันอีเมลของคุณก่อนเข้าสู่ระบบ");
       else toast("อีเมลหรือรหัสผ่านของคุณผิด");
-
-      console.log(e.response.data.error.message);
     } finally {
       setSubmitEnabled(true);
       setIsLoading(false);
@@ -147,7 +145,7 @@ const Login = () => {
 
         <div style={{ marginTop: "7px" }}>
           <p>
-            <a href="http://localhost:3000/email" class="forgot-password-link">
+            <a href="https://wd04.cloud-workshop.online/email" class="forgot-password-link">
               Forgot password?
             </a>
           </p>

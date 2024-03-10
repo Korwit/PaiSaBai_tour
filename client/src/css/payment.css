@@ -23,7 +23,21 @@
     box-shadow: 0 0 20px rgba(0, 0, 0, 0.1);
 }
 
+
+.sm-cl2 {
+    background-color:#00CC00;
+    border: #00CC00;
+
+    &:hover {
+        background-color:#006633;
+      }
+}
+
 .sm-cl1 {
     background-color:#F79400 ;
     border: #F79400;
+
+    &:hover {
+        background-color:#F03A00;
+      }
 }

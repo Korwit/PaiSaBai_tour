@@ -12,7 +12,7 @@ const PaymentStatus = () => {
         window.location.reload();
         navigate('/')
       }
-  }, [jwt]);
+  }, []);
   return (
     <div>
       <NavBar />
