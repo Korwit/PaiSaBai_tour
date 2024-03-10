@@ -1,11 +1,12 @@
 import React, { useState, useEffect } from "react";
 import { Form, Button, Alert, Spinner, Row, Col, Modal } from "react-bootstrap";
 import { ToastContainer, toast } from "react-toastify";
-import "react-toastify/dist/ReactToastify.css";
-import axios from "axios";
+//import "react-toastify/dist/ReactToastify.css";
+import axios from 'axios';
 import { useNavigate } from "react-router-dom";
 import "../css/register.css";
 import config from "../config";
+import { BrowserRouter as Routes } from "react-router-dom";
 
 const Register = () => {
   const navigate = useNavigate();
@@ -198,6 +199,7 @@ const Register = () => {
           <Row>
             <Col>
               <Form.Control
+                data-testid="name-in"
                 onChange={handleFirstname}
                 required
                 value={firstname}
@@ -247,6 +249,7 @@ const Register = () => {
           <Form.Group>
             <div className="register-input">
               <Form.Control
+                data-testid="phone-in"
                 onChange={handlephone}
                 required
                 value={phone}
@@ -267,6 +270,7 @@ const Register = () => {
           <Form.Group>
             <div className="register-input1">
               <Form.Control
+                data-testid="password-in"
                 style={{
                   width: "400px",
                   height: "55px",
@@ -289,7 +293,7 @@ const Register = () => {
                 )}
               </div>
               <div className="register-textshow">
-                {conpass && <h6>รหัสผ่าน</h6>}
+                {conpass && <h6 htmlFor="password">รหัสผ่าน</h6>}
               </div>
             </div>
           </Form.Group>
@@ -340,7 +344,7 @@ const Register = () => {
           checked={isChecked}
           onChange={handleCheckboxChange}
         />
-        <Button variant="primary" type="submit" className="buttonregister">
+        <Button variant="primary" type="submit" className="buttonregister" data-testid="regis-button">
           {isLoading ? <Spinner animation="border" size="sm" /> : "สมัครสมาชิก"}
         </Button>{" "}
         {errorMessage && <Alert variant="danger">{errorMessage}</Alert>}
@@ -361,7 +365,7 @@ const Register = () => {
       </Modal>
       <span className="register-logintext">
         มีบัญชีอยู่แล้ว?
-        <a href="#" onClick={Loginpage} class="link">
+        <a href="#" onClick={Loginpage} class="link" data-testid="login-link">
           {" "}
           เข้าสู่ระบบ
         </a>
